@@ -1,5 +1,7 @@
 class CardScan
   include Mongoid::Document
+  include Mongoid::Timestamps
+  
   field :user_id, type: String
   field :card_status, type: String
   field :name, type: String
