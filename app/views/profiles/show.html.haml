@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b First name:
+  = @profile.first_name
+%p
+  %b Middle name:
+  = @profile.middle_name
+%p
+  %b Last name:
+  = @profile.last_name
+%p
+  %b Dob:
+  = @profile.dob
+%p
+  %b Mobile number:
+  = @profile.mobile_number
+%p
+  %b Profile picture:
+  = @profile.profile_picture
+
+= link_to 'Edit', edit_profile_path(@profile)
+\|
+= link_to 'Back', profiles_path

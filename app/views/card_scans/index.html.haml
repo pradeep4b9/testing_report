@@ -1,0 +1,29 @@
+%h1 Listing card_scans
+
+%table
+  %tr
+    %th User
+    %th Card status
+    %th Name
+    %th Picture
+    %th Signature
+    %th Dob
+    %th
+    %th
+    %th
+
+  - @card_scans.each do |card_scan|
+    %tr
+      %td= card_scan.user_id
+      %td= card_scan.card_status
+      %td= card_scan.name
+      %td= card_scan.picture
+      %td= card_scan.signature
+      %td= card_scan.dob
+      %td= link_to 'Show', card_scan
+      %td= link_to 'Edit', edit_card_scan_path(card_scan)
+      %td= link_to 'Destroy', card_scan, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Card scan', new_card_scan_path
