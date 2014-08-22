@@ -11,6 +11,9 @@ set :keep_releases, 5
 set :format, :pretty
 set :log_level, :debug
 set :pty, true
+set :assets_roles
+set :rails_env, 'production'
+
 
 # set :linked_files, %w{config/database.yml}
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
@@ -34,6 +37,8 @@ set :puma_preload_app, true
 
 
 namespace :deploy do
+
+  # before :starting, :copy_puma
 
   desc 'Restart application'
   task :restart do
