@@ -11,7 +11,7 @@ set :keep_releases, 5
 set :format, :pretty
 set :log_level, :debug
 set :pty, true
-set :assets_roles
+set :assets_roles, [:web, :app]    
 set :rails_env, 'production'
 
 
