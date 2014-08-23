@@ -61,6 +61,14 @@ class CardScansController < ApplicationController
     end
   end
 
+
+
+  def passport; end
+
+  def driverslicense; end
+
+  def identitycard; end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_card_scan

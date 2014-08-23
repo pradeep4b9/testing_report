@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
 
-  resources :card_scans
+  resources :card_scans do
+    collection do
+      get 'driverslicense'
+      get 'passport'
+      get 'identitycard'
+    end
+  end
 
   resources :photos
 
