@@ -51,8 +51,7 @@ a:hover.btn-custom-mb{opacity: 0.9;border: 2px solid #6caa37;}
   background-color:rgb(112, 174, 59)!important;
 
   }
-
+  .banner-image img{width: 100%;}
 }
 
 .banner-image{background: #000;padding: 20px;text-align: center;}
-.banner-image img{width: 100%;}
