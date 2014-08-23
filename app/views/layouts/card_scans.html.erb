@@ -12,7 +12,7 @@
 
 <body>
 
-    <form name="formSubmit" action="#" class="content">
+    <form name="formSubmit" action="#" class="content-mb">
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
@@ -40,7 +40,24 @@
     </nav>
       <%= yield %>
     </form>
-
+    <script src="/assets/card_scan/MiscJS/base.js"></script>
+    <script>
+        goog.require('goog.crypt.base64'); 
+    </script>
+    <script src="/assets/card_scan/MiscJS/jquery-2.0.3.js"></script>
+    <script type="text/javascript">
+        $(window).on('load', function () { $('.selectpicker').selectpicker({}); }); 
+    </script>
+    <script src="/assets/card_scan/MiscJS/bootstrap.js"></script>
+    <script src="/assets/card_scan/MiscJS/bootstrap-fileupload.js"></script>
+    <script src="/assets/card_scan/MiscJS/jquery.base64.js"></script>
+    <script src="/assets/card_scan/MiscJS/bootstrap-switch.js"></script>
+    <script src="/assets/card_scan/MiscJS/bootstrap-select.js"></script>
+    <script src="/assets/card_scan/MiscJS/binaryajax.js"></script>
+    <script src="/assets/card_scan/MiscJS/exif.js"></script>
+    <script src="/assets/card_scan/MiscJS/canvasResize.js"></script>
+    <script src="/assets/card_scan/CSSNWebServiceJS/licensekey.js"></script>
+    <script src="/assets/card_scan/CSSNWebServiceJS/passport.js"></script>
     <footer>  
       <div class="container-lp">
         <div class="footer-tagline"><span>Already a My Verified id memeber</span><span><a href="#"><%= image_tag("Sign-In.png")%></a></span>
