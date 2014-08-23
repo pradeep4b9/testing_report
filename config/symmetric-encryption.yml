@@ -99,8 +99,10 @@ production:
     -
       # Filename containing Symmetric Encryption Key encrypted using the
       # RSA public key derived from the private key above
-      key_filename: mvi_se_production.key
-      iv_filename:  mvi_se_production.iv
+      # key_filename: mvi_se_production.key
+      # iv_filename:  mvi_se_production.iv
+      key:         1234567890ABCDEF1234567890ABCDEF
+      iv:          1234567890ABCDEF
       cipher_name:  aes-256-cbc
       # Base64 encode encrypted data without newlines
       encoding:     :base64strict
