@@ -1,5 +1,7 @@
 class CardScansController < ApplicationController
   before_action :set_card_scan, only: [:show, :edit, :update, :destroy]
+  layout "card_scans"
+
 
   # GET /card_scans
   # GET /card_scans.json
