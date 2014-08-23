@@ -4,7 +4,8 @@ class CardScansController < ApplicationController
   # GET /card_scans
   # GET /card_scans.json
   def index
-    @card_scans = CardScan.all
+    #@card_scans = CardScan.all
+    session[:banner] = "sixt" if request.url.match("sixt")
   end
 
   # GET /card_scans/1
