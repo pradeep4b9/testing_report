@@ -31,11 +31,19 @@ gem 'simple_form'
 
 
 group :development do
-  gem 'capistrano', '~> 3.0.1'
-  gem 'capistrano-bundler'
-  gem 'capistrano-rails', '~> 1.1.0'
-  gem 'capistrano-rails-console'
-  gem 'capistrano-rvm', '~> 0.1.1'
+  # gem 'capistrano', '~> 3.1.0'
+  # gem 'capistrano-bundler'
+  # gem 'capistrano-rails', '~> 1.1.0'
+  # gem 'capistrano-rails-console'
+  # gem 'capistrano-rvm', '~> 0.1.1'
+
+  gem 'capistrano', '~> 3.1.0'
+  # cap tasks to manage puma application server
+  gem 'capistrano3-puma', require: false
+  gem 'capistrano-rails',   '~> 1.1', require: false
+  gem 'capistrano-bundler', '~> 1.1', require: false
+  gem 'capistrano-rvm',   '~> 0.1', require: false
+
   gem 'html2haml'
   gem 'quiet_assets'
   gem 'rails_layout'
@@ -57,6 +65,7 @@ group :test do
 end
 
 group :production do
-  gem 'unicorn'
-  gem 'unicorn-rails'
+  # gem 'unicorn'
+  # gem 'unicorn-rails'
+  gem 'puma'
 end
