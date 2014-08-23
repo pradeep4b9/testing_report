@@ -254,7 +254,7 @@
             processData: false,
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", "LicenseKey " + authinfo);
-                $('#loading').html("<img src='images/processing.gif'/>");
+                $('#loading').html("<img src='/assets/processing.gif'/>");
                 $("#div-controls").hide();
             },
             success: function (data) {

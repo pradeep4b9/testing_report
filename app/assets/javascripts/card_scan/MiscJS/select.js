@@ -1,4 +1,5 @@
-      $(document).ready(function () {
 
-        $(window).on('load', function () { $('.selectpicker').selectpicker({}); }); 
-      })
+      $(document).on('page:change', function () {
+          $(window).on('load', function () { $('.selectpicker').selectpicker({}); }); 
+          // Actions to do
+        });
