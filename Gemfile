@@ -27,7 +27,8 @@ gem 'figaro', '>= 1.0.0.rc1'
 gem 'haml-rails'
 gem 'simple_form'
 
-
+gem "geocoder"
+gem 'countries'
 
 
 group :development do
