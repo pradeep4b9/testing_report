@@ -15,7 +15,7 @@ body, html {
 
 /*.nav{float: right;vertical-align : bottom;height: 100%;color:#fff;margin-top: 15px;}*/
 .clear{clear: both;}
-footer{/*position:absolute;*/bottom:0;background: #000;-webkit-box-sizing: border-box;
+footer{position:fixed;bottom:0;background: #000;-webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;   
   box-sizing: border-box;width: 100%;}
 
@@ -59,9 +59,20 @@ div#placehold-image{ color: #70ae3b;
 
   }
   .banner-image img{width: 100%;}
+  .voice-scan .voice-container div.block{width: 75%;}
+
 }
 
 .banner-image{background: #000;padding: 20px;text-align: center;}
 .btn-custom-sb{background: #fff;border: 1px solid #6caa37;color:#70AE3B!important;padding: 5px 40px;}
 button:hover.btn-custom-sb{background: #fff;border: 1px solid #6caa37;color:#70AE3B!important;opacity: 0.8;}
 .content-mb{min-height: 100%;position: relative;}
+.voice-scan{background-color: #70AE3B;}
+.voice-scan h4{color:#fff;text-align: center;margin-top: 30px;}
+.voice-scan .voice-container{color:#fff;text-align: center;margin-top: 30px;font-size: 15px;}
+.voice-scan .voice-container div.block{background: #fff;border-radius: 5px;width: 250px;margin: 10px auto;padding-bottom: 5px;padding-top: 10px;display: block}
+.voice-scan .voice-container .error{width:250px;margin:15px auto; background:#fff;padding: 5px; border-radius: 4px;color:#000;font-size: 12px;font-weight: bold;}
+.voice-scan span.digit{color: #70AE3B;width:45%;display: block;float:left;padding:8px;}
+.voice-scan span.number{color: #70AE3B;width:45%;display: block;float:right;padding:8px;}
+.clear{clear:both;}
+.voice-loader{display: none;margin-top: 5px;}

@@ -1,0 +1,59 @@
+/ - if session[:banner]
+/   .banner-image
+/     = image_tag("sixt.png") 
+
+/ %section.scan
+/   %header
+/     = link_to image_tag("Go-Back.png"),"#"
+/     .title
+/       %span
+/         Document Type
+/     = link_to image_tag("information.png"),"#"
+
+/ = session[:continent]
+
+.container.voice-scan
+  %h4
+    SIGN-IN AUTHENTICATION
+  .voice-container
+    %span
+      Press the button and say.....   
+    %div.block
+      %span.digit
+        three
+      %span.number
+        3
+      .clear
+        
+      %span.digit
+        three
+      %span.number
+        3
+      .clear
+        
+      %span.digit
+        three
+      %span.number
+        3
+      .clear
+        
+      %span.digit
+        three
+      %span.number
+        3
+      .clear
+    /** Camera Button For Mobile **/ 
+    
+
+    %div.CamPicker{:style => "width: 0; height: 0; overflow: hidden;"}
+      %input#CamPicker{:accept => "audio/*;capture=microphone" , :type => "file", :name => "voice_file"}
+    
+    
+    = image_tag("Speak.png", :id => "CamButton", :class => "img-responsive")
+    %br
+    %br
+    = image_tag("processing.gif",:class =>"voice-loader");
+    %br
+    %br
+    
+
