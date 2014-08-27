@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       get 'driverslicense'
       get 'passport'
       get 'identitycard'
+      get 'voice'
     end
   end
 
