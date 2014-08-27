@@ -208,7 +208,7 @@
         });
     });
 
-    $("#btn-process-image").click(function () {
+    $("#btn-process-image-dv").click(function () {
         ResetControls();
         var isSourceCameraOrDisk = $('#chkImageSource').is(':checked') ? true : false;
         var usePreprocessing = $('#chkPreProcessing').is(':checked') ? true : false;
