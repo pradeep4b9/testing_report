@@ -16,7 +16,8 @@ $(document).ready(function(){
       return false;
      }else{
       $(".voice-loader").show();
-      $("#formSubmit").attr("action","/card_scans/voice")
+      $("#formSubmit").attr("action","/card_scans/voicea")
+      $("#formSubmit").attr("method","post")
       document.forms["formSubmit"].submit();
      
      }

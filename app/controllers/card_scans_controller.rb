@@ -2,7 +2,6 @@ class CardScansController < ApplicationController
   before_action :set_card_scan, only: [:show, :edit, :update, :destroy]
   layout "card_scans"
 
-
   # GET /card_scans
   # GET /card_scans.json
   def index
@@ -71,6 +70,30 @@ class CardScansController < ApplicationController
   def driverslicense; end
 
   def identitycard; end
+  
+  def voicea
+    puts params.inspect
+    puts params[:voice_file]
+    render :text => "ok"
+  end
+
+  def voice
+    puts params.inspect
+    puts params[:voice_file]
+    begin
+      api_helper = ApiHelper.new ENV['REST_API_URL_BASE'], ENV['USERNAME'], ENV['PASSWORD'], ENV['ORGANISATION_UNIT'], ENV['CONFIGURATION_ID'], ENV['VIGO_LANGUAGE'], ENV['VIGO_AUDIO_FORMAT']
+      audio_helper = AudioHelper.new
+      session[:claimant_id] = nil
+      if session[:claimant_id].blank?
+        rc_hash = api_helper.register_claimant
+        raise "Failed to register claimant: #{rc_hash["message"]}" if rc_hash["status_code"] != "0"
+        claimant_id = rc_hash["claimant_id"]
+        puts "Registered claimant id: #{claimant_id}"
+        set_claimant(claimant_id)
+      end
+      @next_prompt = set_dailogue(session[:claimant_id], api_helper)
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -81,5 +104,21 @@ class CardScansController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def card_scan_params
       params.require(:card_scan).permit(:user_id, :card_status, :name, :picture, :signature, :dob)
+    end
+
+    def set_claimant(claimant_id)
+      session[:claimant_id] = claimant_id
+    end
+
+    def set_dailogue(claimant_id, api_helper)
+      # Start a new dialogue for the claimant
+      sd_hash = api_helper.start_dialogue claimant_id, ENV['CALL_REFERENCE']
+      raise "Failed to start dialogue: #{sd_hash["message"]}" if sd_hash["status_code"] != "0"
+      dialogue_id = sd_hash["dialogue_id"]
+      session[:dialogue_id] = dialogue_id
+      puts "Started dialogue id: #{dialogue_id}"
+      # Determine which file needs to be submitted
+      next_prompt = sd_hash["prompt_hint"]
+      return next_prompt
     end
 end
