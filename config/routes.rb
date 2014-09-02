@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       get 'identitycard'
       post 'voicea'
       get 'voice'
+      get 'status_dailogue'
     end
   end
 

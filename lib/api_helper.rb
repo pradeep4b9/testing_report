@@ -98,8 +98,8 @@ class ApiHelper
       end
         
       post_body << "--#{FORM_BOUNDARY}\r\n"
-      post_body << "Content-Disposition: form-data; name=\"utterance\"; filename=\"audio.wav\"\r\n"
-      post_body << "Content-Type: audio/x-wav\r\n\r\n"
+      post_body << "Content-Disposition: form-data; name=\"utterance\"; filename=\"audio.amr\"\r\n"
+      post_body << "Content-Type: audio/amr\r\n\r\n"
       post_body << audio_file
       post_body << "\r\n--#{FORM_BOUNDARY}--\r\n"
       

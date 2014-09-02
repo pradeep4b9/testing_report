@@ -1,5 +1,6 @@
 class CardScansController < ApplicationController
   before_action :set_card_scan, only: [:show, :edit, :update, :destroy]
+  protect_from_forgery
   layout "card_scans"
 
   # GET /card_scans
@@ -71,11 +72,24 @@ class CardScansController < ApplicationController
 
   def identitycard; end
   
-  def voicea
-    puts params.inspect
-    puts params[:voice_file]
-    render :text => "ok"
+  def status_dailogue
+    begin
+      api_helper = ApiHelper.new ENV['REST_API_URL_BASE'], ENV['USERNAME'], ENV['PASSWORD'], ENV['ORGANISATION_UNIT'], ENV['CONFIGURATION_ID'], ENV['VIGO_LANGUAGE'], ENV['VIGO_AUDIO_FORMAT']
+      audio_helper = AudioHelper.new
+      puts "... waiting for processing to complete"
+      sleep 3
+      @ds_hash = api_helper.get_dialogue_summary params[:id]
+      raise "Failed to get dialogue summary: #{@ds_hash["message"]}" if @ds_hash["status_code"] != "0"    
+      # Print the final status of the dialogue
+      puts "dailogue details"
+      puts ds_hash.inspect
+      puts "Dialogue completed. Status = #{@ds_hash["dialogue_status"]}"
+    rescue Exception => e
+      puts "An error occurred. #{e.message}"
+    end
   end
+
+
 
   def voice
     puts params.inspect
@@ -92,6 +106,42 @@ class CardScansController < ApplicationController
         set_claimant(claimant_id)
       end
       @next_prompt = set_dailogue(session[:claimant_id], api_helper)
+      puts "session dailogue id"
+      puts session[:dialogue_id]
+    rescue Exception => e
+      puts "An error occurred. #{e.message}"
+    end
+  end
+
+  def voicea
+    puts "coming to voicea"
+    puts params[:next_prompt]
+    puts params[:dialogue_id]
+    
+    # render :text => "ok"
+    begin
+      # As mentioned above, for the purposes of this sample we generate speech samples programmatically from pre-recorded audio files
+      audio_data = params[:voice_file].read
+      # audio_data = open("/home/kodandapani/Desktop/2014-09-01-165833.wav", "rb") { |io| io.read }
+
+      api_helper = ApiHelper.new ENV['REST_API_URL_BASE'], ENV['USERNAME'], ENV['PASSWORD'], ENV['ORGANISATION_UNIT'], ENV['CONFIGURATION_ID'], ENV['VIGO_LANGUAGE'], ENV['VIGO_AUDIO_FORMAT']
+      audio_helper = AudioHelper.new
+      # Submit the generated audio file to the new dialogue
+      ds_hash = api_helper.submit_phrase params[:dialogue_id], audio_data, params[:next_prompt]
+      # ds_hash = api_helper.submit_phrase "d996c0ad-2b51-43b1-a27c-e38ff34c02b4", audio_data, "3478"
+      puts "submit_phrase details"
+      puts ds_hash
+      raise "Failed to submit phrase: #{ds_hash["message"]}" if ds_hash["status_code"] != "0"
+      puts "Submitted phrase: #{params[:next_prompt]}"
+      @next_prompt = ds_hash["prompt_hint"]
+      # Poll until processing completes.
+      if ds_hash["request_status"] == "TooManyUnprocessedPhrases"
+        redirect_to status_dailogue_card_scans_path(id: params[:dialogue_id])
+      else
+        @dialogue_id = params[:dialogue_id]
+      end
+    rescue Exception => e
+      puts "An error occurred. #{e.message}"
     end
   end
 
@@ -118,7 +168,9 @@ class CardScansController < ApplicationController
       session[:dialogue_id] = dialogue_id
       puts "Started dialogue id: #{dialogue_id}"
       # Determine which file needs to be submitted
-      next_prompt = sd_hash["prompt_hint"]
-      return next_prompt
+      return sd_hash["prompt_hint"]
     end
+  
 end
+
+
