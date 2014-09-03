@@ -92,7 +92,7 @@ class ApiHelper
     if (audio_file != nil)
 
       back_file_name = "back_#{file_name}"
-      File.open("/home/kodandapani/projects/mvimobile/tmp/uploads/#{back_file_name}", 'wb') do |file|
+      File.open("#{Rails.root}/tmp/#{back_file_name}", 'wb') do |file|
         file.write(audio_file)
       end
 
