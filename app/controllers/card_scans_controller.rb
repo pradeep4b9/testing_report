@@ -168,7 +168,7 @@ class CardScansController < ApplicationController
 
       system("ffmpeg -i #{Rails.root}/tmp/#{file_name} -f s16be -ar 8000 -acodec pcm_s16be #{Rails.root}/tmp/#{file_name_wav} > /dev/null 2>&1")
 
-      sleep(10)
+      sleep(5)
 
       audio_data = open("#{Rails.root}/tmp/#{file_name_wav}", "rb") { |io| io.read }
 
