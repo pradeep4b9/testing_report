@@ -153,7 +153,7 @@ class CardScansController < ApplicationController
       content_type = params[:voice_file].content_type
       file_name_time = "#{Time.now.getutc.to_i}_#{params[:next_prompt]}"
       file_name = "#{file_name_time}.#{content_ext}"
-      File.open("/home/kodandapani/projects/mvimobile/tmp/uploads/#{file_name}", 'wb') do |file|
+      File.open("#{Rails.root}/tmp/#{file_name}", 'wb') do |file|
         file.write(params[:voice_file].read)
       end
 
@@ -166,11 +166,11 @@ class CardScansController < ApplicationController
 
       
 
-      system("ffmpeg -i /home/kodandapani/projects/mvimobile/tmp/uploads/#{file_name} -f s16be -ar 8000 -acodec pcm_s16be /home/kodandapani/projects/mvimobile/tmp/uploads/#{file_name_wav} > /dev/null 2>&1")
+      system("ffmpeg -i #{Rails.root}/tmp/#{file_name} -f s16be -ar 8000 -acodec pcm_s16be #{Rails.root}/tmp/#{file_name_wav} > /dev/null 2>&1")
 
       sleep(10)
 
-      audio_data = open("/home/kodandapani/projects/mvimobile/tmp/uploads/#{file_name_wav}", "rb") { |io| io.read }
+      audio_data = open("#{Rails.root}/tmp/#{file_name_wav}", "rb") { |io| io.read }
 
       api_helper = ApiHelper.new ENV['REST_API_URL_BASE'], ENV['USERNAME'], ENV['PASSWORD'], ENV['ORGANISATION_UNIT'], ENV['CONFIGURATION_ID'], ENV['VIGO_LANGUAGE'], ENV['VIGO_AUDIO_FORMAT']
       audio_helper = AudioHelper.new
