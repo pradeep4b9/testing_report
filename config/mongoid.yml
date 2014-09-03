@@ -83,4 +83,5 @@ production:
         # consistency: :strong
         # We can set session specific options, like reads executing
         # on secondary nodes, and defaulting the session to safe mode.
-        safe: true
+        max_retries: 1
+        retry_interval: 0
