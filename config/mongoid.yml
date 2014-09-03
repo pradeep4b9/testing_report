@@ -80,7 +80,7 @@ production:
       options:
         # The default consistency is :eventual, which means that reads will attempt to go to secondaries. 
         # If you don't want this, switch this option to :strong, which will send everything to the master node.
-        consistency: :strong
+        # consistency: :strong
         # We can set session specific options, like reads executing
         # on secondary nodes, and defaulting the session to safe mode.
         safe: true
