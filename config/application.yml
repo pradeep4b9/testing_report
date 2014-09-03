@@ -3,7 +3,7 @@
 # VIGO API details
 CALL_REFERENCE: "1234567"
 VIGO_LANGUAGE: "EnglishUnitedStates"
-VIGO_AUDIO_FORMAT: "LittleEndian"
+VIGO_AUDIO_FORMAT: "BigEndian"
 REST_API_URL_BASE: "https://a9i1.voicevault.net/RestApi850/"
 USERNAME: "DZqZkws5BNxPF8ExNtpq"
 PASSWORD: "4KQGstT7tpyqyeFdBS9yuxmt9DDVfX"

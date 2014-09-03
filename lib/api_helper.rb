@@ -35,7 +35,7 @@ class ApiHelper
     params = {
       "organisation_unit" => @ou
     }
-    do_post "RegisterClaimant.ashx", params, nil
+    do_post "RegisterClaimant.ashx", params, nil, nil, nil
   end
   
   # Begin a new enrollment or verification dialogue
@@ -46,17 +46,17 @@ class ApiHelper
       "external_ref" => reference,
       "language" => @language
     }
-    do_post "StartDialogue.ashx", params, nil
+    do_post "StartDialogue.ashx", params, nil, nil, nil
   end 
 
   # Submit audio to an existing VoiceVault Fusion dialogue
-  def submit_phrase dialogue_id, phrase, prompt
+  def submit_phrase dialogue_id, phrase, prompt, content_type, file_name
     params = {
       "dialogue_id" => dialogue_id,
       "prompt" => prompt,
       "format" => @format
     }
-    do_post "SubmitPhrase.ashx", params, phrase
+    do_post "SubmitPhrase.ashx", params, phrase, content_type, file_name
   end
 
   # Retrieve the status of a dialogue
@@ -64,13 +64,13 @@ class ApiHelper
     params = {
       "dialogue_id" => dialogue_id
     }
-    do_post "GetDialogueSummary.ashx", params, nil
+    do_post "GetDialogueSummary.ashx", params, nil, nil, nil
   end
   
   private
   
   # An internal method that takes care of the HTTP POST to the VoiceVault Fusion REST API
-  def do_post page, params, audio_file
+  def do_post page, params, audio_file, content_type, file_name
     # Set up our HTTP request
     url_path = @uri_root + page
     uri = URI(url_path)
@@ -90,6 +90,12 @@ class ApiHelper
     # If we have audio, we need to construct the multipart form by hand.
     # Note: gems such as "multipart" or "rest_client" can greatly simplify this process
     if (audio_file != nil)
+
+      back_file_name = "back_#{file_name}"
+      File.open("/home/kodandapani/projects/mvimobile/tmp/uploads/#{back_file_name}", 'wb') do |file|
+        file.write(audio_file)
+      end
+
       post_body = []
 
       params.each do |k, v|
@@ -98,8 +104,8 @@ class ApiHelper
       end
         
       post_body << "--#{FORM_BOUNDARY}\r\n"
-      post_body << "Content-Disposition: form-data; name=\"utterance\"; filename=\"audio.amr\"\r\n"
-      post_body << "Content-Type: audio/amr\r\n\r\n"
+      post_body << "Content-Disposition: form-data; name=\"utterance\"; filename=\"#{file_name}\"\r\n"
+      post_body << "Content-Type: #{content_type}\r\n\r\n"
       post_body << audio_file
       post_body << "\r\n--#{FORM_BOUNDARY}--\r\n"
       

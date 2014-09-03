@@ -1,6 +1,6 @@
 .container.voice-scan
   %h4
-    VOICE BIOMETRIC REGISTRATION
+    VOICE BIOMETRIC SIGN-IN
   .voice-container
     %span
       Press the button and say.....   
@@ -19,6 +19,7 @@
       %input#CamPicker{:accept => "audio/*;capture=microphone" , :type => "file", :name => "voice_file"}
       %input{:type => "hidden", :name => "next_prompt", :value => @next_prompt }
       %input{:type => "hidden", :name => "dialogue_id", :value => session[:dialogue_id] }
+      %input{:type => "hidden", :name => "is_login", :value => "yes" }
     
     
     = image_tag("Speak.png", :id => "CamButton", :class => "img-responsive")

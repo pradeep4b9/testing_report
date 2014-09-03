@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       post 'voicea'
       get 'voice'
       get 'status_dailogue'
+      get 'voice_signin'
+      get 'login_dailogue'
     end
   end
 

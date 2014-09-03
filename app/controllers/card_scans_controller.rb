@@ -82,13 +82,31 @@ class CardScansController < ApplicationController
       raise "Failed to get dialogue summary: #{@ds_hash["message"]}" if @ds_hash["status_code"] != "0"    
       # Print the final status of the dialogue
       puts "dailogue details"
-      puts ds_hash.inspect
+      puts @ds_hash.inspect
       puts "Dialogue completed. Status = #{@ds_hash["dialogue_status"]}"
+      @voice_details = Voice.where(dialogue_id: params[:id]).last
     rescue Exception => e
       puts "An error occurred. #{e.message}"
     end
   end
 
+  def login_dailogue
+    begin
+      api_helper = ApiHelper.new ENV['REST_API_URL_BASE'], ENV['USERNAME'], ENV['PASSWORD'], ENV['ORGANISATION_UNIT'], ENV['CONFIGURATION_ID'], ENV['VIGO_LANGUAGE'], ENV['VIGO_AUDIO_FORMAT']
+      audio_helper = AudioHelper.new
+      puts "... waiting for processing to complete to login"
+      sleep 3
+      @ds_hash = api_helper.get_dialogue_summary params[:id]
+      raise "Failed to get dialogue summary: #{@ds_hash["message"]}" if @ds_hash["status_code"] != "0"    
+      # Print the final status of the dialogue
+      puts "dailogue details"
+      puts @ds_hash.inspect
+      puts "Dialogue completed. Status = #{@ds_hash["dialogue_status"]}"
+      @voice_details = Voice.where(dialogue_id: params[:id]).last
+    rescue Exception => e
+      puts "An error occurred. #{e.message}"
+    end
+  end
 
 
   def voice
@@ -108,26 +126,58 @@ class CardScansController < ApplicationController
       @next_prompt = set_dailogue(session[:claimant_id], api_helper)
       puts "session dailogue id"
       puts session[:dialogue_id]
+
+      voice_details = Voice.new({"user_id" => "testing123voice", "claimant_id" => claimant_id, "dialogue_id" => session[:dialogue_id]} )
+      voice_details.save
+
     rescue Exception => e
       puts "An error occurred. #{e.message}"
     end
   end
 
   def voicea
+    
     puts "coming to voicea"
     puts params[:next_prompt]
     puts params[:dialogue_id]
-    
+    puts params[:voice_file].inspect
+    @is_login = params[:is_login]
+
     # render :text => "ok"
     begin
       # As mentioned above, for the purposes of this sample we generate speech samples programmatically from pre-recorded audio files
-      audio_data = params[:voice_file].read
+      # audio_data = params[:voice_file].read
       # audio_data = open("/home/kodandapani/Desktop/2014-09-01-165833.wav", "rb") { |io| io.read }
+      
+      content_ext = params[:voice_file].original_filename.split(".").last
+      content_type = params[:voice_file].content_type
+      file_name_time = "#{Time.now.getutc.to_i}_#{params[:next_prompt]}"
+      file_name = "#{file_name_time}.#{content_ext}"
+      File.open("/home/kodandapani/projects/mvimobile/tmp/uploads/#{file_name}", 'wb') do |file|
+        file.write(params[:voice_file].read)
+      end
+
+      sleep(2)
+
+      file_name_wav = "#{file_name_time}.raw"
+
+      puts file_name
+      puts file_name_wav
+
+      
+
+      system("ffmpeg -i /home/kodandapani/projects/mvimobile/tmp/uploads/#{file_name} -f s16be -ar 8000 -acodec pcm_s16be /home/kodandapani/projects/mvimobile/tmp/uploads/#{file_name_wav} > /dev/null 2>&1")
+
+      sleep(10)
+
+      audio_data = open("/home/kodandapani/projects/mvimobile/tmp/uploads/#{file_name_wav}", "rb") { |io| io.read }
 
       api_helper = ApiHelper.new ENV['REST_API_URL_BASE'], ENV['USERNAME'], ENV['PASSWORD'], ENV['ORGANISATION_UNIT'], ENV['CONFIGURATION_ID'], ENV['VIGO_LANGUAGE'], ENV['VIGO_AUDIO_FORMAT']
       audio_helper = AudioHelper.new
       # Submit the generated audio file to the new dialogue
-      ds_hash = api_helper.submit_phrase params[:dialogue_id], audio_data, params[:next_prompt]
+      puts file_name
+      puts content_type
+      ds_hash = api_helper.submit_phrase params[:dialogue_id], audio_data, params[:next_prompt], "audio/raw", file_name_wav
       # ds_hash = api_helper.submit_phrase "d996c0ad-2b51-43b1-a27c-e38ff34c02b4", audio_data, "3478"
       puts "submit_phrase details"
       puts ds_hash
@@ -136,10 +186,31 @@ class CardScansController < ApplicationController
       @next_prompt = ds_hash["prompt_hint"]
       # Poll until processing completes.
       if ds_hash["request_status"] == "TooManyUnprocessedPhrases"
-        redirect_to status_dailogue_card_scans_path(id: params[:dialogue_id])
+        if @is_login.blank?
+          redirect_to status_dailogue_card_scans_path(id: params[:dialogue_id])
+        else
+          redirect_to login_dailogue_card_scans_path(id: params[:dialogue_id])
+        end
       else
         @dialogue_id = params[:dialogue_id]
       end
+    rescue Exception => e
+      puts "An error occurred. #{e.message}"
+    end
+  end
+
+  def voice_signin
+    puts params.inspect
+    begin
+      api_helper = ApiHelper.new ENV['REST_API_URL_BASE'], ENV['USERNAME'], ENV['PASSWORD'], ENV['ORGANISATION_UNIT'], ENV['CONFIGURATION_ID'], ENV['VIGO_LANGUAGE'], ENV['VIGO_AUDIO_FORMAT']
+      audio_helper = AudioHelper.new
+      @next_prompt = set_dailogue(params[:claimant_id], api_helper)
+      puts "session dailogue id"
+      puts session[:dialogue_id]
+
+      voice_details = Voice.new({"user_id" => "testing123voice", "claimant_id" => params[:claimant_id], "dialogue_id" => session[:dialogue_id]} )
+      voice_details.save
+
     rescue Exception => e
       puts "An error occurred. #{e.message}"
     end

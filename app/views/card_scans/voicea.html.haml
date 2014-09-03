@@ -1,9 +1,10 @@
-%h2
-  submitting the renext prompt:
-  = @next_prompt
 .container.voice-scan
   %h4
-    SIGN-IN AUTHENTICATION
+    - if @is_login.blank?
+      VOICE BIOMETRIC REGISTRATION PROCESS
+    - else
+      VOICE BIOMETRIC SIGN-IN PROCESS
+
   .voice-container
     %span
       Press the button and say.....   
@@ -22,7 +23,7 @@
       %input#CamPicker{:accept => "audio/*;capture=microphone" , :type => "file", :name => "voice_file"}
       %input{:type => "hidden", :name => "next_prompt", :value => @next_prompt }
       %input{:type => "hidden", :name => "dialogue_id", :value => @dialogue_id }
-    
+      %input{:type => "hidden", :name => "is_login", :value => @is_login }
     
     = image_tag("Speak.png", :id => "CamButton", :class => "img-responsive")
     %br
