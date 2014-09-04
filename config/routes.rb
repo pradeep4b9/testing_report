@@ -10,6 +10,9 @@ Rails.application.routes.draw do
       get 'status_dailogue'
       get 'voice_signin'
       get 'login_dailogue'
+      get 'capturepic'
+      post 'canvas_capture'
+      get 'facedetection'
     end
   end
 

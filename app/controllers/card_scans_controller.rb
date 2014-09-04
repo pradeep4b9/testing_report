@@ -215,7 +215,46 @@ class CardScansController < ApplicationController
       puts "An error occurred. #{e.message}"
     end
   end
+  def canvas_capture
 
+    Rails.logger.info  params[:image_data]
+    Rails.logger.info "-----------------------"
+    # [:image_data] 
+    # canvas_pic = "#{File.join(root_url, 'uploads', session[:session_id].to_s + '.jpg'}"
+
+    # begin
+    #   open(filename, 'wb') do |file|
+    #     file << open(canvas_pic).read
+    #   end  
+    # rescue Exception => e
+      
+    # end      
+    
+     output_canvas_pic = "#{Rails.root}/tmp/" + session[:session_id].to_s + '.png'
+
+      
+      data = params[:image_data]
+
+      
+      image_data = Base64.decode64(data['data:image/png;base64,'.length .. -1])
+
+      File.open(output_canvas_pic, 'wb') do |f|
+        f.write image_data
+      end
+
+      source = Magick::Image.read(output_canvas_pic).first
+      source = source.resize_to_fill(465, 480).write(output_canvas_pic)
+
+      i = Magick::Image.read(output_canvas_pic ).first
+      i.write( "#{Rails.root}/tmp/" + session[:session_id].to_s + '.jpg' ) do
+        self.format = 'JPEG'
+        self.quality = 90
+      end
+
+      render text: "/" + session[:session_id].to_s + '.jpg'
+
+
+  end  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_card_scan

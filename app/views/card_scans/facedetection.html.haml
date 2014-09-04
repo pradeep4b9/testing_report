@@ -1,0 +1,37 @@
+- if session[:banner]
+  .banner-image
+    = image_tag("sixt.png") 
+
+
+%section.scan
+  %header
+    = link_to image_tag("Go-Back.png"),"/"
+    .title
+      %span
+        FACE MATCH
+    = link_to image_tag("information.png"),"#"
+
+.container
+  .starter-template
+    .row
+      .col-xs-12.col-sm-12.col-lg-12
+    .row
+      .col-xs-12.col-sm-12{:style =>"text-align:center;"}
+        .container-camera
+          #image-thumbnail.fileupload-preview.fileupload-exists.thumbnail{:style=>"line-height: 10px;position:relative;margin:0 auto;"}
+            = image_tag("test1.jpeg")  
+          
+
+            = image_tag("test.jpeg",:class => "idscan-img",:style =>"position:absolute;top:0;left:0;width:20%;padding:4px;")  
+            
+
+    
+    %br/
+    .row
+      #div-controls.col-xs-12.col-sm-12.col-lg-12
+        %button#btn-process-imae.btn.btn-lg.btn-primary.btn-custom-sb{:style => "", :type => "button"}
+          Process
+    .row
+      .col-xs-12
+        #loading
+  #errorDiv{:style => "text-align: center; color: red;"}
