@@ -1,0 +1,30 @@
+.container.voice-scan
+  %h4
+    - if @is_login.blank?
+      VOICE BIOMETRIC REGISTRATION PROCESS
+    - else
+      VOICE BIOMETRIC SIGN-IN PROCESS
+
+  .voice-container
+    %span
+      Press the button and say.....   
+    %div.block
+      - [0,1,2,3].each do |digit|
+        %span.digit
+          = digit_to_str(@next_prompt[digit])
+        %span.number
+          = @next_prompt[digit]
+        .clear
+
+    %div.CamPicker{:style => "width: 0; height: 0; overflow: hidden;"}
+      %input#CamPicker{:accept => "audio/*;capture=microphone" , :type => "file", :name => "voice_file"}
+      %input{:type => "hidden", :name => "next_prompt", :value => @next_prompt }
+      %input{:type => "hidden", :name => "dialogue_id", :value => @dialogue_id }
+      %input{:type => "hidden", :name => "is_login", :value => @is_login }
+    
+    = image_tag("Speak.png", :id => "CamButton", :class => "img-responsive")
+    %br
+    %br
+    = image_tag("processing.gif",:class =>"voice-loader");
+    %br
+    %br

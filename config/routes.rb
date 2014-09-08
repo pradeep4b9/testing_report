@@ -5,13 +5,18 @@ Rails.application.routes.draw do
       get 'driverslicense'
       get 'passport'
       get 'identitycard'
-      post 'voicea'
-      get 'voice'
-      get 'status_dailogue'
-      get 'voice_signin'
-      get 'login_dailogue'
     end
   end
+
+  resources :voices do
+    collection do
+      get 'register_voice'
+      post 'record_voice'
+      get 'status_register_dailogue'
+      get 'status_login_dailogue'
+      get 'signin_voice'
+    end
+  end  
 
   resources :photos
 
