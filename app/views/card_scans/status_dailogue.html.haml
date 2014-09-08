@@ -1,8 +1,0 @@
-.container.voice-scan
-  %h4
-    - if @ds_hash["dialogue_status"] == "Succeeded"
-      Your Voice biometric registration has been completed successfully.Test Voice Biometric Sign In by
-      = link_to "Click Here", "#{root_url}card_scans/voice_signin?claimant_id=#{@voice_details.claimant_id}"
-    - else
-      Your Voice biometric registration has been failed. to try registration aganin,
-      = link_to "Click Here", "#{root_url}card_scans/voice"

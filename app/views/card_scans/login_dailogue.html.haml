@@ -1,9 +1,0 @@
-.container.voice-scan
-  %h4
-    - if @ds_hash["dialogue_status"].eql?("Succeeded")
-      Your Voice biometric SignIn has been completed successfully.
-      %br
-      = link_to "Home", "#{root_url}"
-    - else
-      Your Voice biometric SignIn has been failed. To try Sign In again,
-      = link_to "Click Here", "#{root_url}card_scans/voice_signin?claimant_id=#{@voice_details.claimant_id}"
