@@ -5,6 +5,10 @@ Rails.application.routes.draw do
       get 'driverslicense'
       get 'passport'
       get 'identitycard'
+      get 'capturepic'
+      post 'canvas_capture'
+      get 'facedetection'
+      get 'viewprofile'
     end
   end
 

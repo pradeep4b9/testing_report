@@ -7,9 +7,9 @@
     %div.block
       - [0,1,2,3].each do |digit|
         %span.digit
-          = digit_to_str(@next_prompt[digit])
+          = digit_to_str(@next_prompt[digit]) if @next_prompt
         %span.number
-          = @next_prompt[digit]
+          = @next_prompt[digit] if @next_prompt
         .clear
 
     %div.CamPicker{:style => "width: 0; height: 0; overflow: hidden;"}

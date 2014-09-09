@@ -8,7 +8,7 @@
     = link_to image_tag("Go-Back.png"),"/"
     .title
       %span
-        Identity Card
+        Capture Picture
     = link_to image_tag("information.png"),"#"
 
 .container
@@ -48,30 +48,11 @@
               Select Source
             %td
               %input#chkImageSource.switch-large{:checked => "", "data-label-icon" => "icon-fullscreen", "data-off-label" => "<i class='icon-webcam'></i>", "data-on-label" => "<i class='icon-camera'></i>&nbsp;<i class='icon-hard-drive'></i>", :type => "checkbox"}
-          %tr
-            %td
-              %medium{:style=>"color:#fff;font-size:15px;"} SELECT REGION
-              \&nbsp;
-            %td
-              %select#region-select.selectpicker{"data-width" => "130px"}
-                %option{:value => "0"} USA
-                %option{:value => "1"} Canada
-                %option{:value => "3"} Europe
-                %option{:value => "4"} Australia
-                %option{:value => "2"} South America
-                %option{:value => "5"} Asia
-                %option{:value => "7"} Africa
-                %option{:value => "6"} General Docs
-          %tr
-            %td
-              %medium Crop Image
-              \&nbsp;
-            %td
-              %input#chkPreProcessing{:type => "checkbox",:checked => "checked"}/
+
     %br/
     .row
       #div-controls.col-xs-12.col-sm-12.col-lg-12
-        %button#btn-process-image.btn.btn-lg.btn-primary.btn-custom-sb{:style => "", :type => "button"}
+        %button#btn-process-imae.btn.btn-lg.btn-primary.btn-custom-sb{:style => "", :type => "button"}
           Process
     .row
       .col-xs-12

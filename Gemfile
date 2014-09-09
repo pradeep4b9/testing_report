@@ -30,6 +30,10 @@ gem 'simple_form'
 gem "geocoder"
 gem 'countries'
 
+#Upload Photos
+# install dependency on ubuntu > sudo apt-get install imagemagick libmagickwand-dev
+gem "rmagick", "~> 2.13.2" 
+
 
 group :development do
   # gem 'capistrano', '~> 3.1.0'

@@ -17,7 +17,7 @@ body, html {
 .clear{clear: both;}
 footer{position:fixed;bottom:0;background: #000;-webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;   
-  box-sizing: border-box;width: 100%;}
+  box-sizing: border-box;width: 100%;z-index: 100;}
 
 .content{ background-color: rgb(112, 174, 59);max-width: 400px;margin: 0 auto;padding: 10px;margin-top: 5%;}
 .footer-tagline{color: #fff;text-transform: uppercase;width:90%;margin: auto;text-align: center;}
@@ -76,3 +76,11 @@ button:hover.btn-custom-sb{background: #fff;border: 1px solid #6caa37;color:#70A
 .voice-scan span.number{color: #70AE3B;width:45%;display: block;float:right;padding:8px;}
 .clear{clear:both;}
 .voice-loader{display: none;margin-top: 5px;}
+.view-container{float:right;width:79%;}
+.view-container .span3{line-height: 25px;text-align: left;}
+.view-container .span2{line-height: 20px;float: left;width:49%;text-align: left;}
+.view-container .span2.first{text-align: left;}
+.view-container .span2.last{text-align: left;word-wrap:break-word;}
+
+.snd-container{float: right;width:100%;}
+.snd-container .span3{text-align: left;}
