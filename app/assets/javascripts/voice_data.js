@@ -16,7 +16,7 @@ $(document).ready(function(){
       return false;
      }else{
       $(".voice-loader").show();
-      $("#formSubmit").attr("action","/voices/record_voice")
+      $("#formSubmit").attr("action","/voices/record")
       $("#formSubmit").attr("method","post")
       document.forms["formSubmit"].submit();
      

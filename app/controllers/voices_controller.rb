@@ -3,7 +3,7 @@ class VoicesController < ApplicationController
   protect_from_forgery
   layout "card_scans"
   
-  def status_register_dailogue
+  def register_status
     begin
       api_helper = set_voice_api
       puts "... waiting for processing to complete"
@@ -19,7 +19,7 @@ class VoicesController < ApplicationController
     end
   end
 
-  def status_login_dailogue
+  def login_status
     begin
       api_helper = set_voice_api
       puts "... waiting for processing to complete to login"
@@ -36,7 +36,7 @@ class VoicesController < ApplicationController
   end
 
 
-  def register_voice
+  def register
     puts params.inspect
     puts params[:voice_file]
     begin
@@ -61,7 +61,7 @@ class VoicesController < ApplicationController
     end
   end
 
-  def record_voice
+  def record
     puts "coming to record_voice"
     puts params[:next_prompt]
     puts params[:dialogue_id]
@@ -94,9 +94,9 @@ class VoicesController < ApplicationController
       @next_prompt = ds_hash["prompt_hint"]
       if ds_hash["request_status"] == "TooManyUnprocessedPhrases"
         if @is_login.blank?
-          redirect_to status_register_dailogue_voices_path(id: params[:dialogue_id])
+          redirect_to register_status_voices_path(id: params[:dialogue_id])
         else
-          redirect_to status_login_dailogue_voices_path(id: params[:dialogue_id])
+          redirect_to login_status_voices_path(id: params[:dialogue_id])
         end
       else
         @dialogue_id = params[:dialogue_id]
@@ -106,7 +106,7 @@ class VoicesController < ApplicationController
     end
   end
 
-  def signin_voice
+  def signin
     begin
       api_helper = set_voice_api
       @next_prompt = set_dailogue(params[:claimant_id], api_helper)

@@ -14,11 +14,11 @@ Rails.application.routes.draw do
 
   resources :voices do
     collection do
-      get 'register_voice'
-      post 'record_voice'
-      get 'status_register_dailogue'
-      get 'status_login_dailogue'
-      get 'signin_voice'
+      get 'register'
+      post 'record'
+      get 'register_status'
+      get 'login_status'
+      get 'signin'
     end
   end  
 
