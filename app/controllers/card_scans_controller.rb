@@ -28,7 +28,7 @@ class CardScansController < ApplicationController
   # POST /card_scans.json
   def create
     @card_scan = CardScan.new(card_scan_params)
-
+    
     respond_to do |format|
       if @card_scan.save
         format.html { redirect_to @card_scan, notice: 'Card scan was successfully created.' }
@@ -77,7 +77,9 @@ class CardScansController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def card_scan_params
-      params.require(:card_scan).permit(:user_id, :card_status, :name, :picture, :signature, :dob)
+      params.require(:card_scan).permit(:user_id, :cssn_data, :card_status, :name, :dob, :id_number, :passport_number, 
+        :street, :city, :state_and_zip, :country, :expiration_date, :address_verification, :issue_date, :sex, 
+        :face_image, :signature_image)
     end
 end
 
