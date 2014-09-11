@@ -28,11 +28,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :profiles do
-    collection do
-      get 'viewprofile'
-    end
-  end
+  resources :profiles
   
   root 'card_scans#index'
   get 'sixt' => 'card_scans#index', as: :sixt
