@@ -30,6 +30,11 @@ class VoicesController < ApplicationController
       puts @ds_hash.inspect
       puts "Dialogue completed. Status = #{@ds_hash["dialogue_status"]}"
       @voice_details = Voice.where(dialogue_id: params[:id]).last
+      if @voice_details.present? && @ds_hash["dialogue_status"].eql?("Succeeded")
+        @voice_details.login_status = true
+        @voice_details.login_attempts = 0
+        @voice_details.save
+      end
     rescue Exception => e
       puts "An error occurred. #{e.message}"
     end
@@ -113,8 +118,12 @@ class VoicesController < ApplicationController
       puts "session dailogue id"
       puts session[:dialogue_id]
 
-      voice_details = Voice.new({"user_id" => "testing123voice", "claimant_id" => params[:claimant_id], "dialogue_id" => session[:dialogue_id]} )
-      voice_details.save
+      voice_details = Voice.where({"user_id" => "testing123voice", "claimant_id" => params[:claimant_id]} ).last
+      if voice_details.present?
+        voice_details.dialogue_id = session[:dialogue_id]
+        voice_details.login_attempts = voice_details.login_attempts + 1
+        voice_details.save
+      end
     rescue Exception => e
       puts "An error occurred. #{e.message}"
     end
