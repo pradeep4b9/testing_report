@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 ruby '2.1.2'
 gem 'rails', '4.1.5'
+gem 'puma'
+
 gem 'therubyracer', :platform=>:ruby
 
 #Database
@@ -52,7 +54,6 @@ group :development do
   gem 'html2haml'
   gem 'quiet_assets'
   gem 'rails_layout'
-  gem 'puma'
   gem 'spring'
 end
 
@@ -69,8 +70,8 @@ group :test do
   gem 'selenium-webdriver'
 end
 
-group :production do
-  # gem 'unicorn'
-  # gem 'unicorn-rails'
-  gem 'puma'
-end
+# group :production do
+#   # gem 'unicorn'
+#   # gem 'unicorn-rails'
+#   # gem 'puma'
+# end
