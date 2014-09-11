@@ -6,4 +6,5 @@ class Photo
   field :image, type: String
   field :image_tmp, type: String
   field :verified, type: String
+  
 end
