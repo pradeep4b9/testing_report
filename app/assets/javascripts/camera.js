@@ -3,7 +3,7 @@ $(document).ready(function () {
     var blobImage;
 
     //Convert checkbox to switch type
-    $('input[type="checkbox"]').not('#create-switch').bootstrapSwitch();
+    // $('input[type="checkbox"]').not('#create-switch').bootstrapSwitch();
 
     //Detect type of device.
     var isMobile = {
@@ -198,17 +198,17 @@ $(document).ready(function () {
     });
 
     //Resize image
-    $('#input-image').change(function (e) {
-        var file = e.target.files[0];
+    // $('#input-image').change(function (e) {
+    //     var file = e.target.files[0];
 
-        canvasResize(file, {
-            crop: false,
-            quality: 80,
-            callback: function (data, width, height) {
-                blobImage = dataURLtoBlob(data);
-            }
-        });
-    });
+    //     canvasResize(file, {
+    //         crop: false,
+    //         quality: 80,
+    //         callback: function (data, width, height) {
+    //             blobImage = dataURLtoBlob(data);
+    //         }
+    //     });
+    // });
 
     $("#btn-process-image-cam").click(function () {
         ResetControls();
