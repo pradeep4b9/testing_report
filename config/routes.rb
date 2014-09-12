@@ -25,6 +25,8 @@ Rails.application.routes.draw do
       get 'camera'
       post 'canvas_capture'
       get 'facedetection'
+      get 'verify'
+      post 'verify_status'
     end
   end
 

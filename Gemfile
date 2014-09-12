@@ -36,6 +36,10 @@ gem 'countries'
 # install dependency on ubuntu > sudo apt-get install imagemagick libmagickwand-dev
 gem "rmagick", "~> 2.13.2" 
 
+# sky biometric gem to recognise/match photo
+#gem "face", "~> 0.1.0", :path => '/home/localadmin/panik/source/face'
+gem "face", "~> 0.1.0", :git => 'git://github.com/shyammohankanojia/face.git'
+
 
 group :development do
   # gem 'capistrano', '~> 3.1.0'

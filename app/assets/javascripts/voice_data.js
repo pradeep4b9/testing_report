@@ -2,6 +2,13 @@ $(document).ready(function(){
 
 
 
+  $('#verify_photo').click(function() {
+    $("#formSubmit").attr("action","/photos/verify_status")
+    $("#formSubmit").attr("method","post")
+    $("#formSubmit").submit();
+  });
+
+
   $('#CamButton').click(function() {
     $(".error").hide("slow").remove();  
     $('#CamPicker').trigger('click');

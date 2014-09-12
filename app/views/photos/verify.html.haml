@@ -1,0 +1,34 @@
+%section.scan
+  %header
+    = link_to image_tag("Go-Back.png"),"/"
+    .title
+      %span
+        FACE MATCH
+    = link_to image_tag("information.png"),"#"
+
+.container
+  .starter-template
+    .row
+      .col-xs-12.col-sm-12.col-lg-12
+    .row
+      .col-xs-12.col-sm-12{:style =>"text-align:center;"}
+        .container-camera
+          #image-thumbnail.fileupload-preview.fileupload-exists.thumbnail{:style=>"line-height: 10px;position:relative;margin:0 auto;max-height:none;"}
+            = image_tag(@camera_photo,:style => "")  
+          
+
+            = image_tag(@id_face,:class => "idscan-img",:style =>"position:absolute;top:0;left:0;width:20%;padding:4px;")  
+            
+
+    
+    %br/
+    .row
+      #div-controls.col-xs-12.col-sm-12.col-lg-12
+        %input{:type => "hidden", :name => "id_face", :value => @id_face }
+        %input{:type => "hidden", :name => "camera_photo", :value => @camera_photo }
+        %button#verify_photo.btn.btn-lg.btn-primary.btn-custom-sb{:style => "", :type => "button"}
+          PROCESS
+    .row
+      .col-xs-12
+        #loading
+  #errorDiv{:style => "text-align: center; color: red;"}
