@@ -187,6 +187,7 @@
         document.getElementById("faceImage").style.display = "none";
         document.getElementById("signImage").style.display = "none";
         document.getElementById("extractedData").style.display = "none";
+        $('.process-div').remove();
         $('#passport-data').empty();
         $('#errorDiv').empty();
         $('#loading').empty();
@@ -262,10 +263,14 @@
 
                 //Checking if there are errors returned.
                 if (passport.ResponseCodeAuthorization < 0) {
-                    $('#errorDiv').html("<p>CSSN Error Code: " + passport.ResponseMessageAuthorization + "</p>");
+                    $('#errorDiv').html("<p>Error Code: " + passport.ResponseMessageAuthorization + "</p>");
+                    $('<div class="process-divprocess-div" style="text-align:center"><button onclick ="javascript:location.reload();" class="btn btn-lg btn-primary btn-custom-sb">Try Again</button></div>').insertAfter("#errorDiv");
+
                 }
                 else if (passport.WebResponseCode < 1) {
-                    $('#errorDiv').html("<p>CSSN Error Code: " + passport.WebResponseDescription + "</p>");
+                    $('#errorDiv').html("<p>Error Code: " + passport.WebResponseDescription + "</p>");
+                    $('<div class="process-div" style="text-align:center"><button onclick ="javascript:location.reload();" class="btn btn-lg btn-primary btn-custom-sb">Try Again</button></div>').insertAfter("#errorDiv");
+
                 }
                 else {
 

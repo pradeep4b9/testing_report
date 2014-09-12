@@ -185,10 +185,12 @@
 
     //Clears controls and opens File Dialog after choosing an input image
     $("#image-thumbnail").click(function () {
+
         $("#input-image").click();
         document.getElementById("faceImage").style.display = "none";
         document.getElementById("signImage").style.display = "none";
         document.getElementById("extractedData").style.display = "none";
+        $(".process-div").remove();
         $('#drivers-license-data').empty();
         $('#errorDiv').empty();
         $('#loading').empty();
@@ -258,25 +260,53 @@
                 $("#div-controls").hide();
             },
             success: function (data) {
-
                 //Convert data to string before parsing
                 var driversLicense = JSON.stringify(data);
                 driversLicense = jQuery.parseJSON(driversLicense);
 
                 //Checking if there are errors returned.
                 if (driversLicense.ResponseCodeAuthorization < 0) {
-                    $('#errorDiv').html("<p>CSSN Error Code: " + driversLicense.ResponseMessageAuthorization + "</p>");
+                    $('#errorDiv').html("<p>Error Code: " + driversLicense.ResponseMessageAuthorization + "</p>");
+                    $('<div class="process-div" style="text-align:center"><button onclick ="javascript:location.reload();" class="btn btn-lg btn-primary btn-custom-sb">Try Again</button></div>').insertAfter("#errorDiv");
                 }
                 else if (driversLicense.ResponseCodeAutoDetectState < 0) {
-                    $('#errorDiv').html("<p>CSSN Error Code: " + driversLicense.ResponseCodeAutoDetectStateDesc + "</p>");
+                    $('#errorDiv').html("<p>Error Code: " + driversLicense.ResponseCodeAutoDetectStateDesc + "</p>");
+                    $('<div class="process-div" style="text-align:center"><button onclick ="javascript:location.reload();" class="btn btn-lg btn-primary btn-custom-sb">Try Again</button></div>').insertAfter("#errorDiv");
                 }
                 else if (driversLicense.ResponseCodeProcState < 0) {
-                    $('#errorDiv').html("<p>CSSN Error Code: " + driversLicense.ResponseCodeProcessStateDesc + "</p>");
+                    $('#errorDiv').html("<p>Error Code: " + driversLicense.ResponseCodeProcessStateDesc + "</p>");
+                    $('<div class="process-div" style="text-align:center"><button onclick ="javascript:location.reload();" class="btn btn-lg btn-primary btn-custom-sb">Try Again</button></div>').insertAfter("#errorDiv");
                 }
                 else if (driversLicense.WebResponseCode < 1) {
-                    $('#errorDiv').html("<p>CSSN Error Code: " + driversLicense.WebResponseDescription + "</p>");
+                    $('#errorDiv').html("<p>Error Code: " + driversLicense.WebResponseDescription.replace("developers@card-reader.com","support@myverifiedid.com").replace("Card Scanning Solutions Inc","My Verified ID") + "</p>");
+                    $('<div class="process-div" style="text-align:center"><button onclick ="javascript:location.reload();" class="btn btn-lg btn-primary btn-custom-sb">Try Again</button></div>').insertAfter("#errorDiv");
                 }
                 else {
+
+                     var parsedata =
+                    {"First Name":driversLicense.NameFirst,
+                    "Middle Name":driversLicense.NameMiddle,
+                    "Last Name":driversLicense.NameLast,
+                    "License Number":driversLicense.license,
+                    "Address":driversLicense.Address,
+                    "City":driversLicense.City,
+                    "State":driversLicense.State,
+                    "Zip":driversLicense.Zip,
+                    "Country":driversLicense.IdCountry,
+                    "Expiration Date":driversLicense.ExpirationDate4,
+                    "Issue Date":driversLicense.IssueDate4,
+                    "Date Of Birth":driversLicense.DateOfBirth4,
+                    "Sex":driversLicense.Sex,
+                    "Eyes Color":driversLicense.Eyes,
+                    "Hair Color":driversLicense.Hair,
+                    "Height":driversLicense.Height,
+                    "Weight":driversLicense.Weight,
+                    "Class":driversLicense.Class,
+                    "Restriction":driversLicense.Restriction,
+                    "Endorsements":driversLicense.Endorsements}
+
+
+
 
                     //Display data returned by the web service
                     var data = AddDisplay("First Name", driversLicense.NameFirst);
@@ -301,21 +331,23 @@
                     data += AddDisplay("Endorsements", driversLicense.Endorsements);
 
                     $(data).appendTo("#drivers-license-data");
-                    document.getElementById("extractedData").style.display = "inline";
+                    // document.getElementById("extractedData").style.display = "inline";
 
                     //Display face, sign and reformatted images on UI
                     var faceImage = driversLicense.FaceImage;
                     if (faceImage != null || faceImage != "") {
                         var base64FaceImage = goog.crypt.base64.encodeByteArray(faceImage);
-                        document.getElementById("faceImage").style.display = "inline";
+                        // document.getElementById("faceImage").style.display = "inline";
                         $("#face-image").attr("src", "data:image/png;base64," + base64FaceImage);
+                         parsedata["face-image"] = "data:image/png;base64," + base64FaceImage;
                     }
 
                     var signImage = driversLicense.SignImage;
                     if (signImage != null || signImage != "") {
                         var base64SignImage = goog.crypt.base64.encodeByteArray(signImage);
-                        document.getElementById("signImage").style.display = "inline";
+                        //document.getElementById("signImage").style.display = "inline";
                         $("#signature-image").attr("src", "data:image/png;base64," + base64SignImage);
+                         parsedata["signature-image"] = "data:image/png;base64," + base64SignImage;
                     }
 
                     var reformattedImage = driversLicense.ReformattedImage;
@@ -323,6 +355,15 @@
                         var base64ReformattedImage = goog.crypt.base64.encodeByteArray(reformattedImage);
                         $("#image-thumbnail img:first-child").attr("src", "data:image/png;base64," + base64ReformattedImage);
                     }
+
+
+                    $.post( "/card_scans", {"card_scan[cssn_data]":parsedata}, function( data ) {
+                        // alert(data.search ("success"));
+                        if(data.indexOf("success")>=0){
+
+                             location.href = "/photos/camera";
+                        }
+                    });
                 }
             },
             error: function (e) {

@@ -1,6 +1,8 @@
 class PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :edit, :update, :destroy]
   layout "card_scans"
+  protect_from_forgery
+
   
   # GET /photos
   # GET /photos.json
@@ -64,24 +66,26 @@ class PhotosController < ApplicationController
 
   def canvas_capture
 
-    output_canvas_pic = "#{Rails.root}/tmp/" + session[:session_id].to_s + '.png'
-    data = params[:image_data]
-    image_data = Base64.decode64(data['data:image/png;base64,'.length .. -1])
+    Rails.logger.info params
+    render text: "ok"  
+    # output_canvas_pic = "#{Rails.root}/tmp/" + session[:session_id].to_s + '.png'
+    # data = params[:image_data]
+    # image_data = Base64.decode64(data['data:image/png;base64,'.length .. -1])
 
-    File.open(output_canvas_pic, 'wb') do |f|
-      f.write image_data
-    end
+    # File.open(output_canvas_pic, 'wb') do |f|
+    #   f.write image_data
+    # end
 
-    source = Magick::Image.read(output_canvas_pic).first
-    source = source.resize_to_fill(465, 480).write(output_canvas_pic)
+    # source = Magick::Image.read(output_canvas_pic).first
+    # source = source.resize_to_fill(465, 480).write(output_canvas_pic)
 
-    i = Magick::Image.read(output_canvas_pic ).first
-    i.write( "#{Rails.root}/tmp/" + session[:session_id].to_s + '.jpg' ) do
-      self.format = 'JPEG'
-      self.quality = 90
-    end
+    # i = Magick::Image.read(output_canvas_pic ).first
+    # i.write( "#{Rails.root}/tmp/" + session[:session_id].to_s + '.jpg' ) do
+    #   self.format = 'JPEG'
+    #   self.quality = 90
+    # end
 
-    render text: "/" + session[:session_id].to_s + '.jpg'
+    # render text: "/" + session[:session_id].to_s + '.jpg'
   end  
 
 

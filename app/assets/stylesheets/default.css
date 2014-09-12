@@ -48,6 +48,14 @@ div#placehold-image{ color: #70ae3b;
     text-align: center;
     width: 251px;}
 
+div#placehold-image-cam{ color: #70ae3b;
+    cursor: pointer;
+    font-size: 32px;
+    height: 176px;
+    padding-top: 62px;
+    text-align: center;
+    width: 251px;}
+
 @media (max-width: 525px) and (min-width: 320px) {
 
   .footer-tagline{width:100%;}

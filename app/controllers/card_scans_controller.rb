@@ -27,17 +27,20 @@ class CardScansController < ApplicationController
   # POST /card_scans
   # POST /card_scans.json
   def create
+    Rails.logger.info params
     @card_scan = CardScan.new(card_scan_params)
-    
-    respond_to do |format|
-      if @card_scan.save
-        format.html { redirect_to @card_scan, notice: 'Card scan was successfully created.' }
-        format.json { render :show, status: :created, location: @card_scan }
-      else
-        format.html { render :new }
-        format.json { render json: @card_scan.errors, status: :unprocessable_entity }
-      end
-    end
+
+    # @card_scan.save
+    render text: "success"
+    # respond_to do |format|
+    #   if @card_scan.save
+    #     format.html { redirect_to @card_scan, notice: 'Card scan was successfully created.' }
+    #     format.json { render :show, status: :created, location: @card_scan }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @card_scan.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /card_scans/1

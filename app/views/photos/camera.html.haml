@@ -33,9 +33,9 @@
           .fileupload.fileupload-new{"data-provides" => "fileupload"}
             .fileupload-new.thumbnail
               / %img#placehold-image.img-responsive{:src => "images/TapHere.gif"}/
-              %div#placehold-image.img-responsive
-                TAP HERE
-            #image-thumbnail.fileupload-preview.fileupload-exists.thumbnail
+              %div#placehold-image-cam.img-responsive{:style =>"font-size:20px;padding-top:77px;"}
+                CAPTURE PICTURE
+            #image-thumbnail-cam.fileupload-preview.fileupload-exists.thumbnail
             %div
               %span.btn.btn-file.btn-link.btn-sm
                 %input#input-image{:capture => "camera", :name => "driversLicenseImage", :type => "file"}/
@@ -52,8 +52,8 @@
     %br/
     .row
       #div-controls.col-xs-12.col-sm-12.col-lg-12
-        %button#btn-process-imae.btn.btn-lg.btn-primary.btn-custom-sb{:style => "", :type => "button"}
-          Process
+        %button#btn-process-image-cam.btn.btn-lg.btn-primary.btn-custom-sb{:style => "", :type => "button"}
+          Confrim
     .row
       .col-xs-12
         #loading
