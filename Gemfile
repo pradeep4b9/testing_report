@@ -7,9 +7,9 @@ gem 'puma'
 gem 'therubyracer', :platform=>:ruby
 
 #Database
-gem 'mongoid'
+gem 'mongoid', '~> 4.0.0'
 gem 'bson_ext'
-gem 'mongoid_slug'
+gem 'mongoid_slug', '~> 3.2.1'
 
 # Database encryption
 gem 'symmetric-encryption', '~> 3.4.0'
@@ -35,6 +35,16 @@ gem 'countries'
 #Upload Photos
 # install dependency on ubuntu > sudo apt-get install imagemagick libmagickwand-dev
 gem "rmagick", "~> 2.13.2" 
+gem "carrierwave-mongoid" #, "~> 0.5.0", :require => 'carrierwave/mongoid'
+gem "carrierwave_backgrounder" #, "~> 0.2.1"
+gem "fog" #, "~> 1.3.1"
+gem "rack-raw-upload" #, "~> 1.1.1"
+
+
+# Background Job
+gem 'sidekiq', '~> 3.2.5'
+# gem 'kiqstand', '~> 1.1.0'
+# gem 'kiqstand', github: 'mongoid/kiqstand'
 
 # sky biometric gem to recognise/match photo
 #gem "face", "~> 0.1.0", :path => '/home/localadmin/panik/source/face'
@@ -59,6 +69,10 @@ group :development do
   gem 'quiet_assets'
   gem 'rails_layout'
   gem 'spring'
+  
+  gem "sinatra", require: false
+  gem "slim", "~> 1.3.8"
+  
 end
 
 group :development, :test do

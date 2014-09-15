@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require voice_data
 //= require mobilecam
+//= require camera
 
