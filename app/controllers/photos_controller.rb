@@ -91,7 +91,8 @@ class PhotosController < ApplicationController
 
   def verify
     @id_face = "https://s3-ap-southeast-2.amazonaws.com/myverifiedid-support/documents/52b2a3e9c36a5d8f3c000002_photo_id_image.jpg"
-    @camera_photo = "https://s3-ap-southeast-2.amazonaws.com/myverifiedid-support/documents/52b29ce3c36a5d6636000001_photo_seal.jpg"
+    @camera_photo = "https://s3-ap-southeast-2.amazonaws.com/myverifiedid-support/documents/kp_medium.jpg"
+    # @camera_photo = "https://s3-ap-southeast-2.amazonaws.com/myverifiedid-support/documents/52b29ce3c36a5d6636000001_photo_seal.jpg"
   end 
 
   def verify_status

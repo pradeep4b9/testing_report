@@ -40,6 +40,8 @@ gem "carrierwave_backgrounder" #, "~> 0.2.1"
 gem "fog" #, "~> 1.3.1"
 gem "rack-raw-upload" #, "~> 1.1.1"
 
+#gem for file encryption and decryption
+gem "carrierwave_encrypter_decrypter", "~> 0.0.6"
 
 # Background Job
 gem 'sidekiq', '~> 3.2.5'
