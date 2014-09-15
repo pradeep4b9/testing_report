@@ -33,6 +33,16 @@ class CardScan
   field :endorsements, type: String
 
   field :face_image, type: String
+  field :face_image_tmp, type: String
   field :signature_image, type: String
+  field :signature_image_tmp, type: String
+
+  mount_uploader :face_image, FaceImageUploader
+  store_in_background :face_image
+
+  # mount_uploader :signature_image, SignatureImageUploader
+  # store_in_background :signature_image
+
+
   
 end
