@@ -7,9 +7,9 @@ gem 'puma'
 gem 'therubyracer', :platform=>:ruby
 
 #Database
-gem 'mongoid'
+gem 'mongoid', '~> 4.0.0'
 gem 'bson_ext'
-gem 'mongoid_slug'
+gem 'mongoid_slug', '~> 3.2.1'
 
 # Database encryption
 gem 'symmetric-encryption', '~> 3.4.0'
@@ -42,9 +42,9 @@ gem "rack-raw-upload" #, "~> 1.1.1"
 
 
 # Background Job
-gem 'sidekiq'#, '~> 3.0.0'
-gem "kiqstand"#, "~> 1.1.0" # middleware for Sidekiq for use with Mongoid 3
-# gem 'sidekiq-scheduler', '~> 1.0'
+gem 'sidekiq', '~> 3.2.5'
+# gem 'kiqstand', '~> 1.1.0'
+# gem 'kiqstand', github: 'mongoid/kiqstand'
 
 
 group :development do
