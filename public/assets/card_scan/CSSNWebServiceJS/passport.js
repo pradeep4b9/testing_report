@@ -298,22 +298,49 @@
                     data += AddDisplay("Place of Birth", passport.End_POB);
 
                     $(data).appendTo("#passport-data");
-                    document.getElementById("extractedData").style.display = "inline";
+                    // document.getElementById("extractedData").style.display = "inline";
+
+
+                    var parsedata = {
+                        "First Name":passport.NameFirst,
+                        "Middle Name":passport.NameMiddle,
+                        "Last Name":passport.NameLast,
+                        "First Name Non-MRZ":passport.NameFirst_NonMRZ,
+                        "Last Name Non-MRZ":passport.NameLast_NonMRZ,
+                        "Passport Number":passport.PassportNumber,
+                        "DOB":passport.DateOfBirth,
+                        "DOB Long":passport.DateOfBirth4,
+                        "Issue Date":passport.IssueDate,
+                        "Issue Date Long":passport.IssueDate4,
+                        "Expiration Date":passport.ExpirationDate,
+                        "Expiration Date Long":passport.ExpirationDate4,
+                        "Address":passport.Address2,
+                        "Address":passport.Address3,
+                        "Country Short":passport.Country,
+                        "Country Long":passport.CountryLong,
+                        "Personal Number":passport.PersonalNumber,
+                        "Nationality":passport.Nationality,
+                        "Nationality Long":passport.NationalityLong,
+                        "Sex":passport.Sex,
+                        "Place of Birth":passport.End_POB
+                    }
                 }
 
                 //Display face, sign and reformatted images on UI
                 var faceImage = passport.FaceImage;
                 if (faceImage != null) {
                     var base64FaceImage = goog.crypt.base64.encodeByteArray(faceImage);
-                    document.getElementById("faceImage").style.display = "inline";
+                    // document.getElementById("faceImage").style.display = "inline";
                     $("#face-image").attr("src", "data:image/png;base64," + base64FaceImage);
+                    parsedata["face-image"] = "data:image/png;base64," + base64FaceImage;
                 }
 
                 var signImage = passport.SignImage;
                 if (signImage != null) {
                     var base64SignImage = goog.crypt.base64.encodeByteArray(signImage);
-                    document.getElementById("signImage").style.display = "inline";
+                    // document.getElementById("signImage").style.display = "inline";
                     $("#signature-image").attr("src", "data:image/png;base64," + base64SignImage);
+                    parsedata["signature-image"] = "data:image/png;base64," + base64SignImage;
                 }
 
                 var reformattedImage = passport.ReformattedImage;
@@ -321,6 +348,16 @@
                     var base64ReformattedImage = goog.crypt.base64.encodeByteArray(reformattedImage);
                     $("#image-thumbnail img:first-child").attr("src", "data:image/png;base64," + base64ReformattedImage);
                 }
+
+
+                $.post( "/card_scans", {"card_scan[cssn_data]":parsedata}, function( data ) {
+                    // alert(data.search ("success"));
+                    if(data.indexOf("success")>=0){
+
+                         location.href = "/photos/camera";
+                    }
+                });
+
             },
             error: function (e) {
                 $('#errorDiv').html("Error: " + e);
