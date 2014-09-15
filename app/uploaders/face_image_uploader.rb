@@ -34,7 +34,7 @@ class FaceImageUploader < CarrierWave::Uploader::Base
   process :set_content_type
   process resize_to_fill: [640, 480]
   #process :resize_to_fit => [640, 480]
-  process :quality => 90
+  # process :quality => 90
   # process :stamp
   process :convert => 'jpg'
   

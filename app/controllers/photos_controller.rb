@@ -138,7 +138,7 @@ class PhotosController < ApplicationController
         stamp_img = source_img.composite!(stamp_image, Magick::SouthEastGravity, Magick::OverCompositeOp)
         # Other Gravities: SouthEastGravity, NorthGravity(centered), etc.    
         # photo_seal = "#{Rails.root}/public/uploads/#{source_photo.user_id}_photo_seal.png"
-        photo_seal = "#{Rails.root}/public/uploads/#{source_photo.id}_photo_seal.png"
+        photo_seal = "#{Rails.root}/tmp/#{source_photo.id}_photo_seal.png"
         stamp_img.write(photo_seal)
         
         # old_profile_pics = current_user.photos.where(verified: true, profile_picture: true)
