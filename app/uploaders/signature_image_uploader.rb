@@ -34,9 +34,9 @@ class SignatureImageUploader < CarrierWave::Uploader::Base
   process :set_content_type
   # process resize_to_fill: [640, 480]
   #process :resize_to_fit => [640, 480]
-  process :quality => 90
+  # process :quality => 90
   # process :stamp
-  process :convert => 'jpg'
+  # process :convert => 'jpg'
   
   # Choose what kind of storage to use for this uploader:
   #storage :file
@@ -46,13 +46,13 @@ class SignatureImageUploader < CarrierWave::Uploader::Base
     "development_uploads/#{model.class.to_s.underscore}/#{model.id}_signature"
   end
 
-  def extension_white_list
-    %w(jpg jpeg gif png)
-  end
+  # def extension_white_list
+  #   %w(jpg jpeg gif png)
+  # end
 
-  def full_filename (for_file = model.image.file)
-    super.chomp(File.extname(super)) + '.jpg'
-  end
+  # def full_filename (for_file = model.image.file)
+  #   super.chomp(File.extname(super)) + '.jpg'
+  # end
 
   def fog_public
     false

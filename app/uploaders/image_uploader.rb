@@ -1,6 +1,6 @@
 # encoding: utf-8
 require "digest/md5"
-class PhotoIdImageUploader < CarrierWave::Uploader::Base
+class ImageUploader < CarrierWave::Uploader::Base
 
   # Include CarrierWave direct uploader to background upload task.
   # include CarrierWaveDirect::Uploader
@@ -9,10 +9,6 @@ class PhotoIdImageUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
-
-  # Include the Sprockets helpers for Rails 3.1+ asset pipeline compatibility:
-  # include Sprockets::Helpers::RailsHelper
-  # include Sprockets::Helpers::IsolatedHelper
 
   include CarrierWave::MimeTypes
 
@@ -36,7 +32,7 @@ class PhotoIdImageUploader < CarrierWave::Uploader::Base
   #process :resize_to_fit => [640, 480]
   #process :quality => 100
   # process :stamp
-  process :convert => 'jpg'
+  # process :convert => 'jpg'
   
 
   version :thumb do
@@ -55,13 +51,13 @@ class PhotoIdImageUploader < CarrierWave::Uploader::Base
     "development_uploads/#{model.class.to_s.underscore}/#{model.id}"
   end
 
-  def extension_white_list
-    %w(jpg jpeg gif png)
-  end
+  # def extension_white_list
+  #   %w(jpg jpeg gif png)
+  # end
 
-  def full_filename (for_file = model.image.file)
-    super.chomp(File.extname(super)) + '.jpg'
-  end
+  # def full_filename (for_file = model.image.file)
+  #   super.chomp(File.extname(super)) + '.jpg'
+  # end
 
   def fog_public
     false

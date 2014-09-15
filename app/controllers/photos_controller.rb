@@ -66,14 +66,12 @@ class PhotosController < ApplicationController
   end
 
   def canvas_capture
-
     Rails.logger.info params
     
     # File.open("#{Rails.root}/tmp/photo_123.jpg", 'wb') do |file|
     #   file.write(params[:image_data])
     # end
 
-    render text: "ok"  
     # output_canvas_pic = "#{Rails.root}/tmp/" + session[:session_id].to_s + '.png'
     # data = params[:image_data]
     # image_data = Base64.decode64(data['data:image/png;base64,'.length .. -1])
@@ -92,6 +90,9 @@ class PhotosController < ApplicationController
     # end
 
     # render text: "/" + session[:session_id].to_s + '.jpg'
+    @photo = Photo.new
+    @photo.image = File.open(camera_image(params[:image_data]))
+    render text: @photo.save ? "Success" : "Failure"
   end
 
   def verify
@@ -152,6 +153,25 @@ class PhotosController < ApplicationController
         sleep(5)
       end      
     end
+
+    def camera_image(image_data)
+      camera_img = "#{Rails.root}/tmp/camera_" + session[:session_id].to_s + '.png'
+      data = image_data #params[:image_data]
+      image_data = Base64.decode64(data['data:image/png;base64,'.length .. -1])
+
+      File.open(camera_img, 'wb') do |f|
+        f.write image_data
+      end
+
+      out_image = "#{Rails.root}/tmp/camera_" + session[:session_id].to_s + '.jpg'
+      img = Magick::Image.read(camera_img).first
+      img.write(out_image) do
+        self.format = 'JPEG'
+        self.quality = 90
+      end
+      out_image
+    end
+
 
     def face_recognise_process(id_face, camera_photo)
 
