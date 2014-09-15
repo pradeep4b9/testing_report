@@ -31,15 +31,8 @@ class CardScansController < ApplicationController
     # Rails.logger.info("--------------------------")
 
     @card_scan = CardScan.new(card_scan_params)
-    face_image = card_images(params[:card_scan][:face_image], "face")
-    Rails.logger.info("-------Face_image-----#{File.new(face_image)}")
-    params[:card_scan][:face_image] = File.new(face_image)
-
-    signature_image = card_images(params[:card_scan][:signature_image], "signature")
-    # Rails.logger.info("-------signature_image-----#{signature_image}")
-
-    params[:card_scan][:signature_image] = File.new(signature_image)
-
+    @card_scan.face_image = File.open(card_images(params[:card_scan][:face_image], "face"))
+    @card_scan.signature_image = nil #File.open(card_images(params[:card_scan][:signature_image], "signature"))
     render text: @card_scan.save ? "success" : "Failed to save."
 
     # render text: "OK"
@@ -104,7 +97,19 @@ class CardScansController < ApplicationController
       File.open(face_image, 'wb') do |f|
         f.write image_data
       end
-      face_image
+
+      if type == "face"
+        source = Magick::Image.read(face_image).first
+        source = source.resize_to_fill(465, 480).write(face_image)
+      end
+
+      out_image = "#{Rails.root}/tmp/#{type}_" + "1" + session[:session_id].to_s + '.jpg'
+      img = Magick::Image.read(face_image).first
+      img.write(out_image) do
+        self.format = 'JPEG'
+        self.quality = 90
+      end
+      out_image
     end
 end
 
