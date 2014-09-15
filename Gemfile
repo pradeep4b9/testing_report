@@ -35,6 +35,16 @@ gem 'countries'
 #Upload Photos
 # install dependency on ubuntu > sudo apt-get install imagemagick libmagickwand-dev
 gem "rmagick", "~> 2.13.2" 
+gem "carrierwave-mongoid" #, "~> 0.5.0", :require => 'carrierwave/mongoid'
+gem "carrierwave_backgrounder" #, "~> 0.2.1"
+gem "fog" #, "~> 1.3.1"
+gem "rack-raw-upload" #, "~> 1.1.1"
+
+
+# Background Job
+gem 'sidekiq'#, '~> 3.0.0'
+gem "kiqstand"#, "~> 1.1.0" # middleware for Sidekiq for use with Mongoid 3
+# gem 'sidekiq-scheduler', '~> 1.0'
 
 
 group :development do
@@ -55,6 +65,10 @@ group :development do
   gem 'quiet_assets'
   gem 'rails_layout'
   gem 'spring'
+  
+  gem "sinatra", require: false
+  gem "slim", "~> 1.3.8"
+  
 end
 
 group :development, :test do

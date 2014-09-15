@@ -283,27 +283,28 @@
                 }
                 else {
 
-                     var parsedata =
-                    {"First Name":driversLicense.NameFirst,
-                    "Middle Name":driversLicense.NameMiddle,
-                    "Last Name":driversLicense.NameLast,
-                    "License Number":driversLicense.license,
-                    "Address":driversLicense.Address,
-                    "City":driversLicense.City,
-                    "State":driversLicense.State,
-                    "Zip":driversLicense.Zip,
-                    "Country":driversLicense.IdCountry,
-                    "Expiration Date":driversLicense.ExpirationDate4,
-                    "Issue Date":driversLicense.IssueDate4,
-                    "Date Of Birth":driversLicense.DateOfBirth4,
-                    "Sex":driversLicense.Sex,
-                    "Eyes Color":driversLicense.Eyes,
-                    "Hair Color":driversLicense.Hair,
-                    "Height":driversLicense.Height,
-                    "Weight":driversLicense.Weight,
-                    "Class":driversLicense.Class,
-                    "Restriction":driversLicense.Restriction,
-                    "Endorsements":driversLicense.Endorsements}
+                    var parsedata =
+                    {"first_name":driversLicense.NameFirst,
+                    "middle_name":driversLicense.NameMiddle,
+                    "last_name":driversLicense.NameLast,
+                    "idcard_number":driversLicense.license,
+                    "idcard_type":"drivers License",
+                    "address":driversLicense.Address,
+                    "city":driversLicense.City,
+                    "state":driversLicense.State,
+                    "zip":driversLicense.Zip,
+                    "country":driversLicense.IdCountry,
+                    "expiration_date":driversLicense.ExpirationDate4,
+                    "issue_date":driversLicense.IssueDate4,
+                    "date_of_birth":driversLicense.DateOfBirth4,
+                    "sex":driversLicense.Sex,
+                    "eyes_color":driversLicense.Eyes,
+                    "hair_color":driversLicense.Hair,
+                    "height":driversLicense.Height,
+                    "weight":driversLicense.Weight,
+                    "dl_class":driversLicense.Class,
+                    "restriction":driversLicense.Restriction,
+                    "endorsements":driversLicense.Endorsements}
 
 
 
@@ -339,7 +340,7 @@
                         var base64FaceImage = goog.crypt.base64.encodeByteArray(faceImage);
                         // document.getElementById("faceImage").style.display = "inline";
                         $("#face-image").attr("src", "data:image/png;base64," + base64FaceImage);
-                         parsedata["face-image"] = "data:image/png;base64," + base64FaceImage;
+                         parsedata["face_image"] = "data:image/png;base64," + base64FaceImage;
                     }
 
                     var signImage = driversLicense.SignImage;
@@ -347,7 +348,7 @@
                         var base64SignImage = goog.crypt.base64.encodeByteArray(signImage);
                         //document.getElementById("signImage").style.display = "inline";
                         $("#signature-image").attr("src", "data:image/png;base64," + base64SignImage);
-                         parsedata["signature-image"] = "data:image/png;base64," + base64SignImage;
+                         parsedata["signature_image"] = "data:image/png;base64," + base64SignImage;
                     }
 
                     var reformattedImage = driversLicense.ReformattedImage;
@@ -357,7 +358,7 @@
                     }
 
 
-                    $.post( "/card_scans", {"card_scan[cssn_data]":parsedata}, function( data ) {
+                    $.post( "/card_scans", {"card_scan":parsedata}, function( data ) {
                         // alert(data.search ("success"));
                         if(data.indexOf("success")>=0){
 

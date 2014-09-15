@@ -3,26 +3,36 @@ class CardScan
   include Mongoid::Timestamps
   
   field :user_id, type: String
-  field :cssn_data, type: String
   field :card_status, type: String
-  field :name, type: String
-  field :dob, type: Time
-  field :id_number, type: String
-	field :passport_number, type: String
-	field :street, type: String
-	field :city, type: String
-	field :stateand_zip, type: String
-	field :country, type: String
-	field :address_verification, type: Boolean
-	field :issue_date, type: Time
-	field :expiration_date, type: Time
-	field :sex, type: String
+
+  field :first_name, type: String
+  field :middle_name
+  field :last_name
+  field :date_of_birth, type: Time
+  field :sex, type: String
+  field :eyes_color, type: String
+  field :hair_color, type: String
+  field :height, type: String
+  field :weight, type: String
+
+  field :address, type: String
+  field :city, type: String
+  field :state, type: String
+  field :zip, type: String
+  field :street, type: String
+  field :country, type: String
+  field :address_verification, type: Boolean
+
+  field :idcard_type, type: String
+  field :idcard_number, type: String
+  field :issue_date, type: Time
+  field :expiration_date, type: Time
+  
+  field :dl_class, type: String
+  field :restriction, type: String
+  field :endorsements, type: String
+
   field :face_image, type: String
   field :signature_image, type: String
-
-  def parse_cssn_data
-  	cssn_fields = %w(name dob id_number passport_number street city state_and_zip country expiration_date 
-                     address_verification issue_date sex face_image signature_image)
-	end
-	
+  
 end
