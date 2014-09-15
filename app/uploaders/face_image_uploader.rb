@@ -1,6 +1,6 @@
 # encoding: utf-8
 require "digest/md5"
-class ImageUploader < CarrierWave::Uploader::Base
+class FaceImageUploader < CarrierWave::Uploader::Base
 
   # Include CarrierWave direct uploader to background upload task.
   # include CarrierWaveDirect::Uploader
@@ -11,17 +11,10 @@ class ImageUploader < CarrierWave::Uploader::Base
   # include CarrierWave::MiniMagick
 
   # Include the Sprockets helpers for Rails 3.1+ asset pipeline compatibility:
-  include Sprockets::Helpers::RailsHelper
-  include Sprockets::Helpers::IsolatedHelper
+  # include Sprockets::Helpers::RailsHelper
+  # include Sprockets::Helpers::IsolatedHelper
 
   include CarrierWave::MimeTypes
-  process :set_content_type
-  #process resize_to_fill: [640, 480]
-  #process :resize_to_fit => [640, 480]
-  #process :quality => 100
-  # process :stamp
-  process :convert => 'jpg'
-
 
   before :store, :remember_cache_id
   after :store, :delete_tmp_dir
@@ -38,21 +31,19 @@ class ImageUploader < CarrierWave::Uploader::Base
     end
   end
   
-
-  version :thumb do
-    process :resize_to_fill => [300,300]
-  end
-
-  version :small do
-    process :resize_to_fill => [150,150]
-  end
-
+  process :set_content_type
+  process resize_to_fill: [640, 480]
+  #process :resize_to_fit => [640, 480]
+  process :quality => 90
+  # process :stamp
+  process :convert => 'jpg'
+  
   # Choose what kind of storage to use for this uploader:
   #storage :file
   storage :fog
 
   def store_dir
-    "development_uploads/#{model.class.to_s.underscore}/#{model.id}"
+    "development_uploads/#{model.class.to_s.underscore}/#{model.id}_face"
   end
 
   def extension_white_list
@@ -64,12 +55,12 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def fog_public
-    true
+    false
   end
 
-  # def fog_authenticated_url_expiration
-  #   4.minutes # in seconds from now,  (default is 10.minutes)
-  # end
+  def fog_authenticated_url_expiration
+    4.minutes # in seconds from now,  (default is 10.minutes)
+  end
 
   # def quality(percentage)
   #     manipulate! do |img|

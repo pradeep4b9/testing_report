@@ -8,9 +8,9 @@ Sidekiq.configure_server do |config|
   
   config.poll_interval = 15
 
-  config.server_middleware do |chain|
-    chain.add Kiqstand::Middleware
-  end
+  # config.server_middleware do |chain|
+  #   chain.add Kiqstand::Middleware
+  # end
 end
 
 Sidekiq.configure_client do |config|

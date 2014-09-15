@@ -27,12 +27,22 @@ class CardScansController < ApplicationController
   # POST /card_scans
   # POST /card_scans.json
   def create
-    Rails.logger.info params
+    # Rails.logger.info params
+    # Rails.logger.info("--------------------------")
+
     @card_scan = CardScan.new(card_scan_params)
-    
-    
+    face_image = card_images(params[:card_scan][:face_image], "face")
+    Rails.logger.info("-------Face_image-----#{File.new(face_image)}")
+    params[:card_scan][:face_image] = File.new(face_image)
+
+    signature_image = card_images(params[:card_scan][:signature_image], "signature")
+    # Rails.logger.info("-------signature_image-----#{signature_image}")
+
+    params[:card_scan][:signature_image] = File.new(signature_image)
+
     render text: @card_scan.save ? "success" : "Failed to save."
 
+    # render text: "OK"
     # respond_to do |format|
     #   if @card_scan.save
     #     format.html { redirect_to @card_scan, notice: 'Card scan was successfully created.' }
@@ -84,6 +94,17 @@ class CardScansController < ApplicationController
       params.require(:card_scan).permit(:user_id, :card_status, :first_name, :middle_name, :last_name, :address, :city, :state, 
         :zip, :street, :country, :expiration_date, :issue_date, :date_of_birth, :sex, :eyes_color, :hair_color, :height, 
         :weight, :dl_class, :restriction, :endorsements, :idcard_number, :idcard_type, :face_image, :signature_image)
+    end
+
+    def card_images(image_data, type)
+      face_image = "#{Rails.root}/tmp/#{type}_" + "1" + session[:session_id].to_s + '.png'
+      data = image_data #params[:image_data]
+      image_data = Base64.decode64(data['data:image/png;base64,'.length .. -1])
+
+      File.open(face_image, 'wb') do |f|
+        f.write image_data
+      end
+      face_image
     end
 end
 

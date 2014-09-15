@@ -1,6 +1,6 @@
 # encoding: utf-8
 require "digest/md5"
-class PhotoIdFaceUploader < CarrierWave::Uploader::Base
+class SignatureImageUploader < CarrierWave::Uploader::Base
 
   # Include CarrierWave direct uploader to background upload task.
   # include CarrierWaveDirect::Uploader
@@ -11,8 +11,8 @@ class PhotoIdFaceUploader < CarrierWave::Uploader::Base
   # include CarrierWave::MiniMagick
 
   # Include the Sprockets helpers for Rails 3.1+ asset pipeline compatibility:
-  include Sprockets::Helpers::RailsHelper
-  include Sprockets::Helpers::IsolatedHelper
+  # include Sprockets::Helpers::RailsHelper
+  # include Sprockets::Helpers::IsolatedHelper
 
   include CarrierWave::MimeTypes
 
@@ -32,9 +32,9 @@ class PhotoIdFaceUploader < CarrierWave::Uploader::Base
   end
   
   process :set_content_type
-  #process resize_to_fill: [640, 480]
+  # process resize_to_fill: [640, 480]
   #process :resize_to_fit => [640, 480]
-  #process :quality => 100
+  process :quality => 90
   # process :stamp
   process :convert => 'jpg'
   
@@ -43,7 +43,7 @@ class PhotoIdFaceUploader < CarrierWave::Uploader::Base
   storage :fog
 
   def store_dir
-    "development_uploads/#{model.class.to_s.underscore}/#{model.id}_face"
+    "development_uploads/#{model.class.to_s.underscore}/#{model.id}_signature"
   end
 
   def extension_white_list
