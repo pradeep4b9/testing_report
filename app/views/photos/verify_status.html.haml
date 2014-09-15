@@ -3,7 +3,7 @@
     = link_to image_tag("Go-Back.png"),"/"
     .title
       %span
-        - if @match_details["status"]
+        - if @match_details["status"] && @match_details["match_score"] > 30
           VERIFIED FACE
         - else
           FAILED TO VERIFY FACE
@@ -25,11 +25,16 @@
     %br/
     .row
       #div-controls.col-xs-12.col-sm-12.col-lg-12
-        - if @match_details["status"]
+        - if @match_details["status"] && @match_details["match_score"] > 30
           %h4
             MATCH SCORE: #{@match_details["match_score"]}%
           %br
-          = link_to "CONTINUE", "/voices/register", :class => "btn.btn-lg.btn-primary.btn-custom-sb"
+          = link_to "VOICE VERIFICATION", "/voices/register", :"data-no-turbolink" => ""
+        - else
+          = link_to "Click Here", "/photos/verify", :"data-no-turbolink" => ""
+          to try Face Match again. If not
+          = link_to "Click Here", "/voices/register", :"data-no-turbolink" => ""
+          to verify your Vocie.
 
     .row
       .col-xs-12

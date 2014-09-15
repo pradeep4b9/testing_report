@@ -68,6 +68,11 @@ class PhotosController < ApplicationController
   def canvas_capture
 
     Rails.logger.info params
+    
+    # File.open("#{Rails.root}/tmp/photo_123.jpg", 'wb') do |file|
+    #   file.write(params[:image_data])
+    # end
+
     render text: "ok"  
     # output_canvas_pic = "#{Rails.root}/tmp/" + session[:session_id].to_s + '.png'
     # data = params[:image_data]
@@ -92,6 +97,10 @@ class PhotosController < ApplicationController
   def verify
     @id_face = "https://s3-ap-southeast-2.amazonaws.com/myverifiedid-support/documents/52b2a3e9c36a5d8f3c000002_photo_id_image.jpg"
     @camera_photo = "https://s3-ap-southeast-2.amazonaws.com/myverifiedid-support/documents/kp_medium.jpg"
+    
+    @photo = Photo.create!(title: "Profile Image", user_id: "Testing123", tag_name: "123333@myverifiedid_photos",
+                           image: nil, captured: true )
+
     # @camera_photo = "https://s3-ap-southeast-2.amazonaws.com/myverifiedid-support/documents/52b29ce3c36a5d6636000001_photo_seal.jpg"
   end 
 
@@ -101,6 +110,10 @@ class PhotosController < ApplicationController
     @id_face = params[:id_face]
     @camera_photo = params[:camera_photo]
     @match_details = face_recognise_process(params[:id_face], params[:camera_photo])
+    @photo = Photo.where(id: params[:photo_id]).first
+    if @match_details["status"] && @match_details["match_score"] > 30
+      stamp(@photo)
+    end
   end
 
   private
@@ -111,7 +124,33 @@ class PhotosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
-      params.require(:photo).permit(:user_id, :image, :image_tmp, :verified)
+      params.require(:photo).permit(:user_id, :title, :description, :image, :remote_image_url, :image_tmp, :captured,
+                  :verified, :profile_picture, :tag_name, :tag_id, :photo_id_url)
+    end
+
+    def stamp(source_photo)
+      # source_img = Magick::Image.read(source_photo.image_url.to_s).first 
+      source_img = Magick::Image.read("https://s3-ap-southeast-2.amazonaws.com/myverifiedid-support/documents/kp_medium.jpg").first
+      stamp_path = File.join("app", "assets","images", "black-seal-stamp.png")
+
+      if File.exists?(stamp_path) # use existing stamp image
+        stamp_image = Magick::Image.read(stamp_path).first 
+        stamp_img = source_img.composite!(stamp_image, Magick::SouthEastGravity, Magick::OverCompositeOp)
+        # Other Gravities: SouthEastGravity, NorthGravity(centered), etc.    
+        # photo_seal = "#{Rails.root}/public/uploads/#{source_photo.user_id}_photo_seal.png"
+        photo_seal = "#{Rails.root}/public/uploads/#{source_photo.id}_photo_seal.png"
+        stamp_img.write(photo_seal)
+        
+        # old_profile_pics = current_user.photos.where(verified: true, profile_picture: true)
+        # if old_profile_pics.present? && old_profile_pics.count > 0
+        #   old_profile_pics.each do |p|
+        #     p.update_attributes(profile_picture: false)
+        #   end
+        # end
+
+        source_photo.update_attributes(profile_picture: true, verified: true, image: File.new("#{photo_seal}"))
+        sleep(5)
+      end      
     end
 
     def face_recognise_process(id_face, camera_photo)

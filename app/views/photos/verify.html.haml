@@ -26,6 +26,7 @@
       #div-controls.col-xs-12.col-sm-12.col-lg-12
         %input{:type => "hidden", :name => "id_face", :value => @id_face }
         %input{:type => "hidden", :name => "camera_photo", :value => @camera_photo }
+        %input{:type => "hidden", :name => "photo_id", :value => @photo.id }
         %button#verify_photo.btn.btn-lg.btn-primary.btn-custom-sb{:style => "", :type => "button"}
           PROCESS
     .row
