@@ -302,29 +302,24 @@
 
 
                     var parsedata = {
-                        "First Name":passport.NameFirst,
-                        "Middle Name":passport.NameMiddle,
-                        "Last Name":passport.NameLast,
-                        "First Name Non-MRZ":passport.NameFirst_NonMRZ,
-                        "Last Name Non-MRZ":passport.NameLast_NonMRZ,
-                        "Passport Number":passport.PassportNumber,
-                        "DOB":passport.DateOfBirth,
-                        "DOB Long":passport.DateOfBirth4,
-                        "Issue Date":passport.IssueDate,
-                        "Issue Date Long":passport.IssueDate4,
-                        "Expiration Date":passport.ExpirationDate,
-                        "Expiration Date Long":passport.ExpirationDate4,
-                        "Address":passport.Address2,
-                        "Address":passport.Address3,
-                        "Country Short":passport.Country,
-                        "Country Long":passport.CountryLong,
-                        "Personal Number":passport.PersonalNumber,
-                        "Nationality":passport.Nationality,
-                        "Nationality Long":passport.NationalityLong,
-                        "Sex":passport.Sex,
-                        "Place of Birth":passport.End_POB
+                        "first_name":passport.NameFirst,
+                        "middle_name":passport.NameMiddle,
+                        "last_name":passport.NameLast,
+                        "idcard_number":passport.PassportNumber,
+                        "idcard_type": "Passport",
+                        "date_of_birth":passport.DateOfBirth4,
+                        "issue_date":passport.IssueDate4,
+                        "expiration_date":passport.ExpirationDate4,
+                        "address":passport.Address2,
+                        "address":passport.Address3,
+                        "country":passport.CountryLong,
+                        "personal_number":passport.PersonalNumber,
+                        "sex":passport.Sex,
+                        "birth_place":passport.End_POB
                     }
                 }
+                
+
 
                 //Display face, sign and reformatted images on UI
                 var faceImage = passport.FaceImage;
@@ -332,7 +327,7 @@
                     var base64FaceImage = goog.crypt.base64.encodeByteArray(faceImage);
                     // document.getElementById("faceImage").style.display = "inline";
                     $("#face-image").attr("src", "data:image/png;base64," + base64FaceImage);
-                    parsedata["face-image"] = "data:image/png;base64," + base64FaceImage;
+                    parsedata["face_image"] = "data:image/png;base64," + base64FaceImage;
                 }
 
                 var signImage = passport.SignImage;
@@ -340,7 +335,7 @@
                     var base64SignImage = goog.crypt.base64.encodeByteArray(signImage);
                     // document.getElementById("signImage").style.display = "inline";
                     $("#signature-image").attr("src", "data:image/png;base64," + base64SignImage);
-                    parsedata["signature-image"] = "data:image/png;base64," + base64SignImage;
+                    parsedata["signature_image"] = "data:image/png;base64," + base64SignImage;
                 }
 
                 var reformattedImage = passport.ReformattedImage;
@@ -350,7 +345,7 @@
                 }
 
 
-                $.post( "/card_scans", {"card_scan[cssn_data]":parsedata}, function( data ) {
+                $.post( "/card_scans", {"card_scan":parsedata}, function( data ) {
                     // alert(data.search ("success"));
                     if(data.indexOf("success")>=0){
 
@@ -367,6 +362,7 @@
                 $('#loading').html("");
                 $("#div-controls").hide();
             }
+
         });
     });
 });
