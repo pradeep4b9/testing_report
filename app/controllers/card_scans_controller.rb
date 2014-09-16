@@ -30,9 +30,9 @@ class CardScansController < ApplicationController
   def create
     @card_scan = CardScan.new(card_scan_params)
 
-    @card_scan.issue_date = data_formater(params[:card_scan][:issue_date]) if params[:card_scan][:issue_date]
-    @card_scan.expiration_date = data_formater(params[:card_scan][:expiration_date]) if params[:card_scan][:expiration_date]
-    @card_scan.date_of_birth = data_formater(params[:card_scan][:date_of_birth]) if params[:card_scan][:date_of_birth]
+    @card_scan.issue_date = params[:card_scan][:issue_date].present? ? data_formater(params[:card_scan][:issue_date]) : nil
+    @card_scan.expiration_date = params[:card_scan][:expiration_date].present? ?  data_formater(params[:card_scan][:expiration_date]) : nil
+    @card_scan.date_of_birth = params[:card_scan][:date_of_birth].present? ? data_formater(params[:card_scan][:date_of_birth]) : nil
 
     @card_scan.face_image = File.open(card_images(params[:card_scan][:face_image], "face"))
     @card_scan.signature_image = nil #File.open(card_images(params[:card_scan][:signature_image], "signature"))
