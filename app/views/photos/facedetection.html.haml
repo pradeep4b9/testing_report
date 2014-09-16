@@ -19,10 +19,13 @@
       .col-xs-12.col-sm-12{:style =>"text-align:center;"}
         .container-camera
           #image-thumbnail.fileupload-preview.fileupload-exists.thumbnail{:style=>"line-height: 10px;position:relative;margin:0 auto;"}
-            = image_tag("test1.jpeg")  
+            - camera_image = Photo.last.present? ? Photo.last.image_url : "/"
+            / - if 
+            = image_tag(camera_image)  
           
+            - face_image = CardScan.last.present? ? CardScan.last.face_image_url : "/"
 
-            = image_tag("test.jpeg",:class => "idscan-img",:style =>"position:absolute;top:0;left:0;width:20%;padding:4px;")  
+            = image_tag(face_image,:class => "idscan-img",:style =>"position:absolute;top:0;left:0;width:20%;padding:4px;")  
             
 
     
