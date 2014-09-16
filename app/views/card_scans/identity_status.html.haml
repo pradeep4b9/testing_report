@@ -1,0 +1,78 @@
+- if session[:banner]
+  .banner-image
+    = image_tag("sixt.png") 
+
+
+%section.scan
+  %header
+    = link_to image_tag("Go-Back.png"),"/"
+    .title
+      %span
+        - if @card_scan.present?
+          IDENTITY VERIFIED
+        - else
+          IDENTITY NOT VERIFIED
+    = link_to image_tag("information.png"),"#"
+
+- if @card_scan.present?
+  .container
+    .starter-template
+      .row
+        .col-xs-12.col-sm-12.col-lg-12
+      .row
+        .col-xs-12.col-sm-12{:style =>"text-align:center;"}
+          .container-camera
+            #image-thumbnail.fileupload-preview.fileupload-exists.thumbnail{:style=>"line-height: 10px;position:relative;margin:0 auto;max-height:none;"}
+              .view-container
+                .span3
+                  %b
+                    VERIFICATION STATUS
+                .clear
+
+                .span2
+                  Identity      
+                .span2
+                  Verified with #{@card_scan.idcard_type}
+                .clear
+
+                .span3
+                  %b
+                    Your VERIFIED DETAILS
+                .clear   
+                .snd-container 
+                  .span2.first
+                    First Name:      
+                  .span2.last
+                    = @card_scan.first_name
+                  .clear
+
+                  .span2.first
+                    Last Name:      
+                  .span2.last
+                    = @card_scan.last_name
+                  .clear
+
+                  .span2.first
+                    Date Of Birth:
+                  .span2.last
+                    = @card_scan.date_of_birth
+                  .clear  
+
+                  .span2.first
+                    Country:    
+                  .span2.last
+                    = @card_scan.country
+                  .clear
+              .clear    
+            .clear
+      .row
+        %h4
+          = link_to "Face Match", "/photos/camera", :"data-no-turbolink" => ""
+      .row
+        .col-xs-12
+          #loading
+    #errorDiv{:style => "text-align: center; color: red;"}
+- else
+  %h4
+    Failed to verify the Identity. Try again by
+    = link_to "Click Here", card_scans_path, :"data-no-turbolink" => ""

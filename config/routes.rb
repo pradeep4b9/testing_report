@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       get 'driverslicense'
       get 'passport'
       get 'identitycard'
+      get 'identity_status'
     end
   end
 

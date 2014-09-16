@@ -15,7 +15,7 @@ class Photo
   field :tag_id, type: String
   field :photo_id_url, type: String
 
-  mount_uploader :image, FaceImageUploader
+  mount_uploader :image, ImageUploader
   store_in_background :image
 
   # has_one :photo_face, :dependent => :destroy
