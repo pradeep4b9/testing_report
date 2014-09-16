@@ -2,7 +2,6 @@ class PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :edit, :update, :destroy]
   protect_from_forgery
   layout "card_scans"
-  protect_from_forgery
 
   
   # GET /photos

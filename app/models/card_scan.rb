@@ -31,6 +31,8 @@ class CardScan
   field :dl_class, type: String
   field :restriction, type: String
   field :endorsements, type: String
+  field :birth_place, type: String
+  field :personal_number, type: String
 
   field :face_image, type: String
   field :face_image_tmp, type: String

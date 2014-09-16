@@ -1,3 +1,4 @@
+# require 'date'
 class CardScansController < ApplicationController
   before_action :set_card_scan, only: [:show, :edit, :update, :destroy]
   protect_from_forgery
@@ -27,24 +28,22 @@ class CardScansController < ApplicationController
   # POST /card_scans
   # POST /card_scans.json
   def create
-    # Rails.logger.info params
-    # Rails.logger.info("--------------------------")
-
     @card_scan = CardScan.new(card_scan_params)
+
+    @card_scan.issue_date = data_formater(params[:card_scan][:issue_date]) if params[:card_scan][:issue_date]
+    @card_scan.expiration_date = data_formater(params[:card_scan][:expiration_date]) if params[:card_scan][:expiration_date]
+    @card_scan.date_of_birth = data_formater(params[:card_scan][:date_of_birth]) if params[:card_scan][:date_of_birth]
+
     @card_scan.face_image = File.open(card_images(params[:card_scan][:face_image], "face"))
     @card_scan.signature_image = nil #File.open(card_images(params[:card_scan][:signature_image], "signature"))
     render text: @card_scan.save ? "success" : "Failed to save."
 
-    # render text: "OK"
-    # respond_to do |format|
-    #   if @card_scan.save
-    #     format.html { redirect_to @card_scan, notice: 'Card scan was successfully created.' }
-    #     format.json { render :show, status: :created, location: @card_scan }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @card_scan.errors, status: :unprocessable_entity }
-    #   end
-    # end
+  end
+
+  def data_formater(date)
+    date = date.split("-")
+    date = "#{date[1]}-#{date[0]}-#{date[2]}"
+    date = Date.parse date
   end
 
   # PATCH/PUT /card_scans/1
@@ -86,7 +85,8 @@ class CardScansController < ApplicationController
     def card_scan_params
       params.require(:card_scan).permit(:user_id, :card_status, :first_name, :middle_name, :last_name, :address, :city, :state, 
         :zip, :street, :country, :expiration_date, :issue_date, :date_of_birth, :sex, :eyes_color, :hair_color, :height, 
-        :weight, :dl_class, :restriction, :endorsements, :idcard_number, :idcard_type, :face_image, :signature_image)
+        :weight, :dl_class, :restriction, :endorsements, :idcard_number, :idcard_type, :face_image, :signature_image, :birth_place,
+        :personal_number)
     end
 
     def card_images(image_data, type)
