@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   devise_for :users
+  # devise_for :users, :controllers => {:registrations => "registrations", :confirmations => "confirmations"}
 
   resources :card_scans do
     collection do
