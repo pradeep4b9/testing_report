@@ -31,8 +31,8 @@
           %br
           = link_to "VOICE VERIFICATION", "/voices/register", :"data-no-turbolink" => ""
         - else
-          = link_to "Click Here", "/photos/verify", :"data-no-turbolink" => ""
-          to try Face Match again. If not
+          = link_to "Click Here", "/photos/camera?token=#{@card_id}", :"data-no-turbolink" => ""
+          to Capture Photo and try Face Match again. If not
           = link_to "Click Here", "/voices/register", :"data-no-turbolink" => ""
           to verify your Vocie.
 

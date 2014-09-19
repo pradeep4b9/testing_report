@@ -37,13 +37,12 @@ class CardScansController < ApplicationController
     @card_scan.face_image = File.open(card_images(params[:card_scan][:face_image], "face"))
     @card_scan.signature_image = nil #File.open(card_images(params[:card_scan][:signature_image], "signature"))
     if @card_scan.save
-      sleep(5)
-      flash[:notice] = "Your Identity has been verified successfully"
+      # sleep(5)
       render text: "success|#{@card_scan.id}"
       # redirect_to identity_status_card_scans_path(token: @card_scan.id)
     else
-      flash[:alert] = "Failed to verify the Identity. Try again or use another Identity"
-      redirect_to card_scans_path
+      render text: "failure"
+      # redirect_to card_scans_path
     end
     # render text: @card_scan.save ? "success" : "Failed to save."
 

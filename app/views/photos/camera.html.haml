@@ -52,6 +52,7 @@
     %br/
     .row
       #div-controls.col-xs-12.col-sm-12.col-lg-12
+        %input{:type => "hidden", :id => "token", :value => @identity_id}
         %button#btn-process-image-cam.btn.btn-lg.btn-primary.btn-custom-sb{:style => "", :type => "button"}
           Confrim
     .row

@@ -361,8 +361,8 @@
                     $.post( "/card_scans", {"card_scan":parsedata}, function( data ) {
                         // alert(data.search ("success"));
                         if(data.indexOf("success")>=0){
-
-                             location.href = "/photos/camera";
+                             var cam_data = data.split("|");
+                             location.href = "/card_scans/identity_status?token="+cam_data[1];
                         }
                     });
                 }

@@ -64,9 +64,14 @@ class PhotosController < ApplicationController
     end
   end
 
+  def camera
+    @identity_id = params[:token]
+    puts "identity_id"
+    puts @identity_id
+  end
+
   def canvas_capture
     Rails.logger.info params
-    
     # File.open("#{Rails.root}/tmp/photo_123.jpg", 'wb') do |file|
     #   file.write(params[:image_data])
     # end
@@ -91,26 +96,31 @@ class PhotosController < ApplicationController
     # render text: "/" + session[:session_id].to_s + '.jpg'
     @photo = Photo.new
     @photo.image = File.open(camera_image(params[:image_data]))
-    render text: @photo.save ? "Success" : "Failure"
+    render text: @photo.save ? "success|#{params[:token]}|#{@photo.id}" : "Failure"
   end
 
   def verify
-    @id_face = "https://s3-ap-southeast-2.amazonaws.com/myverifiedid-support/documents/52b2a3e9c36a5d8f3c000002_photo_id_image.jpg"
-    @camera_photo = "https://s3-ap-southeast-2.amazonaws.com/myverifiedid-support/documents/kp_medium.jpg"
-    
-    @photo = Photo.create!(title: "Profile Image", user_id: "Testing123", tag_name: "123333@myverifiedid_photos",
-                           image: nil, captured: true )
+    sleep(5)
+    @card_details = CardScan.where(id: params[:token1]).last
+    if @card_details.present?
+      @id_face = @card_details.face_image_url.to_s      
+    end
 
-    # @camera_photo = "https://s3-ap-southeast-2.amazonaws.com/myverifiedid-support/documents/52b29ce3c36a5d6636000001_photo_seal.jpg"
+    @photo_details = Photo.where(id: params[:token2]).last
+    if @photo_details.present?
+      @camera_photo = @photo_details.image_url.to_s      
+    end
+    
   end 
 
   def verify_status
     puts "coming to verify_status"
     puts params.inspect
+    @card_id = params[:token1]
     @id_face = params[:id_face]
     @camera_photo = params[:camera_photo]
     @match_details = face_recognise_process(params[:id_face], params[:camera_photo])
-    @photo = Photo.where(id: params[:photo_id]).first
+    @photo = Photo.where(id: params[:token2]).first
     if @match_details["status"] && @match_details["match_score"] > 30
       stamp(@photo)
     end

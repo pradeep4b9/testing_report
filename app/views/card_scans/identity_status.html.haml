@@ -23,19 +23,14 @@
         .col-xs-12.col-sm-12{:style =>"text-align:center;"}
           .container-camera
             #image-thumbnail.fileupload-preview.fileupload-exists.thumbnail{:style=>"line-height: 10px;position:relative;margin:0 auto;max-height:none;"}
-              .view-container
-                .span3
-                  %b
-                    VERIFICATION STATUS
-                .clear
-
+              .view-container{:style => "width:96%;padding:1%;"}
                 .span2
                   Identity      
                 .span2
                   Verified with #{@card_scan.idcard_type}
                 .clear
-
-                .span3
+                %br
+                .span3{:style =>"text-align:center"}
                   %b
                     Your VERIFIED DETAILS
                 .clear   
@@ -55,7 +50,7 @@
                   .span2.first
                     Date Of Birth:
                   .span2.last
-                    = @card_scan.date_of_birth
+                    = @card_scan.date_of_birth.strftime("%d/%m/%Y")
                   .clear  
 
                   .span2.first
@@ -65,9 +60,11 @@
                   .clear
               .clear    
             .clear
+            %br
       .row
         %h4
-          = link_to "Face Match", "/photos/camera", :"data-no-turbolink" => ""
+          %button#btn.btn-lg.btn-primary.btn-custom-sb{:style => "", :type => "button" ,:onclick => "javascript:window.location ='/photos/camera?token=#{@card_scan.id}'"}
+            Face Match
       .row
         .col-xs-12
           #loading
