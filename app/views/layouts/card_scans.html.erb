@@ -32,6 +32,12 @@
           <li class="active"><a data-no-turbolink  href="/">Identity Verification</a></li>
           <li><a href="/photos/verify" data-no-turbolink >Face Verification</a></li>
           <li><a href="/voices/register" data-no-turbolink >Voice Biometric Verification</a></li>
+          <% if current_user %>
+            <li><%= link_to "Logout", destroy_user_session_path, :method=>'delete' %></li>
+          <% else %>
+            <li> <%= link_to "Login" , new_user_session_path %>
+            <%= link_to "Sign up", new_registration_path(User.new) %></li>
+          <% end %>
         </ul>
       </div><!-- /.navbar-collapse -->
     </nav>

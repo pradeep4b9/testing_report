@@ -1,4 +1,3 @@
-# require 'date'
 class CardScansController < ApplicationController
   before_action :set_card_scan, only: [:show, :edit, :update, :destroy]
   protect_from_forgery
