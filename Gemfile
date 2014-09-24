@@ -16,7 +16,7 @@ gem 'symmetric-encryption', '~> 3.4.0'
 
 #User Auth
 gem 'devise'
-gem "devise-async", "~> 0.7.0"
+gem "devise-async"
 
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
@@ -34,7 +34,7 @@ gem 'countries'
 
 #Upload Photos
 # install dependency on ubuntu > sudo apt-get install imagemagick libmagickwand-dev
-gem "rmagick", "~> 2.13.2" 
+gem "rmagick", "~> 2.13.2"
 gem "carrierwave-mongoid" #, "~> 0.5.0", :require => 'carrierwave/mongoid'
 gem "carrierwave_backgrounder" #, "~> 0.2.1"
 gem "fog" #, "~> 1.3.1"
@@ -71,10 +71,10 @@ group :development do
   gem 'quiet_assets'
   gem 'rails_layout'
   gem 'spring'
-  
+
   gem "sinatra", require: false
   gem "slim", "~> 1.3.8"
-  
+
 end
 
 group :development, :test do

@@ -354,7 +354,7 @@ DEPENDENCIES
   countries
   database_cleaner
   devise
-  devise-async (~> 0.7.0)
+  devise-async
   face (~> 0.1.0)!
   factory_girl_rails
   faker

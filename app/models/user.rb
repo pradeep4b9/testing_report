@@ -4,7 +4,7 @@ class User
   include Mongoid::Slug
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :timeoutable, :lockable,
+  devise :database_authenticatable, :registerable, :timeoutable, :lockable, :async,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   ## Database authenticatable
@@ -35,11 +35,11 @@ class User
   field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
   field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   field :locked_at,       type: Time
-  
+
   field :first_name, type: String
   field :last_name, type: String
   field :terms_of_service, type: Boolean, default: false
 
-  
+
 
 end
