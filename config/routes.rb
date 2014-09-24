@@ -3,6 +3,12 @@ Rails.application.routes.draw do
   # devise_for :users
   devise_for :users, :controllers => {:registrations => "registrations", :confirmations => "confirmations"}
 
+  resources :users do
+    collection do
+      get 'email_confirmation'
+    end
+  end
+
   resources :card_scans do
     collection do
       get 'driverslicense'
@@ -35,6 +41,7 @@ Rails.application.routes.draw do
   resources :profiles
   
   root 'card_scans#index'
+
   get 'sixt' => 'card_scans#index', as: :sixt
 
 end

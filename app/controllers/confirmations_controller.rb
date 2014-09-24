@@ -1,37 +1,5 @@
 class ConfirmationsController < Devise::ConfirmationsController
 
-  def confirm_account
-    self.resource = resource_class.confirm_by_token(params[:confirmation_token])
-
-    if resource.errors.empty?
-      @user = resource
-      @generated_password = Devise.friendly_token.first(8)
-      @user.password = @generated_password
-      @user.password_confirmation = @generated_password 
-      @user.save
-      
-      @mail_details = {"token" => @user.id, "password" => @generated_password}
-      #UserMailer.delay.user_login_details(@user, @generated_password)
-      #UserMailer.user_login_details(@mail_details).deliver
-      NotificationWorker.perform_async("user_login_details", @mail_details)
-      set_flash_message(:notice, :confirmed) if is_navigational_format?
-      sign_in(resource_name, resource)
-      respond_with_navigational(resource){ redirect_to after_confirmation_path_for(resource_name, resource) }
-    else
-      if session[:plan]
-        if @user.is_pcloud.eql?("yes")
-          respond_with_navigational(resource.errors, :status => :unprocessable_entity){ redirect_to private_cloud_registration_path }
-        else
-          respond_with_navigational(resource.errors, :status => :unprocessable_entity){ redirect_to premium_registration_path }
-        end
-      else
-        respond_with_navigational(resource.errors, :status => :unprocessable_entity){ render :new }
-      end
-    end
-
-  end
-
-
   # GET /resource/confirmation/new
   def new
     # build_resource({})
@@ -81,12 +49,23 @@ class ConfirmationsController < Devise::ConfirmationsController
     self.resource = resource_class.confirm_by_token(params[:confirmation_token])
 
     if resource.errors.empty?
+      @user = resource
+      @generated_password = Devise.friendly_token.first(8)
+      @user.password = @generated_password
+      @user.password_confirmation = @generated_password 
+      @user.save
+      
+      @mail_details = {"token" => @user.id, "password" => @generated_password}
+      # UserMailer.delay.user_login_details(@user, @generated_password)
+      UserMailer.user_login_details(@mail_details).deliver
+      # NotificationWorker.perform_async("user_login_details", @mail_details)
       set_flash_message(:notice, :confirmed) if is_navigational_format?
       sign_in(resource_name, resource)
       respond_with_navigational(resource){ redirect_to after_confirmation_path_for(resource_name, resource) }
     else
       respond_with_navigational(resource.errors, :status => :unprocessable_entity){ render :new }
     end
+    
   end
 
   protected
