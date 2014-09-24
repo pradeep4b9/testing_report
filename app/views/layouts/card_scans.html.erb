@@ -35,8 +35,8 @@
           <% if current_user %>
             <li><%= link_to "Logout", destroy_user_session_path, :method=>'delete' %></li>
           <% else %>
-            <li> <%= link_to "Login" , new_user_session_path %>
-            <%= link_to "Sign up", new_registration_path(User.new) %></li>
+            <li> <%= link_to "Login" , new_user_session_path %></li>
+            <li><%= link_to "Sign up", new_registration_path(User.new) %></li>
           <% end %>
         </ul>
       </div><!-- /.navbar-collapse -->

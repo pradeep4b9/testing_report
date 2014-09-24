@@ -68,7 +68,10 @@ div#placehold-image-cam{ color: #70ae3b;
   }
   .banner-image img{width: 100%;}
   .voice-scan .voice-container div.block{width: 75%;}
+body .sign-up-form input[type="text"],body .sign-up-form input[type="email"]{padding: 10px;width:88%;border: 1px solid #d1d1d1;margin: 5px auto; }
 
+body .sign-in-form .form-inputs{width: 95%;text-align: center;margin: 0 auto}
+.sign-in-form h2{font-size: 20px;}
 }
 
 .banner-image{background: #000;padding: 20px;text-align: center;}
@@ -92,3 +95,83 @@ button:hover.btn-custom-sb{background: #fff;border: 1px solid #6caa37;color:#70A
 
 .snd-container{float: right;width:100%;}
 .snd-container .span3{text-align: left;}
+body.wht-bg {background: #fff!important;}
+.sign-up-form{background: #fff;}
+.sign-up-form h2{text-align: center!important;text-transform: uppercase;font-size: 42px;color: #129ce0;font-family: Times New Roman}
+.sign-up-form input[type="text"],.sign-up-form input[type="email"]{padding: 10px;width:35%;border: 1px solid #d1d1d1;margin: 5px auto; }
+.sign-up-form .form-inputs .control-text{text-align: center;}
+.sign-up-form .control-group-text{text-align: center; }
+.control-group-text a{background: transparent;text-decoration: underline;}
+.control-group-text a:hover{background: transparent;text-decoration: underline;color: #000  }
+.control-group-text input[type="checkbox"]{}
+.sign-up-form .btn-lightgreen{    background: none repeat scroll 0 0 #70ae3b;
+    border: 1px solid #78b435;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-size: 18px;
+    line-height: 20px;
+    margin-bottom: 0;
+    margin-top: 5px;
+    padding: 11px 16px;
+    text-align: center;
+    vertical-align: middle;}
+
+    body #popup{
+
+    background-color: #FFFFFF;
+    border-radius: 2px;
+    box-shadow: 0 0 0px 3px #ccc;
+    color: #111111;
+    display: none;
+   /* min-width: 450px;*/
+    padding: 20px;
+
+}
+
+body #popup .span5,.popup .span5{
+
+    padding:0px;
+    margin:0px;
+}
+
+body #popup  h3,.popup  h3{
+
+    color:#AEC71E;
+    font-family: "arial";
+    font-weight:600 !important;
+
+}
+
+body #popup .button.b-close, .button.bClose ,.popup .button.b-close{
+    border-radius: 3px;
+    box-shadow: none;
+    font: bold 131% sans-serif;
+    padding: 0 6px 2px;
+    position: absolute;
+    right: -7px;
+    top: -7px;
+    background-color: #6CAF45 !important;
+}
+body #popup .button,.popup .button{
+    background-color: #666;
+    border-radius: 0px;
+   font-weight: 600;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+
+    }
+.sign-in-form{background: #70ae3b;width: 95%;margin: 15px auto;padding: 15px;text-align: center;border-radius: 5px;}
+.sign-in-form input[type ="email"],.sign-in-form input[type ="password"]{width:100%;padding: 10px;border: 1px solid #d1d1d1;margin: 5px auto; border-radius: 5px;}
+.sign-in-form h2{color: #fff;}
+.sign-in-form .form-inputs{width: 35%;text-align: center;margin: 0 auto}
+.sign-in-form .checkbox{text-align: left;color: #fff;}
+
+.sign-in-form .btn{color: #70ae3b;padding:5px 35px; }

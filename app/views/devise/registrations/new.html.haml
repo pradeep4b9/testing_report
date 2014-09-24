@@ -1,12 +1,57 @@
-%h2 Sign up
-= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = f.error_notification
-  .form-inputs
-    = f.input :first_name, required: true, autofocus: true
-    = f.input :last_name, required: true, autofocus: true
-    = f.input :email, required: true, autofocus: true
-    / # = f.input :password, required: true
-    / # = f.input :password_confirmation, required: true
-  .form-actions
-    = f.button :submit, "Sign up"
-= render "devise/shared/links"
+.sign-up-form
+  %h2 My Store
+
+  %section.scan
+    %header
+      = link_to image_tag("Go-Back.png"),"/"
+      .title
+        %span
+          Create Profile
+      = link_to image_tag("information.png"),"#"
+  %hr    
+  = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+    = f.error_notification
+    .form-inputs
+      .control-text
+        = f.input :first_name, required: true, autofocus: true, label: false, placeholder: "First Name"
+      .control-text
+        = f.input :last_name, required: true, autofocus: true, label: false, placeholder: "Last Name"
+      .control-text
+        = f.input :email, required: true, autofocus: true, label: false, placeholder: "Email Address"
+      / # = f.input :password, required: true
+      / # = f.input :password_confirmation, required: true  
+    .control-group-text
+      = f.check_box :terms_of_service, :class => "required chk_term_condition", :style =>"width:auto !important;height:auto;"
+      &nbsp;&nbsp;By creating an account, I accept My Verified ID
+      %br
+
+      = link_to("Terms of Service", "terms_of_services_path", :href => "javascript:void(0)" , :class =>"termsandcondpopup")
+      and 
+      = link_to("Privacy Policy", "privacy_policy_path", :href => "javascript:void(0)", :class =>"policypopup")
+
+       
+    .text-center
+      %br
+      %br
+      %button.btn.btn-lightgreen{:name => "button", :type => "submit"} Create Account
+      / .form-actions
+      /   = f.button :submit, "Sign up"
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+
+  #popup.largetext
+    %span.button.b-close
+      %span x
+    .privacypolicy{:style =>"display:none"}
+      / = render "payment/privacy"
+
+    .termspolicy{:style =>"display:none"}  
+      / = render "payment/terms"
+        
+
+

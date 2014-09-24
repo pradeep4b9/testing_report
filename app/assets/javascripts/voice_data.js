@@ -28,6 +28,22 @@ $(document).ready(function(){
       document.forms["formSubmit"].submit();
      
      }
-  });          
+  });         
+
+         jQuery(".policypopup,.termsandcondpopup").click(function () {
+          if(jQuery(this).hasClass('policypopup')){
+            jQuery(".termspolicy").hide();
+            jQuery(".privacypolicy").show();
+          }else{
+            jQuery(".termspolicy").show();
+            jQuery(".privacypolicy").hide();        
+          }
+        jQuery('#popup').bPopup({
+              speed: 300,
+              transition: 'fadeIn'
+          });
+
+          });
+ 
 
 })

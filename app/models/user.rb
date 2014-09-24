@@ -38,6 +38,7 @@ class User
   
   field :first_name, type: String
   field :last_name, type: String
+  field :terms_of_service, type: Boolean, default: false
 
   
 

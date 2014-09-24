@@ -16,4 +16,5 @@
 //= require voice_data
 //= require mobilecam
 //= require camera
+//= require jquery.bpopup.min
 
