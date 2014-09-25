@@ -38,6 +38,15 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :mobile_numbers do
+    collection do
+      get 'register'
+      post 'submit_register'
+      get 'verify'
+      post 'submit_verify'
+    end
+  end 
+
   resources :profiles
   
   root 'card_scans#index'

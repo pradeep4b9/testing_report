@@ -1,0 +1,65 @@
+.sign-up-form
+  %section.scan
+    %header
+      = link_to image_tag("Go-Back.png"),"/"
+      .title
+        %span
+          Verify Mobile
+      = link_to image_tag("information.png"),"#"
+  %hr    
+  = simple_form_for(Profile.new, :url => {:controller => "mobile_numbers", :action => :submit_register }) do |f|
+    = f.error_notification
+    .form-inputs
+      .control-text
+        = f.input :gender, label: false, collection: ["Male", "Female"].map { |value| value}, prompt: "Select Gender"
+      .control-text
+        = f.input :country, label: false, collection: MviCountry.order_by([:country_name, :asc]).map { |value| value.country_name}, prompt: "Select Country"
+      .control-text
+        = f.input :mobile_ctry_code, label: false,:placeholder => "+00"
+        = f.input :mobile_number, label: false,:placeholder => "Mobile Phone Number", :size => "50", :type => "text"
+
+    .text-center
+      %br
+      %br
+      %button.btn.btn-lightgreen{:name => "button", :type => "submit"} Verify Mobile
+      / .form-actions
+      /   = f.button :submit, "Sign up"
+      %br
+
+
+/ = simple_form_for(Profile.new, :url => {:controller => "mobile_numbers", :action => :submit_register }, :method => "post") do |f|
+/   .control-group
+/     .controls
+/       = f.input :gender, label: false, collection: ["Male", "Female"].map { |value| value}, prompt: "Select Gender", input_html: {:class => "required medium", :value => params[:gender]} ,:selected => params[:gender]
+
+/   .control-group
+/     .controls
+/       = f.input :country, label: false, collection: MviCountry.order_by([:country_name, :asc]).map { |value| value.country_name}, prompt: "Select Country", input_html: {:class => "required medium ctry_code", :value => params[:country]} ,:selected => params[:country]
+
+/   .control-group
+/     .controls.info-controls
+/       = image_tag("info-input-grey.png",:class =>"info-icon");
+/       .controls-code
+/         = f.input :mobile_ctry_code, label: false,:placeholder => "+00",:class =>"country-code-cls", input_html: {:disabled => "disabled"}
+/         = f.input :mobile_number, label: false,:placeholder => "Mobile Phone Number", :size => "50", :type => "text", input_html: {:class => "required digits medium phone_strt phone_au country-mobile-cls", :value => params[:mobile_number]}
+/   .text-center
+/     %button.btn-lightgreen.btn-lng{:name => "button", :type => "submit"} Confirm
+
+/ :javascript
+/     jQuery.fn.set_country_code = function(options) {  
+/       jQuery.post( "/country_code.json",{ country: options.country_code}, function( data ) {
+/         if(data.code.length == 1){
+/           data.code = "0"+data.code.toString()
+/         }
+/         jQuery('.profile_mobile_ctry_code input').val("+"+data.code);
+/        });    
+/     }
+
+/     if(jQuery(".ctry_code").val()!=""){
+/       jQuery(".ctry_code").set_country_code({country_code:jQuery(".ctry_code").val()});     
+/     }
+
+
+/     jQuery(".ctry_code").live('change',function(){
+/       jQuery(".ctry_code").set_country_code({country_code:jQuery(".ctry_code").val()});   
+/     });
