@@ -8,5 +8,7 @@ class Profile
   field :dob, type: String
   field :mobile_number, type: String
   field :profile_picture, type: String
-  
+  field :gender, type: String
+  field :country, :type => String
+  field :mobile_ctry_code, :type => String
 end
