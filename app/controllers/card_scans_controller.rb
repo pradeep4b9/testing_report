@@ -35,7 +35,15 @@ class CardScansController < ApplicationController
 
     @card_scan.face_image = File.open(card_images(params[:card_scan][:face_image], "face"))
     @card_scan.signature_image = nil #File.open(card_images(params[:card_scan][:signature_image], "signature"))
-    render text: @card_scan.save ? "success" : "Failed to save."
+    if @card_scan.save
+      # sleep(5)
+      render text: "success|#{@card_scan.id}"
+      # redirect_to identity_status_card_scans_path(token: @card_scan.id)
+    else
+      render text: "failure"
+      # redirect_to card_scans_path
+    end
+    # render text: @card_scan.save ? "success" : "Failed to save."
 
   end
 
@@ -67,6 +75,10 @@ class CardScansController < ApplicationController
       format.html { redirect_to card_scans_url, notice: 'Card scan was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def identity_status
+    @card_scan = CardScan.where(id: params[:token]).last
   end
 
   def passport; end

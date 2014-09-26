@@ -18,7 +18,6 @@
           
 
             = image_tag(@id_face,:class => "idscan-img",:style =>"position:absolute;top:0;left:0;width:20%;padding:4px;")  
-            
 
     
     %br/
@@ -26,6 +25,8 @@
       #div-controls.col-xs-12.col-sm-12.col-lg-12
         %input{:type => "hidden", :name => "id_face", :value => @id_face }
         %input{:type => "hidden", :name => "camera_photo", :value => @camera_photo }
+        %input{:type => "hidden", :name => "token1", :value => @card_details.id }
+        %input{:type => "hidden", :name => "token2", :value => @photo_details.id }
         %button#verify_photo.btn.btn-lg.btn-primary.btn-custom-sb{:style => "", :type => "button"}
           PROCESS
     .row

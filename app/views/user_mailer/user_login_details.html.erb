@@ -1,0 +1,87 @@
+<%= render "devise/mailer/header" %>
+
+    <div style='margin:0 auto;display:block;width:100%;color#333333'>
+      <div align='center' style='background-color:black;height:100px;width:800px;margin:0 auto'>
+        <a target="_blank" href="<%= root_url %>"> <img align='left' alt='My Verified Id' src='<%= root_url %>/assets/logo.png' style='padding-left:39px;padding-top:19px;width:200px;' title='My Verified Id'>
+         </a> 
+      </div>
+      <div align='center' style='background-color:#E8E8E8;height:auto;width:800px;margin:0 auto;padding-top:25px;padding-bottom:28px'>
+        <div style='border:1px solid #B0B0B0;padding:10px 40px; background:#dddddd;width:580px;height:auto;border-radius:10px;padding-top:30px;padding-bottom:10px;background-color:white;line-height:24px;'>
+          <p style="font-family:'arial'"></p>
+          <div align='center' width='12px'>
+            <font color='#333333' size='5px'>
+              <b>My Verified ID login details</b>
+            </font>
+          </div>
+          <br />
+          <div align='left' style='font-size:15px;color:#333'>
+            <div style='color:#333'>
+              <br />
+              <font color='#333' size='4px'>
+                <b><i>Hi <%= @user.first_name.downcase.camelize %>,</i></b>
+              </font>
+            </div>
+            <p style ="margin-bottom:8px">
+            Welcome to My Verified ID. 
+            </p>
+            <p style ="margin-bottom:8px">
+              Your email has been confirmed.
+            <p/>
+            <p style ="margin-bottom:8px">
+              Following are your login details: 
+            <br />
+            
+            Login email:  <a href='mailto:<%=@email%>' style='color:#333333;text-decoration:none;font-size: 17px;' target='_blank'><b><%=@email%></b></a>
+            <br />
+            Login password: <b style="font-size: 17px;"><%=@password%></b>
+            <i>(case sensitive)</i>
+            <p/>
+            <p style ="margin-bottom:8px">
+              You can login to My Verified Id by clicking the link below: 
+            <br />
+            <a href=<%= new_user_session_url %>  style="color:#333333;text-decoration:underline;" >Login to My Verified ID</a> 
+            <p/>
+            <p style="color#333333!important;margin-bottom:8px;">
+              Please do not reply to this email, if you need any assistance visit our <a href='http://support.myverifiedid.com/support/home' style='color:#333333;text-decoration:underline;' target='_blank'>support</a> site.
+            </p> 
+        
+            <div style='color:#333'>
+              <b>
+                Best Regards,
+                <br />
+              </b>
+              <div width='1px'></div>
+              <i>
+                <b>
+                  <font color='#333'>
+                    My<font color='333'>Verified</font>ID Team
+                  </font>
+                </b>
+              </i>
+              <br />
+              <a href='http://www.myverifiedid.com/' style='color:#333;text-decoration:underline;' target='_blank' >www.myverifiedid.com</a>
+              
+            <br />
+            <br />
+            <b>
+            For more information visit:
+            </b>
+            <br />
+            <a href='http://support.myverifiedid.com/support/home' style='color:#333333;text-decoration:underline' target='_blank'>Support</a>
+             | 
+            <a href='https://twitter.com/MyVerifiedid' style='color:#333333;text-decoration:underline' target='_blank'>Twitter</a>
+             | 
+            <a href='https://www.facebook.com/pages/Myverifiedid/525431920848425' style='color:#333333;text-decoration:underline' target='_blank'>Facebook</a>
+             | 
+            <a href='https://plus.google.com/111864052671618351057' style='color:#333333;text-decoration:underline' target='_blank'>Google+</a>
+             | 
+            <a href='https://www.linkedin.com/company/my-verified-id-limited' style='color:#333333;text-decoration:underline' target='_blank'>LinkedIn</a>
+             | 
+            <a href='http://myverifiedid.net/' style='color:#333333;text-decoration:underline' target='_blank'>Blog</a>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+<%= render "devise/mailer/footer" %>

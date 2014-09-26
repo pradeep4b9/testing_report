@@ -4,11 +4,20 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
-    generated_password = Devise.friendly_token.first(8)
-    params[:user][:password] = params[:user][:password_confirmation] = generated_password
     user = User.new(user_params)
-    sign_in(:user, user) if user.save
-    redirect_to root_path
+
+    if user.save!
+      puts "im in user save ---------------"
+      redirect_to :controller => "users", :action => 'email_confirmation', :id => user.id
+    else
+      error_message = user.errors["error_message"]
+      if error_message.present?
+        flash[:alert] = "#{error_message.join(", ")} !"
+      else
+        flash[:alert] = "Email already registered!"
+      end
+      redirect_to new_user_registration_path
+    end
   end
 
   def update
@@ -23,7 +32,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   private
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :terms_of_service)
     end
 
-end 
+end

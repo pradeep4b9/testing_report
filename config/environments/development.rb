@@ -35,19 +35,20 @@ Rails.application.configure do
   # ActionMailer Config
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   # A dummy setup for development - no deliveries, but logged
+  # Setup for production - deliveries, no errors raised
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = false
+  config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
 
   config.action_mailer.smtp_settings = {
-    :address              => "smtp.gmail.com",
-    :port                 => 587,
-    :domain               => 'myverifiedid.com',
-    :user_name            => 'notifications@myverifiedid.com',
-    :password             => 'Dev@Team2013',
-    :authentication       => 'plain',
-    :enable_starttls_auto => true  
+    :address => "email-smtp.us-east-1.amazonaws.com",
+    :port => 587,
+    :domain => 'myverifiedid.com',
+    :user_name => 'AKIAIFV3PBD33SUIL2KA',
+    :password => 'AjHxW/82XNOrAsZf7RHtrO++y68aC2L3ZWq2FUjXb2f3',
+    :authentication => :login,
+    :enable_starttls_auto => true
   }
 
 end

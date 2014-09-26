@@ -1,5 +1,5 @@
 # Add account credentials and API keys here.
-
+EMAIL_NOTIFICATION: "notifications@myverifiedid.com"
 # VIGO API details
 CALL_REFERENCE: "1234567"
 VIGO_LANGUAGE: "EnglishUnitedStates"

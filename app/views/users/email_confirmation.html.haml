@@ -1,0 +1,37 @@
+.container
+  .row{:style => "margin-left:0px"}
+    .span12.user-section.form-sign-nw
+      .span12.front-form.confirm-email{:style =>"margin-left:0px;"}
+        .well.custom-front-form.rounder{:style => "width:auto;"}
+          %h2.sub-title
+            EMAIL VERIFICATION
+          %h3
+            Please confirm your email to get access to your identity management dashboard  
+          .span10.rg-list{:style =>"color:#000;"}
+            %div
+              %span
+                An email confirmation has been sent to your email address:
+              %p 
+                %b
+                  "#{@user.email}"
+                %br
+                %br
+                Please check in your 
+                %b
+                  INBOX
+                or 
+                %b
+                  SPAM 
+                folder. If it is in SPAM please mark it as NOT SPAM. 
+            %div
+              %span
+                Login Details
+              %p
+                Once your email is confirmed, your account will be created and we will send your login details to your email.
+            %div
+              %span
+                IF YOU DIDN'T RECEIVE A CONFIRMATION EMAIL, PLEASE CLICK ON THE LINK
+              %p
+                = link_to t("user.resend_confirmation"), new_confirmation_path(@user), :class => "resendconfirm"  
+          .clear       
+

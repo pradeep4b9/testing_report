@@ -64,24 +64,66 @@ class PhotosController < ApplicationController
     end
   end
 
+  def camera
+    @identity_id = params[:token]
+    puts "identity_id"
+    puts @identity_id
+  end
+
   def canvas_capture
+    Rails.logger.info params
+    # File.open("#{Rails.root}/tmp/photo_123.jpg", 'wb') do |file|
+    #   file.write(params[:image_data])
+    # end
+
+    # output_canvas_pic = "#{Rails.root}/tmp/" + session[:session_id].to_s + '.png'
+    # data = params[:image_data]
+    # image_data = Base64.decode64(data['data:image/png;base64,'.length .. -1])
+
+    # File.open(output_canvas_pic, 'wb') do |f|
+    #   f.write image_data
+    # end
+
+    # source = Magick::Image.read(output_canvas_pic).first
+    # source = source.resize_to_fill(465, 480).write(output_canvas_pic)
+
+    # i = Magick::Image.read(output_canvas_pic ).first
+    # i.write( "#{Rails.root}/tmp/" + session[:session_id].to_s + '.jpg' ) do
+    #   self.format = 'JPEG'
+    #   self.quality = 90
+    # end
+
+    # render text: "/" + session[:session_id].to_s + '.jpg'
     @photo = Photo.new
     @photo.image = File.open(camera_image(params[:image_data]))
-    render text: @photo.save ? "Success" : "Failure"
+    render text: @photo.save ? "success|#{params[:token]}|#{@photo.id}" : "Failure"
   end
 
   def verify
-    @id_face = "https://s3-ap-southeast-2.amazonaws.com/myverifiedid-support/documents/52b2a3e9c36a5d8f3c000002_photo_id_image.jpg"
-    @camera_photo = "https://s3-ap-southeast-2.amazonaws.com/myverifiedid-support/documents/kp_medium.jpg"
-    # @camera_photo = "https://s3-ap-southeast-2.amazonaws.com/myverifiedid-support/documents/52b29ce3c36a5d6636000001_photo_seal.jpg"
+    sleep(5)
+    @card_details = CardScan.where(id: params[:token1]).last
+    if @card_details.present?
+      @id_face = @card_details.face_image_url.to_s      
+    end
+
+    @photo_details = Photo.where(id: params[:token2]).last
+    if @photo_details.present?
+      @camera_photo = @photo_details.image_url.to_s      
+    end
+    
   end 
 
   def verify_status
     puts "coming to verify_status"
     puts params.inspect
+    @card_id = params[:token1]
     @id_face = params[:id_face]
     @camera_photo = params[:camera_photo]
     @match_details = face_recognise_process(params[:id_face], params[:camera_photo])
+    @photo = Photo.where(id: params[:token2]).first
+    if @match_details["status"] && @match_details["match_score"] > 30
+      stamp(@photo)
+    end
   end
 
   private
@@ -92,7 +134,33 @@ class PhotosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
-      params.require(:photo).permit(:user_id, :image, :image_tmp, :verified)
+      params.require(:photo).permit(:user_id, :title, :description, :image, :remote_image_url, :image_tmp, :captured,
+                  :verified, :profile_picture, :tag_name, :tag_id, :photo_id_url)
+    end
+
+    def stamp(source_photo)
+      # source_img = Magick::Image.read(source_photo.image_url.to_s).first 
+      source_img = Magick::Image.read("https://s3-ap-southeast-2.amazonaws.com/myverifiedid-support/documents/kp_medium.jpg").first
+      stamp_path = File.join("app", "assets","images", "black-seal-stamp.png")
+
+      if File.exists?(stamp_path) # use existing stamp image
+        stamp_image = Magick::Image.read(stamp_path).first 
+        stamp_img = source_img.composite!(stamp_image, Magick::SouthEastGravity, Magick::OverCompositeOp)
+        # Other Gravities: SouthEastGravity, NorthGravity(centered), etc.    
+        # photo_seal = "#{Rails.root}/public/uploads/#{source_photo.user_id}_photo_seal.png"
+        photo_seal = "#{Rails.root}/tmp/#{source_photo.id}_photo_seal.png"
+        stamp_img.write(photo_seal)
+        
+        # old_profile_pics = current_user.photos.where(verified: true, profile_picture: true)
+        # if old_profile_pics.present? && old_profile_pics.count > 0
+        #   old_profile_pics.each do |p|
+        #     p.update_attributes(profile_picture: false)
+        #   end
+        # end
+
+        source_photo.update_attributes(profile_picture: true, verified: true, image: File.new("#{photo_seal}"))
+        sleep(5)
+      end      
     end
 
     def camera_image(image_data)

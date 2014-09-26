@@ -15,8 +15,8 @@ gem 'mongoid_slug', '~> 3.2.1'
 gem 'symmetric-encryption', '~> 3.4.0'
 
 #User Auth
-gem 'devise'
-gem "devise-async"
+gem 'devise', '~> 3.3.0'
+gem 'devise-async', '~> 0.9.0'
 
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
