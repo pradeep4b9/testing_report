@@ -50,6 +50,8 @@ Rails.application.routes.draw do
 
   resources :profiles
 
+  post 'country_code' => 'home#country_code', as: :country_code
+
   root 'card_scans#index'
 
   get 'sixt' => 'card_scans#index', as: :sixt
