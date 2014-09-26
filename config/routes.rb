@@ -48,6 +48,8 @@ Rails.application.routes.draw do
   end 
 
   resources :profiles
+
+  get 'country_code' => 'home#country_code', as: :country_code
   
   root 'card_scans#index'
 
