@@ -49,7 +49,7 @@ Rails.application.routes.draw do
 
   resources :profiles
 
-  get 'country_code' => 'home#country_code', as: :country_code
+  post 'country_code' => 'home#country_code', as: :country_code
   
   root 'card_scans#index'
 
