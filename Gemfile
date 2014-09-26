@@ -46,13 +46,14 @@ gem "carrierwave_encrypter_decrypter", "~> 0.0.6"
 
 # Background Job
 gem 'sidekiq', '~> 3.2.5'
-# gem 'kiqstand', '~> 1.1.0'
-# gem 'kiqstand', github: 'mongoid/kiqstand'
+gem 'sidekiq-scheduler', '~> 1.0'
 
 # sky biometric gem to recognise/match photo
 #gem "face", "~> 0.1.0", :path => '/home/localadmin/panik/source/face'
 gem "face", "~> 0.1.0", :git => 'git://github.com/shyammohankanojia/face.git'
 
+# send sms gem
+gem "clickatell", "~> 0.8.2"
 
 group :development do
   # gem 'capistrano', '~> 3.1.0'

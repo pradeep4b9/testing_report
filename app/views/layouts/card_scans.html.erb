@@ -32,6 +32,7 @@
           <li class="active"><a data-no-turbolink  href="/">Identity Verification</a></li>
           <li><a href="/photos/verify" data-no-turbolink >Face Verification</a></li>
           <li><a href="/voices/register" data-no-turbolink >Voice Biometric Verification</a></li>
+          <li><a href="/mobile_numbers/register" data-no-turbolink >Mobile Verification</a></li>
           <% if current_user %>
             <li><%= link_to "Logout", destroy_user_session_path, :method=>'delete' %></li>
           <% else %>

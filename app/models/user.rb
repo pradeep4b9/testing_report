@@ -55,7 +55,7 @@ class User
 
   validates_presence_of :first_name, :last_name, :email
   validates_presence_of :encrypted_password
-  validates :mobile_number,  uniqueness: true, :uniqueness => {:message => "Mobile Phone Number is already registered."}
+  # validates :mobile_number,  uniqueness: true, :uniqueness => {:message => "Mobile Phone Number is already registered."}
   validate :validate_user, :on => :create
 
   def validate_user
