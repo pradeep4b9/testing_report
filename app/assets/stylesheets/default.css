@@ -72,6 +72,10 @@ body .sign-up-form input[type="text"],body .sign-up-form input[type="email"]{pad
 
 body .sign-in-form .form-inputs{width: 95%;text-align: center;margin: 0 auto}
 .sign-in-form h2{font-size: 20px;}
+.alert.alert-error{width:88%;}
+
+body .sign-up-form .form-inputs .control-text label{text-align: left;width: 88%;margin-bottom: 15px;}
+body .sign-in-form .form-inputs label{text-align: left;width: 100%;margin-bottom: 15px;}
 }
 
 .banner-image{background: #000;padding: 20px;text-align: center;}
@@ -100,7 +104,8 @@ body.wht-bg {background: #fff!important;}
 .sign-up-form h2{text-align: center!important;text-transform: uppercase;font-size: 42px;color: #129ce0;font-family: Times New Roman}
 .sign-up-form input[type="text"],.sign-up-form input[type="email"]{padding: 10px;width:35%;border: 1px solid #d1d1d1;margin: 5px auto; }
 .sign-up-form .form-inputs .control-text{text-align: center;}
-.sign-up-form .control-group-text{text-align: center; }
+.sign-up-form .form-inputs .control-text label{text-align: left;}
+.sign-up-form .control-group-text{text-align: center;position: relative; }
 .control-group-text a{background: transparent;text-decoration: underline;}
 .control-group-text a:hover{background: transparent;text-decoration: underline;color: #000  }
 .control-group-text input[type="checkbox"]{}
@@ -175,3 +180,17 @@ body #popup .button,.popup .button{
 .sign-in-form .checkbox{text-align: left;color: #fff;}
 
 .sign-in-form .btn{color: #70ae3b;padding:5px 35px; }
+.alert{margin-left:auto;margin-right:auto;padding: 10px;text-align: center;width: 35%; }
+.alert-error {
+  background-color: #f2dede;
+  border-color: #eed3d7;
+  color: #b94a48;
+}
+
+.alert-error a:hover{background: transparent!important; }
+#popup{width:80%;max-height: 500px; }
+#popup .largetext{overflow-y:scroll;max-height: 350px; }
+.sign-up-form .form-inputs .control-text label,.sign-in-form .form-inputs .control-text label{text-align: center;width: 100%;margin-bottom: 15px;}
+body .sign-in-form .form-inputs label{color: #fff;}
+.control-label.checkbox label{position: absolute;top: 20px;margin-left: -16px;font-weight: bold;}
+.control-label.checkbox {position: relative;}

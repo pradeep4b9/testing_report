@@ -11,10 +11,12 @@
 // about supported directives.
 //
 //= require jquery
+//= require user
 //= require jquery_ujs
-//= require turbolinks
 //= require voice_data
-//= require mobilecam
 //= require camera
+//= require mobilecam
 //= require jquery.bpopup.min
+//= require jquery.turbolinks
+//= require turbolinks
 

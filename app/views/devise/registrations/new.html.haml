@@ -9,6 +9,7 @@
           Create Profile
       = link_to image_tag("information.png"),"#"
   %hr    
+  = render 'layouts/messages'
   = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
     = f.error_notification
     .form-inputs
@@ -33,7 +34,7 @@
     .text-center
       %br
       %br
-      %button.btn.btn-lightgreen{:name => "button", :type => "submit"} Create Account
+      %button.btn.btn-lightgreen.btn-submit{:name => "button", :type => "submit"} Create Account
       / .form-actions
       /   = f.button :submit, "Sign up"
       %br
@@ -48,10 +49,10 @@
     %span.button.b-close
       %span x
     .privacypolicy{:style =>"display:none"}
-      / = render "users/privacy"
+      = render "users/privacy"
 
     .termspolicy{:style =>"display:none"}  
-      / = render "users/terms"
+      = render "users/terms"
         
 
 
