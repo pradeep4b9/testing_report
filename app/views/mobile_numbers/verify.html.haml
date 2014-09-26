@@ -4,20 +4,23 @@
       = link_to image_tag("Go-Back.png"),"/"
       .title
         %span
-          %h5
-            All you have to do is enter the code from the SMS we have sent you
+          %h3
+            Verify Mobile
       = link_to image_tag("information.png"),"#"
   %hr    
+  
   = simple_form_for(User.new, :url => {:controller => "mobile_numbers", :action => :submit_verify }) do |f|
     = f.error_notification
     .form-inputs
       .control-text
-        = f.input :mobile_verification_code, label: false,:placeholder => "Enter the six digit code", :size => "6", :type => "text"
+        %h5
+          All you have to do is enter the code from the SMS we have sent you      
+        = f.input :mobile_verification_code, label: false,:placeholder => "Enter the six digit code", :size => "6", :type => "text",:required => true,input_html: {:class =>"digits"},:maxlength => "6"
 
     .text-center
       %br
       %br
-      %button.btn.btn-lightgreen{:name => "button", :type => "submit"} Verify Mobile
+      %button.btn.btn-lightgreen.btn-submit{:name => "button", :type => "submit"} Verify Mobile
       / .form-actions
       /   = f.button :submit, "Sign up"
       %br

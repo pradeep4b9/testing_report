@@ -69,6 +69,7 @@ div#placehold-image-cam{ color: #70ae3b;
   .banner-image img{width: 100%;}
   .voice-scan .voice-container div.block{width: 75%;}
 body .sign-up-form input[type="text"],body .sign-up-form input[type="email"]{padding: 10px;width:88%;border: 1px solid #d1d1d1;margin: 5px auto; }
+body .sign-up-form .control-text select{padding: 10px;width:88%;border: 1px solid #d1d1d1;margin: 5px auto; }
 
 body .sign-in-form .form-inputs{width: 95%;text-align: center;margin: 0 auto}
 .sign-in-form h2{font-size: 20px;}
@@ -76,6 +77,13 @@ body .sign-in-form .form-inputs{width: 95%;text-align: center;margin: 0 auto}
 
 body .sign-up-form .form-inputs .control-text label{text-align: left;width: 88%;margin-bottom: 15px;}
 body .sign-in-form .form-inputs label{text-align: left;width: 100%;margin-bottom: 15px;}
+
+.custom-front-form.rounder{width: 95%!important;}
+.custom-front-form.rounder h2{text-align: center;font-size: 20px;}
+.custom-front-form.rounder h3{text-align: center;font-size: 15px;margin-bottom: 30px;}
+body .profile_mobile{width:88%;margin: 0 auto}
+#profile_mobile_number-error{text-align: left;width: 100%;}
+
 }
 
 .banner-image{background: #000;padding: 20px;text-align: center;}
@@ -175,10 +183,10 @@ body #popup .button,.popup .button{
     }
 .sign-in-form{background: #70ae3b;width: 95%;margin: 15px auto;padding: 15px;text-align: center;border-radius: 5px;}
 .sign-in-form input[type ="email"],.sign-in-form input[type ="password"]{width:100%;padding: 10px;border: 1px solid #d1d1d1;margin: 5px auto; border-radius: 5px;}
+.sign-up-form .control-text select{width: 35%;padding: 10px;border: 1px solid #d1d1d1;margin: 5px auto; border-radius: 5px;}
 .sign-in-form h2{color: #fff;}
 .sign-in-form .form-inputs{width: 35%;text-align: center;margin: 0 auto}
 .sign-in-form .checkbox{text-align: left;color: #fff;}
-
 .sign-in-form .btn{color: #70ae3b;padding:5px 35px; }
 .alert{margin-left:auto;margin-right:auto;padding: 10px;text-align: center;width: 35%; }
 .alert-error {
@@ -193,4 +201,12 @@ body #popup .button,.popup .button{
 .sign-up-form .form-inputs .control-text label,.sign-in-form .form-inputs .control-text label{text-align: center;width: 100%;margin-bottom: 15px;}
 body .sign-in-form .form-inputs label{color: #fff;}
 .control-label.checkbox label{position: absolute;top: 20px;margin-left: -16px;font-weight: bold;}
+.control-group-text label{position: absolute;top: 50px;margin-left: -16px;font-weight: bold;}
 .control-label.checkbox {position: relative;}
+.custom-front-form.rounder{margin-top: 35px;}
+.profile_mobile{width:35%;margin: 0 auto}
+
+
+.profile_mobile_ctry_code input{width:15%!important;float: left;}
+.profile_mobile_number input{width:83%!important;float: right;}
+

@@ -11,17 +11,17 @@
     = f.error_notification
     .form-inputs
       .control-text
-        = f.input :gender, label: false, collection: ["Male", "Female"].map { |value| value}, prompt: "Select Gender"
+        = f.input :gender, label: false, collection: ["Male", "Female"].map { |value| value}, prompt: "Select Gender",required: true
       .control-text
-        = f.input :country, label: false, collection: MviCountry.order_by([:country_name, :asc]).map { |value| value.country_name}, prompt: "Select Country"
-      .control-text
-        = f.input :mobile_ctry_code, label: false,:placeholder => "+00"
-        = f.input :mobile_number, label: false,:placeholder => "Mobile Phone Number", :size => "50", :type => "text"
+        = f.input :country, label: false, collection: MviCountry.order_by([:country_name, :asc]).map { |value| value.country_name}, prompt: "Select Country",required: true
+      .control-text.profile_mobile
+        = f.input :mobile_ctry_code, label: false,:placeholder => "+00",:readonly => true
+        = f.input :mobile_number, label: false,:placeholder => "Mobile Phone Number", :size => "50", :type => "text",required: true, input_html: {:class =>"digits"}
 
     .text-center
       %br
       %br
-      %button.btn.btn-lightgreen{:name => "button", :type => "submit"} Verify Mobile
+      %button.btn.btn-lightgreen.btn-profile{:name => "button", :type => "submit"} Verify Mobile
       / .form-actions
       /   = f.button :submit, "Sign up"
       %br

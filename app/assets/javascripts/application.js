@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require user
+//= require mobile_numbers
 //= require jquery_ujs
 //= require voice_data
 //= require camera
