@@ -4,8 +4,9 @@ class User
   include Mongoid::Slug
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :timeoutable, :lockable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable
+  devise :database_authenticatable, :registerable,  :async,
+         :recoverable, :rememberable, :trackable, :validatable,
+         :confirmable, :timeoutable, :lockable, :authentication_keys => [:email]
 
   ## Database authenticatable
   field :email,              type: String, default: ""
@@ -35,13 +36,13 @@ class User
   field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
   field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   field :locked_at,       type: Time
-  
+
   field :first_name, type: String
   field :last_name, type: String
   field :terms_of_service, type: Boolean, default: false
 
   # SMS mobile
-  field :mobile_number, :type => String 
+  field :mobile_number, :type => String
   field :mobile_verification_code, :type => String, :default => ""
   field :mobile_verification_status, :type => Boolean, :default => false
   field :generated_at, :type => Time
@@ -67,7 +68,7 @@ class User
     #     errors["error_message"] << "Invalid Last Name. Please enter only alphabets ex: abc"
     #   end
     # end
-    
+
     if first_name.blank? || ( first_name.present? && first_name !~ /^[a-z|A-Z| ]+$/ )
       errors["error_message"] << "Invalid First Name. Please enter only alphabets ex: abc or abc test"
     end

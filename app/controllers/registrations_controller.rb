@@ -5,7 +5,9 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     user = User.new(user_params)
-    if user.save
+
+    if user.save!
+      puts "im in user save ---------------"
       redirect_to :controller => "users", :action => 'email_confirmation', :id => user.id
     else
       error_message = user.errors["error_message"]
@@ -33,4 +35,4 @@ class RegistrationsController < Devise::RegistrationsController
       params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :terms_of_service)
     end
 
-end 
+end

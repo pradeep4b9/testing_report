@@ -1,3 +1,4 @@
+require 'sidekiq/web'
 Rails.application.routes.draw do
 
   # devise_for :users
@@ -26,7 +27,7 @@ Rails.application.routes.draw do
       get 'login_status'
       get 'signin'
     end
-  end  
+  end
 
   resources :photos do
     collection do
@@ -48,9 +49,12 @@ Rails.application.routes.draw do
   end 
 
   resources :profiles
-  
+
+  post 'country_code' => 'home#country_code', as: :country_code
+
   root 'card_scans#index'
 
   get 'sixt' => 'card_scans#index', as: :sixt
 
+  mount Sidekiq::Web => '/sidekiq'
 end
