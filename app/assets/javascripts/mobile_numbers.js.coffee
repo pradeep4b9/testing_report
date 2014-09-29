@@ -4,4 +4,10 @@ $(document).ready ->
 
 
   $(document).on 'change', '#profile_country', (e) ->  
-    alert $(this).val()
+
+
+    $.post "/country_code.json",
+      country: $(this).val()
+    , (data) ->
+      $("#profile_mobile_ctry_code").val "+"+data.code
+      return    

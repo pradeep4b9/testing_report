@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.1.2'
 gem 'rails', '4.1.5'
-gem 'puma'
+gem 'thin'
 
 gem 'therubyracer', :platform=>:ruby
 
@@ -92,8 +92,8 @@ group :test do
   gem 'selenium-webdriver'
 end
 
-# group :production do
-#   # gem 'unicorn'
-#   # gem 'unicorn-rails'
-#   # gem 'puma'
-# end
+group :production do
+  # gem 'unicorn'
+  # gem 'unicorn-rails'
+  gem 'puma'
+end
