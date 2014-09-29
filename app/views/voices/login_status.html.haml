@@ -1,0 +1,13 @@
+.container.voice-scan
+  %h4
+    - if @ds_hash["dialogue_status"].eql?("Succeeded")
+      Your Voice biometric SignIn has been completed successfully.
+      %br
+      = link_to "Home", "#{root_url}" , :"data-no-turbolink" => ""
+    - else
+      Your Voice biometric SignIn has been failed. To try Sign In again,
+      = link_to "Click Here", "#{root_url}voices/signin?claimant_id=#{@voice_details.claimant_id}" , :"data-no-turbolink" => ""
+      - if @voice_details.login_attempts >= 3
+        %br
+        If you would like to register Voice again,
+        = link_to "Click Here", "#{root_url}voices/register" , :"data-no-turbolink" => "" 

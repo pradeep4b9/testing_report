@@ -1,0 +1,95 @@
+- if session[:banner]
+  .banner-image
+    = image_tag("sixt.png") 
+
+%section.scan
+  %header
+    = link_to image_tag("Go-Back.png"),"#"
+    .title
+      %span
+        Document Type
+    = link_to image_tag("information.png"),"#"
+
+.container.card-scan
+  .starter-template
+    .row
+      .col-xs-12
+        %p
+          %a.btn.btn-primary.btn-width-md.btn-custom-mb{:href => "#{driverslicense_card_scans_path}", :"data-no-turbolink"=>""} 
+            = image_tag("Driver-License.png",:class=>"first")
+            %span
+              Driver License
+            = image_tag("Select.png",:class=>"last")
+
+
+    .row
+      .col-xs-12
+        %p
+          %a.btn.btn-primary.btn-width-md.btn-custom-mb{:href => "#{identitycard_card_scans_path}", :"data-no-turbolink"=>""} 
+            = image_tag("ID-Card.png",:class=>"first")
+            %span
+              Identity Card
+            = image_tag("Select.png",:class=>"last")
+
+
+
+    .row
+      .col-xs-12
+        %p
+          %a.btn.btn-primary.btn-width-md.btn-custom-mb{:href => "#{passport_card_scans_path}", :"data-no-turbolink"=>""} 
+            = image_tag("Passport.png",:class=>"first")
+            %span
+              Passport
+            = image_tag("Select.png",:class=>"last")                        
+    / .row
+    /   .col-xs-12
+    /     %p
+    /       %a.btn.btn-primary.btn-width-md{:href => "passport.htm"} Passport
+    / .row
+    /   .col-xs-12
+    /     %p
+    /       %a.btn.btn-primary.btn-width-md{:href => "2dbarcode.htm"} 2D Barcode
+    / .row
+    /   .col-xs-12
+    /     %p
+    /       %a.btn.btn-primary.btn-width-md{:href => "medinsurance.htm"} Medical Insurance Card
+
+  
+/ %section
+/   %article
+/     Driver licience
+/   %article
+/     Identity Card
+/   %article
+/     Passport
+
+
+/ %h1 Listing card_scans
+
+/ %table
+/   %tr
+/     %th User
+/     %th Card status
+/     %th Name
+/     %th Picture
+/     %th Signature
+/     %th Dob
+/     %th
+/     %th
+/     %th
+
+/   - @card_scans.each do |card_scan|
+/     %tr
+/       %td= card_scan.user_id
+/       %td= card_scan.card_status
+/       %td= card_scan.name
+/       %td= card_scan.picture
+/       %td= card_scan.signature
+/       %td= card_scan.dob
+/       %td= link_to 'Show', card_scan
+/       %td= link_to 'Edit', edit_card_scan_path(card_scan)
+/       %td= link_to 'Destroy', card_scan, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+/ %br
+
+/ = link_to 'New Card scan', new_card_scan_path

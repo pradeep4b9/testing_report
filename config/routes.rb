@@ -1,57 +1,60 @@
+require 'sidekiq/web'
 Rails.application.routes.draw do
-  devise_for :users
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
 
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  # devise_for :users
+  devise_for :users, :controllers => {:registrations => "registrations", :confirmations => "confirmations"}
 
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
+  resources :users do
+    collection do
+      get 'email_confirmation'
+    end
+  end
 
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+  resources :card_scans do
+    collection do
+      get 'driverslicense'
+      get 'passport'
+      get 'identitycard'
+      get 'identity_status'
+    end
+  end
 
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+  resources :voices do
+    collection do
+      get 'register'
+      post 'record'
+      get 'register_status'
+      get 'login_status'
+      get 'signin'
+    end
+  end
 
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
+  resources :photos do
+    collection do
+      get 'camera'
+      post 'canvas_capture'
+      get 'facedetection'
+      get 'verify'
+      post 'verify_status'
+    end
+  end
 
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
+  resources :mobile_numbers do
+    collection do
+      get 'register'
+      post 'submit_register'
+      get 'verify'
+      post 'submit_verify'
+    end
+  end 
 
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
+  resources :profiles
 
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
+  post 'country_code' => 'home#country_code', as: :country_code
 
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
+  root 'card_scans#index'
+
+  get 'sixt' => 'card_scans#index', as: :sixt
+
+  mount Sidekiq::Web => '/sidekiq'
 end

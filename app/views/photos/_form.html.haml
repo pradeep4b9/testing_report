@@ -1,0 +1,11 @@
+= simple_form_for(@photo) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :user_id
+    = f.input :image
+    = f.input :image_tmp
+    = f.input :verified
+
+  .form-actions
+    = f.button :submit

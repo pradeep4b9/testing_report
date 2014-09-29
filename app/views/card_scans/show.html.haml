@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @card_scan.user_id
+%p
+  %b Card status:
+  = @card_scan.card_status
+%p
+  %b Name:
+  = @card_scan.name
+%p
+  %b Picture:
+  = @card_scan.picture
+%p
+  %b Signature:
+  = @card_scan.signature
+%p
+  %b Dob:
+  = @card_scan.dob
+
+= link_to 'Edit', edit_card_scan_path(@card_scan)
+\|
+= link_to 'Back', card_scans_path

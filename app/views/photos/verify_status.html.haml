@@ -1,0 +1,42 @@
+%section.scan
+  %header
+    = link_to image_tag("Go-Back.png"),"/"
+    .title
+      %span
+        - if @match_details["status"] && @match_details["match_score"] > 30
+          VERIFIED FACE
+        - else
+          FAILED TO VERIFY FACE
+    = link_to image_tag("information.png"),"#"
+
+.container
+  .starter-template
+    .row
+      .col-xs-12.col-sm-12.col-lg-12
+    .row
+      .col-xs-12.col-sm-12{:style =>"text-align:center;"}
+        .container-camera
+          #image-thumbnail.fileupload-preview.fileupload-exists.thumbnail{:style=>"line-height: 10px;position:relative;margin:0 auto;max-height:none;"}
+            = image_tag(@camera_photo,:style => "")  
+          
+
+            = image_tag(@id_face,:class => "idscan-img",:style =>"position:absolute;top:0;left:0;width:20%;padding:4px;")  
+    
+    %br/
+    .row
+      #div-controls.col-xs-12.col-sm-12.col-lg-12
+        - if @match_details["status"] && @match_details["match_score"] > 30
+          %h4
+            MATCH SCORE: #{@match_details["match_score"]}%
+          %br
+          = link_to "VOICE VERIFICATION", "/voices/register", :"data-no-turbolink" => ""
+        - else
+          = link_to "Click Here", "/photos/camera?token=#{@card_id}", :"data-no-turbolink" => ""
+          to Capture Photo and try Face Match again. If not
+          = link_to "Click Here", "/voices/register", :"data-no-turbolink" => ""
+          to verify your Vocie.
+
+    .row
+      .col-xs-12
+        #loading
+  #errorDiv{:style => "text-align: center; color: red;"}

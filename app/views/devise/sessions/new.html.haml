@@ -1,0 +1,16 @@
+
+.sign-in-form
+  = render 'layouts/messages'
+  %h2 SIGN-IN AUTHENTICATION
+  = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    .form-inputs
+      = f.input :email, required: true, autofocus: true, label: false, placeholder: "Email Address"
+      = f.input :password, required: true, label: false, placeholder: "Password"
+      = f.input :remember_me, required: true, as: :boolean if devise_mapping.rememberable?
+    .form-actions
+      %br	
+      = f.button :submit, "SIGN-IN",:class =>"btn-submit"
+      %br	
+      %br	
+
+

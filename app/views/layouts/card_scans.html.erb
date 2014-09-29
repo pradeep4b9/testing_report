@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>My Verified ID</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+
+<body>
+
+    <form enctype= "multipart/form-data" name="formSubmit" action="#" class="content-mb" id="formSubmit">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+       <a class="navbar-brand" href="/" style="color: #0773BA;">
+        <%= image_tag("logo.png", width: "200px", style: "vertical-align:middle;") %>
+       </a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a data-no-turbolink  href="/">Identity Verification</a></li>
+          <li><a href="/photos/verify" data-no-turbolink >Face Verification</a></li>
+          <li><a href="/voices/register" data-no-turbolink >Voice Biometric Verification</a></li>
+          <li><a href="/mobile_numbers/register" data-no-turbolink >Mobile Verification</a></li>
+          <% if current_user %>
+            <li><%= link_to "Logout", destroy_user_session_path, :method=>'delete' %></li>
+          <% else %>
+            <li> <%= link_to "Login" , new_user_session_path %></li>
+            <li><%= link_to "Sign up", new_registration_path(User.new) %></li>
+          <% end %>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </nav>
+      <%= yield %>
+    </form>
+    <script src="/assets/card_scan/MiscJS/base.js"></script>
+    <script>
+        goog.require('goog.crypt.base64'); 
+    </script>
+    <script src="/assets/card_scan/MiscJS/jquery-2.0.3.js"></script>
+    <script type="text/javascript">
+        $(window).on('load', function () { $('.selectpicker').selectpicker({}); }); 
+    </script>
+    <script src="/assets/card_scan/MiscJS/bootstrap.js"></script>
+    <script src="/assets/card_scan/MiscJS/bootstrap-fileupload.js"></script>
+    <script src="/assets/card_scan/MiscJS/jquery.base64.js"></script>
+    <script src="/assets/card_scan/MiscJS/bootstrap-switch.js"></script>
+    <script src="/assets/card_scan/MiscJS/bootstrap-select.js"></script>
+    <script src="/assets/card_scan/MiscJS/binaryajax.js"></script>
+    <script src="/assets/card_scan/MiscJS/exif.js"></script>
+    <script src="/assets/card_scan/MiscJS/canvasResize.js"></script>
+    <script src="/assets/card_scan/CSSNWebServiceJS/licensekey.js"></script>
+    
+    <footer>  
+      <div class="container-lp">
+        <div class="footer-tagline"><span>Already a My Verified id member</span><span><a href="#"><%= image_tag("Sign-In.png")%></a></span>
+        </div>
+      </div>  
+    </footer>
+
+  </body>
+</html>
+
+

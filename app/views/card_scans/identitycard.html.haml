@@ -1,0 +1,117 @@
+- if session[:banner]
+  .banner-image
+    = image_tag("sixt.png") 
+
+
+%section.scan
+  %header
+    = link_to image_tag("Go-Back.png"),"/"
+    .title
+      %span
+        Identity Card
+    = link_to image_tag("information.png"),"#"
+
+.container
+  .starter-template
+    .row
+      .col-xs-12.col-sm-12.col-lg-12
+    .row
+      .col-xs-12.col-sm-12.col-lg-12
+        #container-webcam{:style => "display: none"}
+          .col-xs-6.col-sm-6.col-lg-6
+            %video#webcam.thumbnail{:autoplay => "", :height => "480px", :width => "640px"}
+            = succeed "&amp;nbsp;" do
+              %strong Webcam View
+            %i#help-icon.icon-info{:rel => "tooltip", :title => "Click webcam area to capture."}
+          .col-xs-6.col-sm-6.col-lg-6
+            %canvas#selected-canvas.thumbnail{:height => "480px", :width => "640px"}
+            / The blank canvas will store the captured image to keep the image resolution.
+            %canvas#blank-canvas{:height => "480px", :style => "display: none", :width => "640px"}
+            %strong Captured Image
+        #container-camera
+          %canvas#hidden-canvas{:style => "display: none;"}
+          .fileupload.fileupload-new{"data-provides" => "fileupload"}
+            .fileupload-new.thumbnail
+              / %img#placehold-image.img-responsive{:src => "images/TapHere.gif"}/
+              %div#placehold-image.img-responsive
+                TAP HERE
+            #image-thumbnail.fileupload-preview.fileupload-exists.thumbnail
+            %div
+              %span.btn.btn-file.btn-link.btn-sm
+                %input#input-image{:capture => "camera", :name => "driversLicenseImage", :type => "file"}/
+              %a#remove-button.btn.btn-sm.fileupload-exists{"data-dismiss" => "fileupload", :href => "#", :style => "display: none"} Remove
+    .row
+      .col-xs-12.col-sm-12.col-lg-12
+        %table{:style => "margin-left: auto; margin-right: auto; text-align: left;"}
+          %tr#option-source{:style => "display:none;"}
+            %td
+              Select Source
+            %td
+              %input#chkImageSource.switch-large{:checked => "", "data-label-icon" => "icon-fullscreen", "data-off-label" => "<i class='icon-webcam'></i>", "data-on-label" => "<i class='icon-camera'></i>&nbsp;<i class='icon-hard-drive'></i>", :type => "checkbox"}
+          %tr
+            %td
+              %medium{:style=>"color:#fff;font-size:15px;"} SELECT REGION
+              \&nbsp;
+            %td
+              %select#region-select.selectpicker{"data-width" => "130px"}
+                %option{:value => "0"} USA
+                %option{:value => "1"} Canada
+                %option{:value => "3"} Europe
+                %option{:value => "4"} Australia
+                %option{:value => "2"} South America
+                %option{:value => "5"} Asia
+                %option{:value => "7"} Africa
+                %option{:value => "6"} General Docs
+          %tr
+            %td
+              %medium{:style=>"color:#fff;font-size:15px;"} CROP IMAGE
+              \&nbsp;
+            %td
+              %input#chkPreProcessing{:type => "checkbox",:checked => "checked"}/
+    %br/
+    .row
+      #div-controls.col-xs-12.col-sm-12.col-lg-12
+        %button#btn-process-image.btn.btn-lg.btn-primary.btn-custom-sb{:style => "", :type => "button"}
+          Process
+    .row
+      .col-xs-12
+        #loading
+  #errorDiv{:style => "text-align: center; color: #fff;"}
+  .row
+    #extractedData.col-xs-12.col-sm-12{:style => "display: none;"}
+      .panel.panel-info
+        .panel-heading.text-center
+          %strong Extracted Data
+        .panel-body
+          .row
+            .col-xs-12.col-sm-12.col-lg-12
+              #drivers-license-data.form-horizontal
+    #faceImage.col-xs-12.col-sm-12{:style => "display: none;"}
+      .panel.panel-info
+        .panel-heading.text-center
+          %strong Face Image
+        .panel-body.text-center
+          %img#face-image.img-responsive{:alt => "FaceImage", :src => "", :style => "height: 180px; width: 140px;"}/
+    #signImage.col-xs-12.col-sm-12{:style => "display: none; margin: 0 auto !important;"}
+      .panel.panel-info
+        .panel-heading.text-center
+          %strong Signature Image
+        .panel-body.text-center
+          %img#signature-image.img-responsive{:alt => "SignatureImage", :src => "", :style => "height: 50px; width: 200px;"}/
+/ Modal
+#myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"}
+          \&times;
+        %h4.modal-title
+          Image Captured
+      .modal-body
+        %canvas#captured-canvas.img-responsive
+      .modal-footer
+        %button#btn-retake.btn.btn-default{"data-dismiss" => "modal"}
+          Retake
+        %button#btn-use-image.btn.btn-primary{:type => "button"}
+          Use Image
+<script src="/assets/card_scan/CSSNWebServiceJS/driverslicense.js"></script>            

@@ -1,0 +1,30 @@
+# Add account credentials and API keys here.
+EMAIL_NOTIFICATION: "notifications@myverifiedid.com"
+# VIGO API details
+CALL_REFERENCE: "1234567"
+VIGO_LANGUAGE: "EnglishUnitedStates"
+VIGO_AUDIO_FORMAT: "BigEndian"
+REST_API_URL_BASE: "https://a9i1.voicevault.net/RestApi850/"
+USERNAME: "DZqZkws5BNxPF8ExNtpq"
+PASSWORD: "4KQGstT7tpyqyeFdBS9yuxmt9DDVfX"
+ORGANISATION_UNIT: "f5986c00-5d18-4dc3-a02d-eceae4bb4dab"
+CONFIGURATION_ID: "a1d404fa-dfbd-414c-a393-5e74886f1f35"
+
+#Sky Biometric Details
+BIOMETRIC_KEY: "df1dcdc40ff645dfaed97f79523bc5f8"
+BIOMETRIC_SECRET: "d5704abbf34a4c02973d89cf0fde92ad"
+
+# AWS S3 details
+AWS_ACCESS_KEY_ID: "AKIAIEAS4KXXBOTURJZA"
+AWS_SECRET_ACCESS_KEY: "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"
+AWS_S3_BUCKET: "mvi-dev-secured"
+
+# Clickatell Details
+CT_API_ID: "3421445"
+CT_USERNAME: "didier_g1"
+CT_PASSWORD: "RduUbCt4"
+
+CT_USA_API_ID: "3437258"
+CT_USA_USERNAME: "didier.2013"
+CT_USA_PASSWORD: "wNKTF8gx"
+CT_USA_FROM: "15626615881"
