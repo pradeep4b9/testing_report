@@ -209,4 +209,4 @@ body .sign-in-form .form-inputs label{color: #fff;}
 
 .profile_mobile_ctry_code input{width:15%!important;float: left;padding: 10px 4px !important;text-align: center;}
 .profile_mobile_number input{width:83%!important;float: right;}
-
+.field_with_errors{background: transparent!important;}
