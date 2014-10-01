@@ -65,7 +65,6 @@ class User
   validate :validate_user, :on => :create
 
   has_one :profile, :dependent => :destroy
-  has_one :voice, :dependent => :destroy
   has_many :photos, :dependent => :destroy
   
   def validate_user
