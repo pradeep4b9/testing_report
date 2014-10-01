@@ -76,8 +76,8 @@ group :development do
   gem 'rails_layout'
   gem 'spring'
 
-  gem "sinatra", require: false
-  gem "slim", "~> 1.3.8"
+  # gem "sinatra", require: false
+  # gem "slim", "~> 1.3.8"
 
 end
 
