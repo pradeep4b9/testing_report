@@ -1,5 +1,7 @@
 class PhotosController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_photo, only: [:show, :edit, :update, :destroy]
+
   protect_from_forgery
   layout "card_scans"
 
@@ -65,9 +67,6 @@ class PhotosController < ApplicationController
   end
 
   def camera
-    @identity_id = params[:token]
-    puts "identity_id"
-    puts @identity_id
   end
 
   def canvas_capture
@@ -95,34 +94,46 @@ class PhotosController < ApplicationController
 
     # render text: "/" + session[:session_id].to_s + '.jpg'
     @photo = Photo.new
+    @photo.user_id = current_user.id
+    @photo.title = "Profile Image"
+    @photo.captured = true
+    @photo.tag_name = "#{@photo.id}@myverifiedid_photos"
     @photo.image = File.open(camera_image(params[:image_data]))
-    render text: @photo.save ? "success|#{params[:token]}|#{@photo.id}" : "Failure"
+    render text: @photo.save ? "success" : "Failure"
   end
 
   def verify
     sleep(5)
-    @card_details = CardScan.where(id: params[:token1]).last
+    profile = current_user.profile
+    @card_details = profile.card_scan if profile.present?
     if @card_details.present?
       @id_face = @card_details.face_image_url.to_s      
     end
 
-    @photo_details = Photo.where(id: params[:token2]).last
+    @photo_details = current_user.photos.where(captured: true).last
     if @photo_details.present?
       @camera_photo = @photo_details.image_url.to_s      
     end
     
-  end 
+  end
 
   def verify_status
-    puts "coming to verify_status"
-    puts params.inspect
-    @card_id = params[:token1]
-    @id_face = params[:id_face]
-    @camera_photo = params[:camera_photo]
-    @match_details = face_recognise_process(params[:id_face], params[:camera_photo])
-    @photo = Photo.where(id: params[:token2]).first
-    if @match_details["status"] && @match_details["match_score"] > 30
-      stamp(@photo)
+    profile = current_user.profile
+    @card_details = profile.card_scan if profile.present?
+    if @card_details.present?
+      @id_face = @card_details.face_image_url.to_s      
+    end
+    @photo = current_user.photos.where(captured: true).last
+    if @photo.present?
+      @camera_photo = @photo.image_url.to_s      
+    end
+    @match_details = face_recognise_process(@id_face, @camera_photo, @photo.id, @photo.tag_name)
+    if @match_details["status"] && @match_details["match_score"] > 25
+      stamp(@photo, @match_details["match_score"])
+      @photo = Photo.where(id: @photo.id).first
+      @camera_photo = @photo.image_url.to_s  if @photo.present?
+    else
+      @photo.update_attributes(match_score: @match_details["match_score"])
     end
   end
 
@@ -135,12 +146,11 @@ class PhotosController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
       params.require(:photo).permit(:user_id, :title, :description, :image, :remote_image_url, :image_tmp, :captured,
-                  :verified, :profile_picture, :tag_name, :tag_id, :photo_id_url)
+                  :verified, :profile_picture, :tag_name, :tag_id, :photo_id_url, :match_score)
     end
 
-    def stamp(source_photo)
-      # source_img = Magick::Image.read(source_photo.image_url.to_s).first 
-      source_img = Magick::Image.read("https://s3-ap-southeast-2.amazonaws.com/myverifiedid-support/documents/kp_medium.jpg").first
+    def stamp(source_photo,match_score)
+      source_img = Magick::Image.read(source_photo.image_url.to_s).first 
       stamp_path = File.join("app", "assets","images", "black-seal-stamp.png")
 
       if File.exists?(stamp_path) # use existing stamp image
@@ -158,8 +168,12 @@ class PhotosController < ApplicationController
         #   end
         # end
 
-        source_photo.update_attributes(profile_picture: true, verified: true, image: File.new("#{photo_seal}"))
-        sleep(5)
+        source_photo.update_attributes(profile_picture: true, verified: true, match_score: match_score, image: File.new("#{photo_seal}"))
+        if Rails.env != "production"
+          sleep(15)
+        else
+          sleep(5)
+        end
       end      
     end
 
@@ -182,7 +196,7 @@ class PhotosController < ApplicationController
     end
 
 
-    def face_recognise_process(id_face, camera_photo)
+    def face_recognise_process(id_face, camera_photo, photo_id, tag_name)
 
       biometric_client = Face.get_client(:api_key => ENV['BIOMETRIC_KEY'], :api_secret => ENV['BIOMETRIC_SECRET'])
       match_score = 0
@@ -212,7 +226,7 @@ class PhotosController < ApplicationController
 
       if face_data["status"].eql?("success") && face_data["photos"][0]["tags"].present?
 
-        photoid_face_data = PhotoidFace.new("photo_id" => "123333", "face_details" => face_data["photos"][0])
+        photoid_face_data = PhotoidFace.new("photo_id" => photo_id, "face_details" => face_data["photos"][0])
             
         photoid_face_data.status = face_data["status"]
       
@@ -226,7 +240,7 @@ class PhotosController < ApplicationController
         puts "before tags_save"
         
         tag_id = face_data["photos"][0]["tags"][0]["tid"] if face_data["photos"][0]["tags"].present?
-        tag_name = "123333@myverifiedid_photos"
+        tag_name = tag_name
         
         puts "tag id"
         puts tag_id
@@ -293,7 +307,7 @@ class PhotosController < ApplicationController
             puts "Face recognisation details"
             puts face_recognise_data
 
-            biometric_face_recognisation = PhotoFace.new("photo_id" => "1223333", "face_details" => face_recognise_data["photos"][0])
+            biometric_face_recognisation = PhotoFace.new("photo_id" => photo_id, "face_details" => face_recognise_data["photos"][0])
             
             biometric_face_recognisation.status = face_recognise_data["status"]
             

@@ -11,4 +11,9 @@ class Profile
   field :gender, type: String
   field :country, :type => String
   field :mobile_ctry_code, :type => String
+  field :record_status, :type => String
+  field :user_id, :type => String
+
+  belongs_to :user
+  has_one :card_scan, :dependent => :destroy
 end

@@ -1,11 +1,15 @@
 class CardScansController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_card_scan, only: [:show, :edit, :update, :destroy]
-  protect_from_forgery
+
+  # protect_from_forgery
   layout "card_scans"
 
   # GET /card_scans
   # GET /card_scans.json
   def index
+    puts "coming to user session"
+    puts current_user.inspect
     #@card_scans = CardScan.all
     session[:banner] = "sixt" if request.url.match("sixt")
   end
@@ -27,12 +31,22 @@ class CardScansController < ApplicationController
   # POST /card_scans
   # POST /card_scans.json
   def create
+    
+    puts "coming to cardscan create"
+    puts current_user.inspect
+
+    profile = current_user.profile
+    if profile.present?
+      profile.record_status = "match"
+      profile.save
+    end
+
     @card_scan = CardScan.new(card_scan_params)
 
     @card_scan.issue_date = params[:card_scan][:issue_date].present? ? data_formater(params[:card_scan][:issue_date]) : nil
     @card_scan.expiration_date = params[:card_scan][:expiration_date].present? ?  data_formater(params[:card_scan][:expiration_date]) : nil
     @card_scan.date_of_birth = params[:card_scan][:date_of_birth].present? ? data_formater(params[:card_scan][:date_of_birth]) : nil
-
+    @card_scan.profile_id = profile.id
     @card_scan.face_image = File.open(card_images(params[:card_scan][:face_image], "face"))
     @card_scan.signature_image = nil #File.open(card_images(params[:card_scan][:signature_image], "signature"))
     if @card_scan.save

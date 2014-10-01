@@ -9,4 +9,5 @@ class PhotoFace
  	field :error_message, type: String
  	field :score
 
+ 	belongs_to :photo
 end

@@ -245,10 +245,9 @@ $(document).ready(function () {
             imageToProcess = image;
         }
 
-            $.post( "/photos/canvas_capture",{token:$("#token").val(),image_data:$("#image-thumbnail-cam img").attr('src')}, function( data ) {
+            $.post( "/photos/canvas_capture",{"authenticity_token":$("#authenticity_token").val(),image_data:$("#image-thumbnail-cam img").attr('src')}, function( data ) {
                 if(data.indexOf("success")>=0){
-                     var photo_data = data.split("|");
-                     location.href = "/photos/verify?token1="+ photo_data[1] + "&token2=" + photo_data[2];
+                     location.href = "/photos/verify";
                 }            
                 
             });
