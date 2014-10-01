@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.1.5'
-# gem 'thin'
+gem 'puma'
 
 gem 'therubyracer', :platform=>:ruby
 
@@ -97,5 +97,5 @@ end
 group :production do
   # gem 'unicorn'
   # gem 'unicorn-rails'
-  gem 'puma'
+  # gem 'puma'
 end
