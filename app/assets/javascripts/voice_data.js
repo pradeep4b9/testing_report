@@ -1,11 +1,24 @@
 $(document).ready(function(){
 
+    jQuery.fn.lockpage =function(){
+
+        jQuery("<div class='overlay-lockpage'><img src=\"/assets/preloader.gif\" width=\"100px\"></div>").insertAfter("body");
+
+    }
+
+    jQuery.fn.unlockpage =function(){
+
+      setTimeout(function(){jQuery(".overlay-lockpage").remove();}, 800);
+        
+    }
 
 
   $('#verify_photo').click(function() {
+    
     $("#formSubmit").attr("action","/photos/verify_status")
     $("#formSubmit").attr("method","post")
     $("#formSubmit").submit();
+    $(document).lockpage();
   });
 
 

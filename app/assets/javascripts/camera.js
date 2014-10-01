@@ -244,9 +244,10 @@ $(document).ready(function () {
             }
             imageToProcess = image;
         }
-
+            jQuery(document).lockpage();
             $.post( "/photos/canvas_capture",{"authenticity_token":$("#authenticity_token").val(),image_data:$("#image-thumbnail-cam img").attr('src')}, function( data ) {
                 if(data.indexOf("success")>=0){
+
                      location.href = "/photos/verify";
                 }            
                 
