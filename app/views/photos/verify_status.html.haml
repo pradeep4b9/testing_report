@@ -25,7 +25,9 @@
           %h4
             MATCH SCORE: #{@match_details["match_score"]}%
           %br
-          = link_to "VOICE VERIFICATION", "/voices/register", :"data-no-turbolink" => ""
+          %h4
+            %button#btn.btn-lg.btn-primary.btn-custom-sb{:style => "", :type => "button" ,:onclick => "javascript:window.location ='/voices/register'"}
+              Voice Verification
         - else
           = link_to "Click Here", "/photos/camera", :"data-no-turbolink" => ""
           to Capture Photo and try Face Match again. If not

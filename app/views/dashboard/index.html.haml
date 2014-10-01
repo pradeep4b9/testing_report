@@ -11,125 +11,132 @@
         CONGRATULATIONS
     = link_to image_tag("information.png"),"#"
 
-.container
-  .starter-template
-    .row
-      .col-xs-12.col-sm-12.col-lg-12
-    .row
-      .col-xs-12.col-sm-12{:style =>"text-align:center;"}
-        .container-camera
-          #image-thumbnail.fileupload-preview.fileupload-exists.thumbnail{:style=>"line-height: 10px;position:relative;margin:0 auto;max-height:none;"}
-          
-
-            = image_tag("congratulations.png",:class => "idscan-img",:style =>"width:20%;padding:4px;float:left;")  
-            .view-container
-              .span3
-                %b
-                  VERIFICATION STATUS
-              .clear
-
-              .span2
-                Identity      
-              .span2
-                Verified with DL Card
-              .clear
-
-              .span2
-                Photo      
-              .span2
-                Verified
-              .clear
-
-              .span2
-                Voice      
-              .span2
-                Verified
-              .clear
-              %br
-              %br
-              %br
-
-              .span3
-                %b
-                  Your VERIFIED DETAILS
-              .clear   
-              .snd-container 
-                .span2.first
-                  First Name:      
-                .span2.last
-                  Stacy
-                .clear
-
-                .span2.first
-                  Last Name:      
-                .span2.last
-                  Walker
-                .clear
-
-                .span2.first
-                  Date Of Birth:
-                .span2.last
-                  **/**/1984
-                .clear  
-
-                .span2.first
-                  Gender:    
-                .span2.last
-                  Female
-                .clear
-
-                .span2.first
-                  Country:    
-                .span2.last
-                  USA
-                .clear
-
-
-                .span2.first
-                  Cell Phone:    
-                .span2.last
-                  212*******319
-                .clear
-
-
-
-                .span2.first
-                  Email:    
-                .span2.last
-                  sta****@*****did.com
-                .clear
-
-
-                %br
-                %br
-                .clear
-                .span3
-                  Your Registration number: 
-                  %br  
-                .span2.last
-                  US245175521
-                .clear
-            .clear    
-            %br
-            %br
-            %br
-            .row
-              #div-controls.col-xs-12.col-sm-12.col-lg-12
-                %button#btn-process-imae.btn.btn-lg.btn-primary.btn-custom-sb{:style => "", :type => "button"}
-                  RETURN TO SITE
-              
-            %br
-            %br
-            %br
-            .clear
-          .clear
-
-              
+- if @profile.record_status.eql?("match")
+  .container
+    .starter-template
+      .row
+        .col-xs-12.col-sm-12.col-lg-12
+      .row
+        .col-xs-12.col-sm-12{:style =>"text-align:center;"}
+          .container-camera
+            #image-thumbnail.fileupload-preview.fileupload-exists.thumbnail{:style=>"line-height: 10px;position:relative;margin:0 auto;max-height:none;"}
             
 
-    
+              = image_tag("congratulations.png",:class => "idscan-img",:style =>"width:20%;padding:4px;float:left;")  
+              .view-container
+                .span3
+                  %b
+                    VERIFICATION STATUS
+                .clear
 
-    .row
-      .col-xs-12
-        #loading
-  #errorDiv{:style => "text-align: center; color: red;"}
+                .span2
+                  Identity      
+                .span2
+                  Verified with #{@card_scan.idcard_type}
+                .clear
+
+                .span2
+                  Photo      
+                .span2
+                  - if @photo.present?
+                    Verified
+                  - else
+                    Not Verified
+                .clear
+
+                .span2
+                  Voice      
+                .span2
+                  - if @profile.voice_status.eql?("verified")
+                    Verified
+                  - else
+                    Not Verified
+                .clear
+                %br
+                %br
+                %br
+
+                .span3
+                  %b
+                    Your VERIFIED DETAILS
+                .clear   
+                .snd-container 
+                  .span2.first
+                    First Name:      
+                  .span2.last
+                    = @card_scan.first_name.titleize
+                  .clear
+
+                  .span2.first
+                    Last Name:      
+                  .span2.last
+                    = @card_scan.last_name.titleize
+                  .clear
+
+                  .span2.first
+                    Date Of Birth:
+                  .span2.last
+                    = @card_scan.date_of_birth.strftime("%d/%m/%Y") if @card_scan.date_of_birth.present?
+                  .clear  
+
+                  .span2.first
+                    Gender:    
+                  .span2.last
+                    = @profile.gender
+                  .clear
+
+                  .span2.first
+                    Country:    
+                  .span2.last
+                    = @card_scan.country.titleize
+                  .clear
+
+
+                  .span2.first
+                    Cell Phone:    
+                  .span2.last
+                    +#{current_user.mobile_number}
+                  .clear
+
+
+
+                  .span2.first
+                    Email:    
+                  .span2.last
+                    = current_user.email
+                  .clear
+
+
+                  %br
+                  %br
+                  .clear
+                  .span3
+                    Your Registration number: 
+                    %br  
+                  .span2.last
+                    = @profile.profile_id
+                  .clear
+              .clear    
+              %br
+              %br
+              %br
+              .row
+                #div-controls.col-xs-12.col-sm-12.col-lg-12
+                  %button#btn-process-imae.btn.btn-lg.btn-primary.btn-custom-sb{:style => "", :type => "button"}
+                    RETURN TO SITE
+                
+              %br
+              %br
+              %br
+              .clear
+            .clear
+
+                
+              
+
+      
+
+      .row
+        .col-xs-12
+          #loading
+    #errorDiv{:style => "text-align: center; color: red;"}

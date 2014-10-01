@@ -50,7 +50,7 @@
                   .span2.first
                     Date Of Birth:
                   .span2.last
-                    = @card_scan.date_of_birth.strftime("%d/%m/%Y")
+                    = @card_scan.date_of_birth.strftime("%d/%m/%Y") if @card_scan.date_of_birth.present?
                   .clear  
 
                   .span2.first

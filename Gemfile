@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.1.2'
 gem 'rails', '4.1.5'
-gem 'thin'
+# gem 'thin'
 
 gem 'therubyracer', :platform=>:ruby
 
@@ -43,6 +43,9 @@ gem "rack-raw-upload" #, "~> 1.1.1"
 
 #gem for file encryption and decryption
 gem "carrierwave_encrypter_decrypter", "~> 0.0.6"
+
+#creating unique registration id for profile
+gem 'mongoid_token', github: 'apai4/mongoid_token'
 
 # Background Job
 gem 'sidekiq', '~> 3.2.5'

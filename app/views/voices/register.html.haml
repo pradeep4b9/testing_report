@@ -15,8 +15,8 @@
     %div.CamPicker{:style => "width: 0; height: 0; overflow: hidden;"}
       %input#CamPicker{:accept => "audio/*;capture=microphone" , :type => "file", :name => "voice_file"}
       %input{:type => "hidden", :name => "next_prompt", :value => @next_prompt }
-      %input{:type => "hidden", :name => "dialogue_id", :value => session[:dialogue_id] }
-    
+      %input{:type => "hidden", :name => "dialogue_id", :value => current_user.dialogue_id }
+      %input{:type => "hidden", :name => "authenticity_token",:id => "authenticity_token",:value => form_authenticity_token}
     
     = image_tag("Speak.png", :id => "CamButton", :class => "img-responsive")
     %br

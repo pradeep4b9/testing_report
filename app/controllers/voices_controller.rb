@@ -16,7 +16,19 @@ class VoicesController < ApplicationController
       puts "dailogue details"
       puts @ds_hash.inspect
       puts "Dialogue completed. Status = #{@ds_hash["dialogue_status"]}"
-      @voice_details = Voice.where(dialogue_id: params[:id]).last
+      if @ds_hash["dialogue_status"] == "Succeeded"
+        profile = current_user.profile
+        if profile.present?
+          profile.voice_status = "verified"
+          profile.save
+        end
+        flash[:notice] = "Your Voice biometric registration has been completed successfully"
+        redirect_to dashboard_index_path
+      else
+        flash[:alert] = "Your Voice biometric registration has been failed. Please try again"
+        redirect_to register_voices_path
+      end
+      # @voice_details = Voice.where(dialogue_id: params[:id]).last
     rescue Exception => e
       puts "An error occurred. #{e.message}"
     end
@@ -65,9 +77,6 @@ class VoicesController < ApplicationController
       puts current_user.claimant_id
       @next_prompt = set_dailogue(current_user.claimant_id, api_helper)
       puts current_user.dialogue_id
-
-      voice_details = Voice.new({"user_id" => current_user.id, "claimant_id" => current_user.claimant_id, "dialogue_id" => current_user.dialogue_id} )
-      voice_details.save
 
     rescue Exception => e
       puts "An error occurred. #{e.message}"
@@ -148,8 +157,9 @@ class VoicesController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def voice_params
-      params.require(:voice).permit(:user_id, :claimant_id, :dialogue_id, :login_status, :login_attempts)
+    def profile_params
+      params.require(:profile).permit(:first_name, :middle_name, :last_name, :dob, :mobile_number, :profile_picture,
+                                      :record_status, :voice_status)
     end
 
     def user_params
