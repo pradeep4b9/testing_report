@@ -22,7 +22,7 @@
     .row
       #div-controls.col-xs-12.col-sm-12.col-lg-12
         - if @match_details["status"] && @match_details["match_score"] > 25
-          %h4
+          %h4{:style => "color:#fff;"}
             MATCH SCORE: #{@match_details["match_score"]}%
           %br
           %h4
