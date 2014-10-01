@@ -227,3 +227,6 @@ body .sign-in-form .form-inputs label{color: #fff;}
 
 
 .overlay-lockpage img{top: 0;left: 0px;margin: auto;bottom: 0;right: 0;position: absolute;}
+
+.v-status .span2.first{width: 38%;}
+.v-status .span2.last{width: 58%;}
