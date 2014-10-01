@@ -9,6 +9,7 @@
     .title
       %span
         CONGRATULATIONS
+
     = link_to image_tag("information.png"),"#"
 
 - if @profile.record_status.eql?("match")
@@ -20,9 +21,10 @@
         .col-xs-12.col-sm-12{:style =>"text-align:center;"}
           .container-camera
             #image-thumbnail.fileupload-preview.fileupload-exists.thumbnail{:style=>"line-height: 10px;position:relative;margin:0 auto;max-height:none;"}
-            
-
-              = image_tag("congratulations.png",:class => "idscan-img",:style =>"width:20%;padding:4px;float:left;")  
+              - if @photo.present?
+                = image_tag(@photo.image_url.to_s,:class => "idscan-img",:style =>"width:20%;padding:4px;float:left;")  
+              - else
+                = image_tag("congratulations.png",:class => "idscan-img",:style =>"width:20%;padding:4px;float:left;")  
               .view-container
                 .span3
                   %b
@@ -42,6 +44,7 @@
                     Verified
                   - else
                     Not Verified
+                    = link_to "Get Verified", camera_photos_path
                 .clear
 
                 .span2
@@ -51,6 +54,7 @@
                     Verified
                   - else
                     Not Verified
+                    = link_to "Get Verified", register_voices_path
                 .clear
                 %br
                 %br
