@@ -10,23 +10,30 @@ class MobileNumbersController < ApplicationController
     if country.present?
       mobile_number = "#{Country.find_country_by_name(country).country_code}" + "#{mobile_number}" 
       verification_code = rand(999999).to_s.center(6, rand(9).to_s).to_i
-      SendSms.perform_async(country, mobile_number, verification_code)
       
       user = current_user
       user.country = country
       user.mobile_number = mobile_number
       user.mobile_verification_code = verification_code
       user.generated_at =  Time.now
-      user.save!
+      if user.save
+        SendSms.perform_async(country, mobile_number, verification_code)
 
-      puts user.inspect
-
-      profile = Profile.new({ "first_name" => user.first_name, "last_name" => user.last_name, 
+        profile = Profile.new({ "first_name" => user.first_name, "last_name" => user.last_name, 
                             "mobile_number" => mobile_number, "gender" => params[:profile][:gender],
-                            "country" => params[:profile][:country]})
-      profile.save
+                            "country" => params[:profile][:country], "user_id" => user.id})
+        profile.save
 
-      redirect_to verify_mobile_numbers_path
+        redirect_to verify_mobile_numbers_path
+      else
+        error_message = user.errors["error_message"]
+        if error_message.present?
+          flash[:alert] = "#{error_message.join(", ")} !"
+        else
+          flash[:alert] = "Mobile Number already registered!"
+        end
+        redirect_to register_mobile_numbers_path
+      end
     end
   end
 
@@ -58,7 +65,7 @@ class MobileNumbersController < ApplicationController
     end
 
     def profile_params
-      params.require(:profile).permit(:first_name, :last_name, :dob, :mobile_number, :gender, :country)
+      params.require(:profile).permit(:first_name, :last_name, :dob, :mobile_number, :gender, :country, :record_status, :user_id)
     end
 
 end

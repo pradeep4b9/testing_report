@@ -23,10 +23,7 @@
     %br/
     .row
       #div-controls.col-xs-12.col-sm-12.col-lg-12
-        %input{:type => "hidden", :name => "id_face", :value => @id_face }
-        %input{:type => "hidden", :name => "camera_photo", :value => @camera_photo }
-        %input{:type => "hidden", :name => "token1", :value => @card_details.id }
-        %input{:type => "hidden", :name => "token2", :value => @photo_details.id }
+        %input{:type => "hidden", :name => "authenticity_token",:id => "authenticity_token",:value => form_authenticity_token}
         %button#verify_photo.btn.btn-lg.btn-primary.btn-custom-sb{:style => "", :type => "button"}
           PROCESS
     .row

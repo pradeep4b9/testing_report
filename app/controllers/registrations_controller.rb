@@ -6,7 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     user = User.new(user_params)
 
-    if user.save!
+    if user.save
       puts "im in user save ---------------"
       redirect_to :controller => "users", :action => 'email_confirmation', :id => user.id
     else

@@ -14,9 +14,14 @@ class Photo
   field :tag_name, type: String
   field :tag_id, type: String
   field :photo_id_url, type: String
+  field :match_score, type: String
 
   mount_uploader :image, ImageUploader
   store_in_background :image
+
+  belongs_to :user
+  has_one :photo_face, :dependent => :destroy
+  has_one :photoid_face, :dependent => :destroy
 
   # has_one :photo_face, :dependent => :destroy
 

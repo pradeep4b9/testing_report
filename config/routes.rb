@@ -49,10 +49,11 @@ Rails.application.routes.draw do
   end 
 
   resources :profiles
+  resources :dashboard
 
   post 'country_code' => 'home#country_code', as: :country_code
 
-  root 'card_scans#index'
+  root 'home#index'
 
   get 'sixt' => 'card_scans#index', as: :sixt
 

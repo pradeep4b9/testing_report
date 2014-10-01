@@ -54,11 +54,20 @@ class User
 
   field :country, :type => String
 
+  #Voice verification
+  field :claimant_id, :type => String
+  field :dialogue_id, :type => String
+  field :voice_auth_status, type: Boolean, default: false
+
   validates_presence_of :first_name, :last_name, :email
   validates_presence_of :encrypted_password
-  # validates :mobile_number,  uniqueness: true, :uniqueness => {:message => "Mobile Phone Number is already registered."}
+  validates :mobile_number,  uniqueness: true, :uniqueness => {:message => "Mobile Phone Number is already registered."}
   validate :validate_user, :on => :create
 
+  has_one :profile, :dependent => :destroy
+  has_one :voice, :dependent => :destroy
+  has_many :photos, :dependent => :destroy
+  
   def validate_user
     errors.clear
     # if I18n.locale.to_s == "en"

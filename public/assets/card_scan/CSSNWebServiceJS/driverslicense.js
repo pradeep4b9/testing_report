@@ -358,7 +358,7 @@
                     }
 
 
-                    $.post( "/card_scans", {"card_scan":parsedata}, function( data ) {
+                    $.post( "/card_scans", {"card_scan":parsedata,"authenticity_token":$("#authenticity_token").val()}, function( data ) {
                         // alert(data.search ("success"));
                         if(data.indexOf("success")>=0){
                              var cam_data = data.split("|");

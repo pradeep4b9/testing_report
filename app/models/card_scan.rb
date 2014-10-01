@@ -2,7 +2,7 @@ class CardScan
   include Mongoid::Document
   include Mongoid::Timestamps
   
-  field :user_id, type: String
+  field :profile_id, type: String
   field :card_status, type: String
 
   field :first_name, type: String
@@ -41,6 +41,8 @@ class CardScan
 
   mount_uploader :face_image, FaceImageUploader
   store_in_background :face_image
+
+  belongs_to :profile
 
   # mount_uploader :signature_image, SignatureImageUploader
   # store_in_background :signature_image

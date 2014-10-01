@@ -6,7 +6,8 @@
         %span
           Verify Mobile
       = link_to image_tag("information.png"),"#"
-  %hr    
+  %hr
+  = render 'layouts/messages'    
   = simple_form_for(Profile.new, :url => {:controller => "mobile_numbers", :action => :submit_register }) do |f|
     = f.error_notification
     .form-inputs

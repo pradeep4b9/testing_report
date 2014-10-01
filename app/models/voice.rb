@@ -7,5 +7,7 @@ class Voice
   field :dialogue_id, type: String
   field :login_status, type: Boolean, :default => false
   field :login_attempts, type: Integer, :default => 0
+
+  belongs_to :user
   
 end

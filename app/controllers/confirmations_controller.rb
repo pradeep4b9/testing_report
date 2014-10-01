@@ -56,12 +56,12 @@ class ConfirmationsController < Devise::ConfirmationsController
       @user.save
 
       @mail_details = {"token" => @user.id, "password" => @generated_password}
-      # UserMailer.delay.user_login_details(@user, @generated_password)
+      UserMailer.delay.user_login_details(@mail_details)
       # UserMailer.user_login_details(@mail_details).deliver
       # NotificationWorker.perform_async("user_login_details", @mail_details)
       set_flash_message(:notice, :confirmed) if is_navigational_format?
       sign_in(resource_name, resource)
-      respond_with_navigational(resource){ redirect_to after_confirmation_path_for(resource_name, resource) }
+      respond_with_navigational(resource){ redirect_to register_mobile_numbers_path }
     else
       respond_with_navigational(resource.errors, :status => :unprocessable_entity){ render :new }
     end
