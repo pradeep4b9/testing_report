@@ -31,17 +31,15 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource_or_scope)
-    # if current_user.confirmed_at.blank?
-    #   redirect_to :controller => "users", :action => 'email_confirmation', :id => current_user.id
-    # elsif current_user.mobile_number.blank?
-    #   redirect_to register_mobile_numbers_path
-    # elsif current_user.mobile_verification_status
-    #   redirect_to verify_mobile_numbers_path
-    # elsif current_user.profile.record_status != "match"
-    #   redirect_to card_scans_path
-    # else
-    #   redirect_to dashboard_index_path
-    # end      
+    if current_user.mobile_number.blank?
+      register_mobile_numbers_path
+    elsif !current_user.mobile_verification_status
+      verify_mobile_numbers_path
+    elsif current_user.profile.record_status != "match"
+      card_scans_path
+    else
+      dashboard_index_path
+    end      
   end
 
 end
