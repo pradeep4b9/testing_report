@@ -1,4 +1,4 @@
-require 'sidekiq/web'
+# require 'sidekiq/web'
 Rails.application.routes.draw do
 
   # devise_for :users
@@ -46,7 +46,7 @@ Rails.application.routes.draw do
       get 'verify'
       post 'submit_verify'
     end
-  end 
+  end
 
   resources :profiles
   resources :dashboard
@@ -57,5 +57,5 @@ Rails.application.routes.draw do
 
   get 'sixt' => 'card_scans#index', as: :sixt
 
-  mount Sidekiq::Web => '/sidekiq'
+  # mount Sidekiq::Web => '/sidekiq'
 end
