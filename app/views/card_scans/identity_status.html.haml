@@ -1,6 +1,6 @@
 - if session[:banner]
   .banner-image
-    = image_tag("sixt.png") 
+    = image_tag("sixt.png")
 
 
 %section.scan
@@ -24,25 +24,24 @@
           .container-camera
             #image-thumbnail.fileupload-preview.fileupload-exists.thumbnail{:style=>"line-height: 10px;position:relative;margin:0 auto;max-height:none;"}
               .view-container{:style => "width:96%;padding:1%;"}
-                .span2
-                  Identity      
-                .span2
-                  Verified with #{@card_scan.idcard_type}
-                .clear
-                %br
                 .span3{:style =>"text-align:center"}
                   %b
-                    Your VERIFIED DETAILS
-                .clear   
-                .snd-container 
+                    VERIFIED DETAILS
+                  %br
+                .snd-container
                   .span2.first
-                    First Name:      
+                    Identity
+                  .span2.last
+                    Verified with #{@card_scan.idcard_type}
+                  .clear
+                  .span2.first
+                    First Name:
                   .span2.last
                     = @card_scan.first_name
                   .clear
 
                   .span2.first
-                    Last Name:      
+                    Last Name:
                   .span2.last
                     = @card_scan.last_name
                   .clear
@@ -51,14 +50,14 @@
                     Date Of Birth:
                   .span2.last
                     = @card_scan.date_of_birth.strftime("%d/%m/%Y") if @card_scan.date_of_birth.present?
-                  .clear  
+                  .clear
 
                   .span2.first
-                    Country:    
+                    Country:
                   .span2.last
                     = @card_scan.country
                   .clear
-              .clear    
+              .clear
             .clear
             %br
       .row

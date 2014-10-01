@@ -8,9 +8,9 @@ class MobileNumbersController < ApplicationController
     mobile_number = params[:profile][:mobile_number]
     country = params[:profile][:country]
     if country.present?
-      mobile_number = "#{Country.find_country_by_name(country).country_code}" + "#{mobile_number}" 
+      mobile_number = "#{Country.find_country_by_name(country).country_code}" + "#{mobile_number}"
       verification_code = rand(999999).to_s.center(6, rand(9).to_s).to_i
-      
+
       user = current_user
       user.country = country
       user.mobile_number = mobile_number
@@ -19,7 +19,7 @@ class MobileNumbersController < ApplicationController
       if user.save
         SendSms.perform_async(country, mobile_number, verification_code)
 
-        profile = Profile.new({ "first_name" => user.first_name, "last_name" => user.last_name, 
+        profile = Profile.new({ "first_name" => user.first_name, "last_name" => user.last_name,
                             "mobile_number" => mobile_number, "gender" => params[:profile][:gender],
                             "country" => params[:profile][:country], "user_id" => user.id})
         profile.save
@@ -30,7 +30,7 @@ class MobileNumbersController < ApplicationController
         if error_message.present?
           flash[:alert] = "#{error_message.join(", ")} !"
         else
-          flash[:alert] = "Mobile Number already registered!"
+          flash[:notice] = "Mobile Number already registered!"
         end
         redirect_to register_mobile_numbers_path
       end
