@@ -35,7 +35,7 @@ production:
         - ec2-54-253-3-191.ap-southeast-2.compute.amazonaws.com:27017
         - ec2-54-252-43-219.ap-southeast-2.compute.amazonaws.com:27017
         - ec2-54-253-150-76.ap-southeast-2.compute.amazonaws.com:27017
-      database: my_verified_id
+      database: mvi_mobile
 
       options:
         # The default consistency is :eventual, which means that reads will attempt to go to secondaries. 
