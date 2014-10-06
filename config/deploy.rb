@@ -10,8 +10,8 @@ set :keep_releases, 5
 
 set :format, :pretty
 set :log_level, :debug
-set :pty, true
-set :assets_roles, [:web, :app]    
+set :pty,  false
+set :assets_roles, [:web, :app]
 set :rails_env, 'production'
 
 
@@ -34,6 +34,23 @@ set :puma_threads, [0, 16]
 set :puma_workers, 0
 set :puma_init_active_record, true
 set :puma_preload_app, true
+
+# set :sidekiq_config, -> { File.join(shared_path, 'config', 'sidekiq.yml') }
+:sidekiq_default_hooks =>  true
+:sidekiq_pid =>  File.join(shared_path, 'tmp', 'pids', 'sidekiq.pid')
+:sidekiq_env =>  fetch(:rack_env, fetch(:rails_env, fetch(:stage)))
+:sidekiq_log =>  File.join(shared_path, 'log', 'sidekiq.log')
+:sidekiq_options =>  nil
+:sidekiq_require => nil
+:sidekiq_tag => nil
+:sidekiq_config => nil
+:sidekiq_queue => nil
+:sidekiq_timeout =>  10
+:sidekiq_role =>  :app
+:sidekiq_processes =>  1
+:sidekiq_concurrency => nil
+# :sidekiq_cmd => "#{fetch(:bundle_cmd, "bundle")} exec sidekiq"  # Only for capistrano2.5
+# :sidekiqctl_cmd => "#{fetch(:bundle_cmd, "bundle")} exec sidekiqctl" # Only for capistrano2.5
 
 
 namespace :deploy do
