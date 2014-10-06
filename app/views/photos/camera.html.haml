@@ -5,11 +5,13 @@
 
 %section.scan
   %header
-    = link_to image_tag("Go-Back.png"),"/"
+    = link_to image_tag("Go-Back.png"), camera_photos_path
     .title
       %span
         Capture Picture
     = link_to image_tag("information.png"),"#"
+
+= render 'layouts/messages'
 
 .container
   .starter-template

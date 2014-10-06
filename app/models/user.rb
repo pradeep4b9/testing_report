@@ -53,6 +53,7 @@ class User
   field :two_factor_auth_generated_at, :type => Time
 
   field :country, :type => String
+  field :source_name, :type => String
 
   #Voice verification
   field :claimant_id, :type => String

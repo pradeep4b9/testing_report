@@ -2,6 +2,9 @@ class MobileNumbersController < ApplicationController
   before_filter :authenticate_user!
 
   def register
+    if current_user.mobile_verification_status
+      redirect_to card_scans_path
+    end
   end
 
   def submit_register

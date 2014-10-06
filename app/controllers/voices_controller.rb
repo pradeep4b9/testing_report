@@ -1,7 +1,7 @@
 class VoicesController < ApplicationController
   # before_action :set_voice, only: [:show, :edit, :update, :destroy]
   
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: [:signin]
 
   protect_from_forgery
   layout "card_scans"
