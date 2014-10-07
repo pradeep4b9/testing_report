@@ -1,7 +1,7 @@
 class VoicesController < ApplicationController
   # before_action :set_voice, only: [:show, :edit, :update, :destroy]
   
-  before_filter :authenticate_user!, except: [:signin]
+  before_filter :authenticate_user!, except: [:signin, :record, :login_status]
 
   protect_from_forgery
   layout "card_scans"
@@ -22,6 +22,10 @@ class VoicesController < ApplicationController
           profile.voice_status = "verified"
           profile.save
         end
+        
+        current_user.voice_auth_status = true
+        current_user.save
+
         flash[:notice] = "Your Voice biometric registration has been completed successfully"
         redirect_to dashboard_index_path
       else
@@ -45,10 +49,19 @@ class VoicesController < ApplicationController
       puts @ds_hash.inspect
       puts "Dialogue completed. Status = #{@ds_hash["dialogue_status"]}"
       @voice_details = Voice.where(dialogue_id: params[:id]).last
-      if @voice_details.present? && @ds_hash["dialogue_status"].eql?("Succeeded")
-        @voice_details.login_status = true
-        @voice_details.login_attempts = 0
-        @voice_details.save
+      if @voice_details.present? 
+        if @ds_hash["dialogue_status"].eql?("Succeeded")
+          @voice_details.login_status = true
+          @voice_details.login_attempts = 0
+          @voice_details.save
+
+          user = User.where(claimant_id: @voice_details.claimant_id).last
+          sign_in(:user, user)
+          redirect_to dashboard_index_path
+        else
+          flash[:alert] = "Failed to verify your voice. Please try again"
+          redirect_to signin_voices_path(token:@voice_details.claimant_id)
+        end
       end
     rescue Exception => e
       puts "An error occurred. #{e.message}"
@@ -131,15 +144,18 @@ class VoicesController < ApplicationController
   def signin
     begin
       api_helper = set_voice_api
-      @next_prompt = set_dailogue(params[:claimant_id], api_helper)
+      @next_prompt = set_signin_dailogue(params[:token], api_helper)
       puts "session dailogue id"
       puts session[:dialogue_id]
 
-      voice_details = Voice.where({"user_id" => "testing123voice", "claimant_id" => params[:claimant_id]} ).last
-      if voice_details.present?
-        voice_details.dialogue_id = session[:dialogue_id]
-        voice_details.login_attempts = voice_details.login_attempts + 1
-        voice_details.save
+      voice = Voice.where(claimant_id: params[:token]).last
+      if voice.present?
+        voice.dialogue_id = session[:dialogue_id]
+        voice.login_attempts = voice.login_attempts + 1
+        voice.save
+      else
+        voice = Voice.new({"claimant_id" => params[:token], "dialogue_id" => session[:dialogue_id]})
+        voice.save
       end
     rescue Exception => e
       puts "An error occurred. #{e.message}"
@@ -168,6 +184,10 @@ class VoicesController < ApplicationController
                                    :mobile_verification_count, :country, :claimant_id, :dialogue_id, :voice_auth_status)
     end
 
+    def voice_params
+      params.require(:voice).permit(:claimant_id, :dialogue_id, :login_attempts, :login_status)
+    end
+
     def set_claimant(claimant_id)
       current_user.claimant_id =  claimant_id
       current_user.save
@@ -179,6 +199,15 @@ class VoicesController < ApplicationController
       dialogue_id = sd_hash["dialogue_id"]
       current_user.dialogue_id = dialogue_id
       current_user.save
+      puts "Started dialogue id: #{dialogue_id}"
+      return sd_hash["prompt_hint"]
+    end
+
+    def set_signin_dailogue(claimant_id, api_helper)
+      sd_hash = api_helper.start_dialogue claimant_id, ENV['CALL_REFERENCE']
+      raise "Failed to start dialogue: #{sd_hash["message"]}" if sd_hash["status_code"] != "0"
+      dialogue_id = sd_hash["dialogue_id"]
+      session[:dialogue_id] = dialogue_id
       puts "Started dialogue id: #{dialogue_id}"
       return sd_hash["prompt_hint"]
     end

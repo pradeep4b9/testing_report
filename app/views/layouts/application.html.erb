@@ -33,8 +33,7 @@
             <li><%= link_to "Dashboard", dashboard_index_path %></li>
             <li><%= link_to "Logout", destroy_user_session_path, :method=>'delete' %></li>
           <% else %>
-            <li> <%= link_to "Voice Sigin" , signin_voices_path %></li>
-            <li> <%= link_to "Email Sigin" , new_user_session_path %></li>
+            <li> <%= link_to "Signin" , new_user_session_path %></li>
             <li> <%= link_to "Create Profile" , new_user_registration_path %></li>
           <% end %>
         </ul>
