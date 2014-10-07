@@ -45,6 +45,7 @@ Rails.application.routes.draw do
       post 'submit_register'
       get 'verify'
       post 'submit_verify'
+      get 'resend_code'
     end
   end
 

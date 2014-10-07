@@ -41,6 +41,10 @@ class User
   field :last_name, type: String
   field :terms_of_service, type: Boolean, default: false
 
+  field :plan, :type => String, :default => "FREE"
+  field :discount_value, :type => String
+  field :discount_code, :type => String
+
   # SMS mobile
   field :mobile_number, :type => String
   field :mobile_verification_code, :type => String, :default => ""
@@ -67,6 +71,7 @@ class User
 
   has_one :profile, :dependent => :destroy
   has_many :photos, :dependent => :destroy
+  has_many :user_payments, :dependent => :destroy
   
   def validate_user
     errors.clear

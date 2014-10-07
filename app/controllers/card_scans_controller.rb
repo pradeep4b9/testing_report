@@ -52,6 +52,7 @@ class CardScansController < ApplicationController
         profile.first_name = @card_scan.first_name
         profile.last_name = @card_scan.last_name
         profile.record_status = "match"
+        profile.profile_id = profile.profile_id.gsub("MV", Country.find_country_by_name(profile.country).alpha2)
         profile.save
       end
 

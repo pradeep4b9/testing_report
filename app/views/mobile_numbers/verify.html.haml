@@ -24,3 +24,8 @@
       / .form-actions
       /   = f.button :submit, "Sign up"
       %br
+
+  .control-text
+    %h5
+      If you didn't receive the verification code within 10 min to your mobile number, click on
+      = link_to "Resend Verification", resend_code_mobile_numbers_path

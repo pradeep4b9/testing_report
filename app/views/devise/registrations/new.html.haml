@@ -21,7 +21,8 @@
         = f.input :email, required: true, autofocus: true, label: false, placeholder: "Email Address"
 
         = f.input :source_name, :as => :hidden, :input_html => { :value => "store_mobile" }
-        
+        = f.input :plan, :as => :hidden, :input_html => {:value => "PREMIUM"}
+
       / # = f.input :password, required: true
       / # = f.input :password_confirmation, required: true  
     .control-group-text
