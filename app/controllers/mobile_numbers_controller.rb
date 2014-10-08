@@ -79,7 +79,7 @@ class MobileNumbersController < ApplicationController
   end
 
   def resend_code
-    if Time.now.to_i < (current_user.generated_at.to_i + 600)
+    if Time.now.to_i > (current_user.generated_at.to_i + 600)
       if current_user.mobile_verification_count < 3
         verification_code = rand(999999).to_s.center(6, rand(9).to_s).to_i
         current_user.generated_at =  Time.now
