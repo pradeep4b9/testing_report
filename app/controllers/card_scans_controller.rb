@@ -8,10 +8,12 @@ class CardScansController < ApplicationController
   # GET /card_scans
   # GET /card_scans.json
   def index
-    puts "coming to user session"
-    puts current_user.inspect
-    #@card_scans = CardScan.all
-    session[:banner] = "sixt" if request.url.match("sixt")
+    profile = current_user.profile
+    if profile.present? && profile.record_status.eql?("match")
+      redirect_to dashboard_index_path
+    else
+      session[:banner] = "sixt" if request.url.match("sixt")
+    end
   end
 
   # GET /card_scans/1
@@ -31,13 +33,8 @@ class CardScansController < ApplicationController
   # POST /card_scans
   # POST /card_scans.json
   def create
-    
-    puts "coming to cardscan create"
-    puts current_user.inspect
 
     profile = current_user.profile
-    
-
     @card_scan = CardScan.new(card_scan_params)
 
     @card_scan.issue_date = params[:card_scan][:issue_date].present? ? data_formater(params[:card_scan][:issue_date]) : nil
