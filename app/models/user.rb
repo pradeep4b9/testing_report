@@ -92,7 +92,7 @@ class User
     end
 
     if email.present? && User.where(email: email).present?
-      errors["error_message"] << "Email is already registered."
+      errors["error_message"] << "Email is already registered"
     end
 
     if email.blank? || email !~ /^[a-z|A-Z|0-9|.|_]+@[a-z|A-Z|0-9|.|_]+$/i
