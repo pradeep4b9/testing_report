@@ -70,29 +70,32 @@ class VoicesController < ApplicationController
 
 
   def register
-    puts params.inspect
-    puts params[:voice_file]
-    begin
-      api_helper = set_voice_api
-      puts current_user.claimant_id
-     
-      current_user.claimant_id = nil
-      current_user.save
+    profile = current_user.profile
+    if profile.voice_status.eql?("verified")
+      redirect_to dashboard_index_path
+    else
+      begin
+        api_helper = set_voice_api
+        puts current_user.claimant_id
+       
+        current_user.claimant_id = nil
+        current_user.save
 
-      if current_user.claimant_id.blank?
-        rc_hash = api_helper.register_claimant
-        raise "Failed to register claimant: #{rc_hash["message"]}" if rc_hash["status_code"] != "0"
-        claimant_id = rc_hash["claimant_id"]
-        puts "Registered claimant id: #{claimant_id}"
-        set_claimant(claimant_id)
+        if current_user.claimant_id.blank?
+          rc_hash = api_helper.register_claimant
+          raise "Failed to register claimant: #{rc_hash["message"]}" if rc_hash["status_code"] != "0"
+          claimant_id = rc_hash["claimant_id"]
+          puts "Registered claimant id: #{claimant_id}"
+          set_claimant(claimant_id)
+        end
+
+        puts current_user.claimant_id
+        @next_prompt = set_dailogue(current_user.claimant_id, api_helper)
+        puts current_user.dialogue_id
+
+      rescue Exception => e
+        puts "An error occurred. #{e.message}"
       end
-
-      puts current_user.claimant_id
-      @next_prompt = set_dailogue(current_user.claimant_id, api_helper)
-      puts current_user.dialogue_id
-
-    rescue Exception => e
-      puts "An error occurred. #{e.message}"
     end
   end
 
