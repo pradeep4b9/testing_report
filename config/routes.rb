@@ -2,7 +2,7 @@
 Rails.application.routes.draw do
 
   # devise_for :users
-  devise_for :users, :controllers => {:registrations => "registrations", :confirmations => "confirmations"}
+  devise_for :users, :controllers => {:registrations => "registrations", :confirmations => "confirmations", :sessions => 'sessions'}
 
   resources :users do
     collection do
@@ -45,11 +45,17 @@ Rails.application.routes.draw do
       post 'submit_register'
       get 'verify'
       post 'submit_verify'
+      get 'resend_code'
     end
   end
 
   resources :profiles
-  resources :dashboard
+
+  resources :dashboard do
+    collection do
+      get 'index'
+    end
+  end
 
   post 'country_code' => 'home#country_code', as: :country_code
 

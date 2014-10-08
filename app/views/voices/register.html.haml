@@ -1,3 +1,6 @@
+
+= render 'layouts/messages'
+
 .container.voice-scan
   %h4
     VOICE BIOMETRIC REGISTRATION
@@ -24,5 +27,8 @@
     = image_tag("processing.gif",:class =>"voice-loader");
     %br
     %br
+
+    %button#btn.btn-lg.btn-primary.btn-custom-sb{:style => "", :type => "button" ,:onclick => "javascript:window.location ='/dashboard'"}
+      Skip
     
 

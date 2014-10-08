@@ -1,7 +1,7 @@
 .sign-up-form
   %section.scan
     %header
-      = link_to image_tag("Go-Back.png"),"/"
+      = link_to image_tag("Go-Back.png"), verify_mobile_numbers_path
       .title
         %span
           %h3
@@ -24,3 +24,8 @@
       / .form-actions
       /   = f.button :submit, "Sign up"
       %br
+
+  .control-text
+    %h5
+      If you didn't receive the verification code within 10 min to your mobile number, click on
+      = link_to "Resend Verification", resend_code_mobile_numbers_path

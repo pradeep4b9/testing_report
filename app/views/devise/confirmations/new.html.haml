@@ -9,6 +9,8 @@
     = f.full_error :confirmation_token
     .form-inputs
       = f.input :email, required: true, autofocus: true,:label => false,:placeholder => "Email"
+    .clear
+    %br
     .form-actions
       = f.button :submit, "Resend confirmation instructions"
   / = render "devise/shared/links"

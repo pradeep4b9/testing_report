@@ -1,6 +1,6 @@
 %section.scan
   %header
-    = link_to image_tag("Go-Back.png"),"/"
+    = link_to image_tag("Go-Back.png"), camera_photos_path
     .title
       %span
         - if @match_details["status"] && @match_details["match_score"] > 25
@@ -32,7 +32,7 @@
           = link_to "Click Here", "/photos/camera", :"data-no-turbolink" => ""
           to Capture Photo and try Face Match again. If not
           = link_to "Click Here", "/voices/register", :"data-no-turbolink" => ""
-          to verify your Vocie.
+          to verify your Voice.
 
     .row
       .col-xs-12
