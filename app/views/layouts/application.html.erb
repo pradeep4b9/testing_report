@@ -25,15 +25,17 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="active"><a data-no-turbolink  href="/">Identity Verification</a></li>
+          <!-- <li class="active"><a data-no-turbolink  href="/">Identity Verification</a></li>
           <li><a href="/photos/verify" data-no-turbolink >Face Verification</a></li>
           <li><a href="/voices/register" data-no-turbolink >Voice Biometric Verification</a></li>
-          <li><a href="/mobile_numbers/register" data-no-turbolink >Mobile Verification</a></li>
-          <% if current_user %>
+          <li><a href="/mobile_numbers/register" data-no-turbolink >Mobile Verification</a></li> -->
+          <% if current_user.present? %>
+            <li><%= link_to "Dashboard", dashboard_index_path %></li>
             <li><%= link_to "Logout", destroy_user_session_path, :method=>'delete' %></li>
           <% else %>
-            <li> <%= link_to "Login" , new_user_session_path %></li>
-            <li><%= link_to "Sign up", new_registration_path(User.new) %></li>
+            <li> <%= link_to "Signin" , new_user_session_path %></li>
+            <li> <%= link_to "Forgot Password?" ,"/users/password/new" %></li>
+            <li> <%= link_to "Create Profile" , new_user_registration_path %></li>
           <% end %>
         </ul>
       </div><!-- /.navbar-collapse -->

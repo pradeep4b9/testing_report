@@ -1,2 +1,20 @@
-%h1 Home#index
-%p Find me in app/views/home/index.html.haml
+.sign-in-form
+  = render 'layouts/messages'
+  %h2 SIGN-IN AUTHENTICATION
+  - resource_name = User.new
+  = simple_form_for(resource_name, as: resource_name, url: session_path(resource_name)) do |f|
+    .form-inputs
+      = f.input :email, required: true, autofocus: true, label: false, placeholder: "Email Address"
+      = f.input :password, required: true, label: false, placeholder: "Password"
+    .form-actions
+      %br	
+      = f.button :submit, "SIGN-IN",:class =>"btn-submit"
+      %br	
+      %br	
+
+.clear
+
+%h4{:style => "text-align:center;"}
+  %button#btn.btn-lg.btn-primary.btn-custom-sb{:style => "", :type => "button" ,:onclick => "javascript:window.location ='#{new_user_registration_path}'"}
+    CREATE PROFILE
+

@@ -1,4 +1,3 @@
-
 .sign-in-form
   = render 'layouts/messages'
   %h2 SIGN-IN AUTHENTICATION
@@ -6,11 +5,15 @@
     .form-inputs
       = f.input :email, required: true, autofocus: true, label: false, placeholder: "Email Address"
       = f.input :password, required: true, label: false, placeholder: "Password"
-      = f.input :remember_me, required: true, as: :boolean if devise_mapping.rememberable?
+      = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
     .form-actions
       %br	
       = f.button :submit, "SIGN-IN",:class =>"btn-submit"
       %br	
       %br	
+
+%h4{:style => "text-align:center;"}
+  %button#btn.btn-lg.btn-primary.btn-custom-sb{:style => "", :type => "button" ,:onclick => "javascript:window.location ='#{new_user_registration_path}'"}
+    CREATE PROFILE
 
 

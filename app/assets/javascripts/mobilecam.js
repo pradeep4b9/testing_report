@@ -207,7 +207,7 @@ $(document).ready(function ($) {
 
     jQuery.fn.lockpage =function(){
 
-        jQuery("<div class='overlay-lockpage'><img src=\"/assets/preloader.gif\" width=\"50px\"></div>").insertAfter("body");
+        jQuery("<div class='overlay-lockpage'><img src=\"/assets/preloader.gif\" width=\"100px\"></div>").insertAfter("body");
 
     }
 

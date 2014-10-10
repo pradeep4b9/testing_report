@@ -22,6 +22,7 @@
         %input{:type => "hidden", :name => "next_prompt", :value => @next_prompt }
         %input{:type => "hidden", :name => "dialogue_id", :value => @dialogue_id }
         %input{:type => "hidden", :name => "is_login", :value => @is_login }
+        %input{:type => "hidden", :name => "authenticity_token",:id => "authenticity_token",:value => form_authenticity_token}
       
       = image_tag("Speak.png", :id => "CamButton", :class => "img-responsive")
       %br

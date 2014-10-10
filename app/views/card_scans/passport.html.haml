@@ -5,7 +5,7 @@
 
 %section.scan
   %header
-    = link_to image_tag("Go-Back.png"),"/"
+    = link_to image_tag("Go-Back.png"), card_scans_path
     .title
       %span
         Passport
@@ -50,6 +50,8 @@
               Select Source
             %td
               %input#chkImageSource.switch-large{:checked => "", "data-label-icon" => "icon-fullscreen", "data-off-label" => "<i class='icon-webcam'></i>", "data-on-label" => "<i class='icon-camera'></i>&nbsp;<i class='icon-hard-drive'></i>", :type => "checkbox"}
+
+              %input{:type => "hidden", :name => "authenticity_token",:id => "authenticity_token",:value => form_authenticity_token}
           / %tr
           /   %td
           /     %medium Crop Image

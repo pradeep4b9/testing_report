@@ -1,13 +1,19 @@
 class CardScansController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_card_scan, only: [:show, :edit, :update, :destroy]
-  protect_from_forgery
+
+  # protect_from_forgery
   layout "card_scans"
 
   # GET /card_scans
   # GET /card_scans.json
   def index
-    #@card_scans = CardScan.all
-    session[:banner] = "sixt" if request.url.match("sixt")
+    profile = current_user.profile
+    if profile.present? && profile.record_status.eql?("match")
+      redirect_to dashboard_index_path
+    else
+      session[:banner] = "sixt" if request.url.match("sixt")
+    end
   end
 
   # GET /card_scans/1
@@ -27,15 +33,30 @@ class CardScansController < ApplicationController
   # POST /card_scans
   # POST /card_scans.json
   def create
+
+    profile = current_user.profile
     @card_scan = CardScan.new(card_scan_params)
 
     @card_scan.issue_date = params[:card_scan][:issue_date].present? ? data_formater(params[:card_scan][:issue_date]) : nil
     @card_scan.expiration_date = params[:card_scan][:expiration_date].present? ?  data_formater(params[:card_scan][:expiration_date]) : nil
     @card_scan.date_of_birth = params[:card_scan][:date_of_birth].present? ? data_formater(params[:card_scan][:date_of_birth]) : nil
-
+    @card_scan.profile_id = profile.id
     @card_scan.face_image = File.open(card_images(params[:card_scan][:face_image], "face"))
     @card_scan.signature_image = nil #File.open(card_images(params[:card_scan][:signature_image], "signature"))
     if @card_scan.save
+
+      if profile.present?
+        profile.first_name = @card_scan.first_name
+        profile.last_name = @card_scan.last_name
+        profile.record_status = "match"
+        profile.profile_id = profile.profile_id.gsub("MV", Country.find_country_by_name(profile.country).alpha2)
+        profile.save
+      end
+
+      current_user.first_name = @card_scan.first_name
+      current_user.last_name = @card_scan.last_name
+      current_user.save
+
       # sleep(5)
       render text: "success|#{@card_scan.id}"
       # redirect_to identity_status_card_scans_path(token: @card_scan.id)

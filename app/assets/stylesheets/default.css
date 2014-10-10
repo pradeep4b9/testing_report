@@ -29,7 +29,7 @@ section.scan header{background: #fff;padding: 11px 5px 5px;text-align: center;}
 section.scan header img{vertical-align: middle;}
 section.scan header a{display: inline-block;}
 section.scan header a:hover{background: transparent;}
-section.scan header .title{height:36px;font-size: 21px;text-transform: uppercase;margin-left: 25px;margin-right: 25px;display: inline-block;}
+section.scan header .title{height:36px;font-size: 20px;text-transform: uppercase;margin-left: 23px;margin-right: 23px;display: inline-block;}
 section.scan header .title span{margin-top: 5px;}
 
 .btn-custom-mb{background: #fff!important;color:#70AE3B!important;text-transform: uppercase;border: 2px solid #6caa37;width:auto;font-size: 20px; border-radius: 8px;}
@@ -61,7 +61,7 @@ div#placehold-image-cam{ color: #70ae3b;
   .footer-tagline{width:100%;}
   .container-lp{width:100%;margin: 0 auto;}
   .content{margin-top: 0px;}
-  body, html {
+  body {
 
   background-color:rgb(112, 174, 59)!important;
 
@@ -209,4 +209,24 @@ body .sign-in-form .form-inputs label{color: #fff;}
 
 .profile_mobile_ctry_code input{width:15%!important;float: left;padding: 10px 4px !important;text-align: center;}
 .profile_mobile_number input{width:83%!important;float: right;}
+.field_with_errors{background: transparent!important;}
+.verified-tmp .span2{width:35%!important;}
+.verified-tmp a{font-size:10px;color:#6caa37!important;text-decoration:none;font-weight:bold;background:transparent;}
+.verified-tmp a:hover{text-decoration:underline;background:transparent;}
+.overlay-lockpage{position:fixed;
+    width:100%;
+    height:100%;
+    background-color:#fff;
+    filter:alpha(opacity=60);
+    opacity:0.6;
+    -moz-opacity:0.6;
+    z-index:100;
+    top: 0;
+    left:0;
+}
 
+
+.overlay-lockpage img{top: 0;left: 0px;margin: auto;bottom: 0;right: 0;position: absolute;}
+
+.v-status .span2.first{width: 34%;}
+.v-status .span2.last{width: 66%;}

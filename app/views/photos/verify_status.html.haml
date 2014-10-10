@@ -1,9 +1,9 @@
 %section.scan
   %header
-    = link_to image_tag("Go-Back.png"),"/"
+    = link_to image_tag("Go-Back.png"), camera_photos_path
     .title
       %span
-        - if @match_details["status"] && @match_details["match_score"] > 30
+        - if @match_details["status"] && @match_details["match_score"] > 25
           VERIFIED FACE
         - else
           FAILED TO VERIFY FACE
@@ -18,23 +18,21 @@
         .container-camera
           #image-thumbnail.fileupload-preview.fileupload-exists.thumbnail{:style=>"line-height: 10px;position:relative;margin:0 auto;max-height:none;"}
             = image_tag(@camera_photo,:style => "")  
-          
-
-            = image_tag(@id_face,:class => "idscan-img",:style =>"position:absolute;top:0;left:0;width:20%;padding:4px;")  
-    
     %br/
     .row
       #div-controls.col-xs-12.col-sm-12.col-lg-12
-        - if @match_details["status"] && @match_details["match_score"] > 30
-          %h4
+        - if @match_details["status"] && @match_details["match_score"] > 25
+          %h4{:style => "color:#fff;"}
             MATCH SCORE: #{@match_details["match_score"]}%
           %br
-          = link_to "VOICE VERIFICATION", "/voices/register", :"data-no-turbolink" => ""
+          %h4
+            %button#btn.btn-lg.btn-primary.btn-custom-sb{:style => "", :type => "button" ,:onclick => "javascript:window.location ='/voices/register'"}
+              Voice Verification
         - else
-          = link_to "Click Here", "/photos/camera?token=#{@card_id}", :"data-no-turbolink" => ""
+          = link_to "Click Here", "/photos/camera", :"data-no-turbolink" => ""
           to Capture Photo and try Face Match again. If not
           = link_to "Click Here", "/voices/register", :"data-no-turbolink" => ""
-          to verify your Vocie.
+          to verify your Voice.
 
     .row
       .col-xs-12

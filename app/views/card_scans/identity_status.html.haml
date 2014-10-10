@@ -1,6 +1,6 @@
 - if session[:banner]
   .banner-image
-    = image_tag("sixt.png") 
+    = image_tag("sixt.png")
 
 
 %section.scan
@@ -22,48 +22,49 @@
       .row
         .col-xs-12.col-sm-12{:style =>"text-align:center;"}
           .container-camera
-            #image-thumbnail.fileupload-preview.fileupload-exists.thumbnail{:style=>"line-height: 10px;position:relative;margin:0 auto;max-height:none;"}
-              .view-container{:style => "width:96%;padding:1%;"}
-                .span2
-                  Identity      
-                .span2
-                  Verified with #{@card_scan.idcard_type}
-                .clear
-                %br
-                .span3{:style =>"text-align:center"}
+            #image-thumbnail.fileupload-preview.fileupload-exists.thumbnail{:style=>"line-height: 10px;position:relative;margin:0 auto;max-height:none;text-align:center;"}
+              .view-container{:style => "float: none;margin: 0 auto !important;padding: 1%;width: 96%;"}
+                .span3{:style =>"text-align:center;margin-bottom:5px;"}
                   %b
-                    Your VERIFIED DETAILS
-                .clear   
-                .snd-container 
-                  .span2.first
-                    First Name:      
-                  .span2.last
-                    = @card_scan.first_name
-                  .clear
+                    VERIFIED DETAILS
+                  %hr{:style => "margin-top:5px;"}
+                .snd-container
+                  .v-status
+                    .span2.first
+                      Identity
+                    .span2.last{:style =>"text-transform:uppercase;"}
+                      Verified with #{@card_scan.idcard_type}
+                    .clear
+                    .span2.first
+                      First Name:
+                    .span2.last
+                      = @card_scan.first_name
+                    .clear
 
-                  .span2.first
-                    Last Name:      
-                  .span2.last
-                    = @card_scan.last_name
-                  .clear
+                    .span2.first
+                      Last Name:
+                    .span2.last
+                      = @card_scan.last_name
+                    .clear
 
-                  .span2.first
-                    Date Of Birth:
-                  .span2.last
-                    = @card_scan.date_of_birth.strftime("%d/%m/%Y")
-                  .clear  
+                    .span2.first
+                      Date Of Birth:
+                    .span2.last
+                      = @card_scan.date_of_birth.strftime("%d/%m/%Y") if @card_scan.date_of_birth.present?
+                    .clear
 
-                  .span2.first
-                    Country:    
-                  .span2.last
-                    = @card_scan.country
-                  .clear
-              .clear    
+                    .span2.first
+                      Country:
+                    .span2.last
+                      = @card_scan.country
+                    .clear
+                .clear
+              .clear
             .clear
             %br
       .row
         %h4
-          %button#btn.btn-lg.btn-primary.btn-custom-sb{:style => "", :type => "button" ,:onclick => "javascript:window.location ='/photos/camera?token=#{@card_scan.id}'"}
+          %button#btn.btn-lg.btn-primary.btn-custom-sb{:style => "", :type => "button" ,:onclick => "javascript:window.location ='/photos/camera'"}
             Face Match
       .row
         .col-xs-12

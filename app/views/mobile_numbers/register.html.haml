@@ -1,12 +1,13 @@
 .sign-up-form
   %section.scan
     %header
-      = link_to image_tag("Go-Back.png"),"/"
+      = link_to image_tag("Go-Back.png"), register_mobile_numbers_path
       .title
         %span
           Verify Mobile
       = link_to image_tag("information.png"),"#"
-  %hr    
+  %hr
+  = render 'layouts/messages'    
   = simple_form_for(Profile.new, :url => {:controller => "mobile_numbers", :action => :submit_register }) do |f|
     = f.error_notification
     .form-inputs

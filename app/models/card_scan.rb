@@ -1,14 +1,15 @@
 class CardScan
   include Mongoid::Document
   include Mongoid::Timestamps
-  
-  field :user_id, type: String
+
+  field :profile_id, type: String
   field :card_status, type: String
 
   field :first_name, type: String
-  field :middle_name
-  field :last_name
-  field :date_of_birth, type: Time
+  field :middle_name, type: String
+  field :last_name, type: String
+
+  field :date_of_birth, type: Date
   field :sex, type: String
   field :eyes_color, type: String
   field :hair_color, type: String
@@ -27,7 +28,7 @@ class CardScan
   field :idcard_number, type: String
   field :issue_date, type: Time
   field :expiration_date, type: Time
-  
+
   field :dl_class, type: String
   field :restriction, type: String
   field :endorsements, type: String
@@ -42,9 +43,11 @@ class CardScan
   mount_uploader :face_image, FaceImageUploader
   store_in_background :face_image
 
+  belongs_to :profile
+
   # mount_uploader :signature_image, SignatureImageUploader
   # store_in_background :signature_image
 
 
-  
+
 end

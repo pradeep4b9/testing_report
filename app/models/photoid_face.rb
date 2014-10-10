@@ -8,4 +8,5 @@ class PhotoidFace
  	field :error_code, type: String
  	field :error_message, type: String
 
+ 	belongs_to :photo
 end

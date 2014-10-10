@@ -1,8 +1,8 @@
-require 'sidekiq/web'
+# require 'sidekiq/web'
 Rails.application.routes.draw do
 
   # devise_for :users
-  devise_for :users, :controllers => {:registrations => "registrations", :confirmations => "confirmations"}
+  devise_for :users, :controllers => {:registrations => "registrations", :confirmations => "confirmations", :sessions => 'sessions'}
 
   resources :users do
     collection do
@@ -45,16 +45,23 @@ Rails.application.routes.draw do
       post 'submit_register'
       get 'verify'
       post 'submit_verify'
+      get 'resend_code'
     end
-  end 
+  end
 
   resources :profiles
 
+  resources :dashboard do
+    collection do
+      get 'index'
+    end
+  end
+
   post 'country_code' => 'home#country_code', as: :country_code
 
-  root 'card_scans#index'
+  root 'home#index'
 
   get 'sixt' => 'card_scans#index', as: :sixt
 
-  mount Sidekiq::Web => '/sidekiq'
+  # mount Sidekiq::Web => '/sidekiq'
 end

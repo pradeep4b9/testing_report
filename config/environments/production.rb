@@ -85,19 +85,17 @@ Rails.application.configure do
   # Setup for production - deliveries, no errors raised
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
 
   config.action_mailer.smtp_settings = {
     :address => "email-smtp.us-east-1.amazonaws.com",
     :port => 587,
-    :domain => 'mobile.myverifiedid.com',
+    :domain => 'myverifiedid.com',
     :user_name => 'AKIAIFV3PBD33SUIL2KA',
     :password => 'AjHxW/82XNOrAsZf7RHtrO++y68aC2L3ZWq2FUjXb2f3',
     :authentication => :login,
-    :enable_starttls_auto => true 
+    :enable_starttls_auto => true
   }
-
-
 
 end

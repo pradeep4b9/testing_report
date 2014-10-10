@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 gem 'rails', '4.1.5'
-gem 'thin'
+gem 'puma'
 
 gem 'therubyracer', :platform=>:ruby
 
@@ -42,6 +42,9 @@ gem "rack-raw-upload" #, "~> 1.1.1"
 #gem for file encryption and decryption
 gem "carrierwave_encrypter_decrypter", "~> 0.0.6"
 
+#creating unique registration id for profile
+gem 'mongoid_token', github: 'apai4/mongoid_token'
+
 # Background Job
 gem 'sidekiq', '~> 3.2.5'
 gem 'sidekiq-scheduler', '~> 1.0'
@@ -66,14 +69,16 @@ group :development do
   gem 'capistrano-rails',   '~> 1.1', require: false
   gem 'capistrano-bundler', '~> 1.1', require: false
   gem 'capistrano-rvm',   '~> 0.1', require: false
+  gem 'capistrano-sidekiq'
+
 
   gem 'html2haml'
   gem 'quiet_assets'
   gem 'rails_layout'
   gem 'spring'
 
-  gem "sinatra", require: false
-  gem "slim", "~> 1.3.8"
+  # gem "sinatra", require: false
+  # gem "slim", "~> 1.3.8"
 
 end
 
@@ -93,5 +98,5 @@ end
 group :production do
   # gem 'unicorn'
   # gem 'unicorn-rails'
-  gem 'puma'
+  # gem 'puma'
 end
