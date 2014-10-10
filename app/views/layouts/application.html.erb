@@ -34,6 +34,7 @@
             <li><%= link_to "Logout", destroy_user_session_path, :method=>'delete' %></li>
           <% else %>
             <li> <%= link_to "Signin" , new_user_session_path %></li>
+            <li> <%= link_to "Forgot Password?" ,"/users/password/new" %></li>
             <li> <%= link_to "Create Profile" , new_user_registration_path %></li>
           <% end %>
         </ul>
