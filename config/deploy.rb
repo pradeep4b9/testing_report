@@ -1,8 +1,8 @@
-set :application, 'mvimobile'
-set :repo_url, 'git@github.com:didiergrossemy/mvimobile.git'
+set :application, 'mviproducts'
+set :repo_url, 'git@bitbucket.org:mvi_admin/mviproducts.git'
 
 
-set :deploy_to, '/home/ubuntu/mvimobile'
+set :deploy_to, '/home/ubuntu/mviproducts/identity'
 set :scm, :git
 # set :branch, 'master'
 ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
