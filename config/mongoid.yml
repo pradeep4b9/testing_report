@@ -5,7 +5,7 @@ development:
     default:
       # Defines the name of the default database that Mongoid can connect to.
       # (required).
-      database: my_verified_id_dev
+      database: mviproducts_development
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
@@ -14,11 +14,11 @@ development:
         #- staging.myverifiedid.com:27017
 
       options:
-      
+
 test:
   sessions:
     default:
-      database: mvimobile_test
+      database: mviproducts_test
       hosts:
         - localhost:27017
       options:
@@ -32,13 +32,11 @@ production:
   sessions:
     default:
       hosts:
-        - ec2-54-253-3-191.ap-southeast-2.compute.amazonaws.com:27017
-        - ec2-54-252-43-219.ap-southeast-2.compute.amazonaws.com:27017
-        - ec2-54-253-150-76.ap-southeast-2.compute.amazonaws.com:27017
-      database: mvi_mobile
+        - localhost:27017
+      database: mviproducts_production
 
       options:
-        # The default consistency is :eventual, which means that reads will attempt to go to secondaries. 
+        # The default consistency is :eventual, which means that reads will attempt to go to secondaries.
         # If you don't want this, switch this option to :strong, which will send everything to the master node.
         # consistency: :strong
         # We can set session specific options, like reads executing
