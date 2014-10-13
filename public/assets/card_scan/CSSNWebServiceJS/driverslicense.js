@@ -362,7 +362,7 @@
                         // alert(data.search ("success"));
                         if(data.indexOf("success")>=0){
                              var cam_data = data.split("|");
-                             location.href = "/card_scans/identity_status?token="+cam_data[1];
+                             location.href = "/dashboard/index";
                         }
                     });
                 }
