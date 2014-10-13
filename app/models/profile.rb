@@ -4,7 +4,7 @@ class Profile
   include Mongoid::Token
 
   token :field_name => :profile_id, :length => 12, :retry_count => 0, :pattern => "MV%d10"
-  
+
   field :first_name, type: String
   field :middle_name, type: String
   field :last_name, type: String

@@ -59,7 +59,7 @@
         //                              }, onFailure);
         //        }
 
-        //       
+        //
         //        $("#help-icon").tooltip({ placement: 'bottom' });
         //        $('#chkPreProcessing').bootstrapSwitch('setState', false);
     }
@@ -105,7 +105,7 @@
 
     // Convert dataURL to Blob object
     function dataURLtoBlob(dataURL) {
-        // Decode the dataURL    
+        // Decode the dataURL
         var binary = atob(dataURL.split(',')[1]);
         // Create 8-bit unsigned array
         var array = [];
@@ -242,7 +242,7 @@
             imageToProcess = image;
         }
 
-        //Accesing the web service 
+        //Accesing the web service
         $.ajax({
             type: "POST",
             url: "https://cssnwebservices.com/CSSNService/CardProcessor/ProcessPassport/true/true/true/0/150/" + usePreprocessing.toString(),
@@ -318,7 +318,7 @@
                         "birth_place":passport.End_POB
                     }
                 }
-                
+
 
 
                 //Display face, sign and reformatted images on UI
@@ -349,7 +349,9 @@
                     // alert(data.search ("success"));
                     if(data.indexOf("success")>=0){
                          var cam_data = data.split("|");
-                         location.href = "/card_scans/identity_status?token="+cam_data[1];
+                         // location.href = "/card_scans/identity_status?token="+cam_data[1];
+                         location.href = "/dashboard/index";
+
                     }
                 });
 

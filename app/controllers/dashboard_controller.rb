@@ -1,6 +1,6 @@
 class DashboardController < ApplicationController
   before_filter :authenticate_user!
- 	
+
   protect_from_forgery
   layout "card_scans"
 
@@ -17,5 +17,5 @@ class DashboardController < ApplicationController
   		@photo = current_user.photos.where(verified: true).last
   	end
   end
-  
+
  end

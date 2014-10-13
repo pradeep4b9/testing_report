@@ -5,3 +5,12 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+user = User.where(email: "admin@myverifiedid.com").first
+user = User.create!({first_name: "Shyam K", last_name: "J",  email: "admin@myverifiedid.com", password: "admin123",
+  mobile_number: "918688468400", mobile_verification_status: true, country: "India"}) if user.blank?
+
+
+Profile.create!({first_name: user.first_name, last_name: user.last_name, mobile_number: user.mobile_number,
+  gender: "Male", country: "India", mobile_ctry_code: "91", record_status: nil, user_id: user.id }) if user.profile.blank?
+
