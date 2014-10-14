@@ -30,6 +30,7 @@ gem 'simple_form'
 
 gem "geocoder"
 gem 'countries'
+gem 'bcrypt-ruby', :platform => "ruby"
 
 #Upload Photos
 # install dependency on ubuntu > sudo apt-get install imagemagick libmagickwand-dev
