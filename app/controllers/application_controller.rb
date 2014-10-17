@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   # end
 
   def after_sign_in_path_for(resource_or_scope)
-    marketlend_path
+    mvi_widget_path
     # current_user.profile.update_attributes(record_status: nil) if current_user.profile
 
     # if current_user.mobile_number.blank?

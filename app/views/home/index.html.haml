@@ -6,6 +6,7 @@
     .form-inputs
       = f.input :email, required: true, autofocus: true, label: false, placeholder: "Email Address"
       = f.input :password, required: true, label: false, placeholder: "Password"
+    (login with email address as: admin@myverifiedid.com and password as: admin123)
     .form-actions
       %br	
       = f.button :submit, "SIGN-IN",:class =>"btn-submit"

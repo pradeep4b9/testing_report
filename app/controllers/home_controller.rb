@@ -16,7 +16,7 @@ class HomeController < ApplicationController
     render json: response_hash
   end
 
-  def marketlend
+  def mvi_widget
 
   end
 

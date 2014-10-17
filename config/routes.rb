@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get :marketlend, to: "home#marketlend"
+  get :mvi_widget, to: "home#mvi_widget"
 
   resources :card_scans do
     collection do
