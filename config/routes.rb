@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get :marketlend, to: "home#marketlend"
+
   resources :card_scans do
     collection do
       get 'driverslicense'

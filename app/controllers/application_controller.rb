@@ -31,17 +31,18 @@ class ApplicationController < ActionController::Base
   # end
 
   def after_sign_in_path_for(resource_or_scope)
-    current_user.profile.update_attributes(record_status: nil) if current_user.profile
+    marketlend_path
+    # current_user.profile.update_attributes(record_status: nil) if current_user.profile
 
-    if current_user.mobile_number.blank?
-      register_mobile_numbers_path
-    elsif !current_user.mobile_verification_status
-      verify_mobile_numbers_path
-    elsif current_user.profile.record_status != "match"
-      card_scans_path
-    else
-      dashboard_index_path
-    end
+    # if current_user.mobile_number.blank?
+    #   register_mobile_numbers_path
+    # elsif !current_user.mobile_verification_status
+    #   verify_mobile_numbers_path
+    # elsif current_user.profile.record_status != "match"
+    #   card_scans_path
+    # else
+    #   dashboard_index_path
+    # end
   end
 
 end
