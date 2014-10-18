@@ -23,7 +23,8 @@ server '54.66.161.156', user: 'ubuntu', roles: %w{web app}, my_property: :my_val
 # set it globally
  set :ssh_options, {
    # keys: %w(/home/rlisowski/.ssh/id_rsa),
-   keys: %w(~/.ssh/server.pem),
+   # keys: %w(~/.ssh/server.pem),
+   keys: %w(/home/localhost/.ec2/server.pem),
    forward_agent: false,
    auth_methods: %w(publickey password)
  }
