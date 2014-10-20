@@ -1,6 +1,9 @@
 <div style="text-align:center">
-
 		<div style="margin:2% auto 10%;width:940px">
+		<% if @email.present? %>
+			<iframe  src="https://member.myverifiedid.com/myverified-widget?email=<%= @email %>" width="940"  height="1124" frameborder=0 scrolling="no"></iframe>
+		<% else %>
 			<iframe  src="https://member.myverifiedid.com/myverified-widget" width="940"  height="1124" frameborder=0 scrolling="no"></iframe>
+		<% end %>
 		</div>
 </div>	

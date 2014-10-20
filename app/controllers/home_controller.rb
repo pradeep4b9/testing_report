@@ -17,7 +17,7 @@ class HomeController < ApplicationController
   end
 
   def mvi_widget
-
+    @email = params[:email]
   end
 
 end
