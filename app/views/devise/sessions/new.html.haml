@@ -5,6 +5,8 @@
     .form-inputs
       = f.input :email, required: true, autofocus: true, label: false, placeholder: "Email Address"
       = f.input :password, required: true, label: false, placeholder: "Password"
+    %h5{:style => "color:white;"}
+      (login with email address as: demo@myverifiedid.com and password as: demo@123)
       = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
     .form-actions
       %br	
