@@ -19,6 +19,7 @@ class CardScansController < ApplicationController
   # GET /card_scans/1
   # GET /card_scans/1.json
   def show
+    @card_scan = CardScan.all
   end
 
   # GET /card_scans/new
